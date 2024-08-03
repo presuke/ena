@@ -1,0 +1,321 @@
+{
+  "_error-27ad8a3d.js": {
+    "assets": [
+      "assets/push-075d2c29.mp3",
+      "assets/success-4aeaa03a.mp3",
+      "assets/error-98bd2f1e.mp3"
+    ],
+    "css": [
+      "assets/error-2174ef28.css"
+    ],
+    "file": "assets/error-27ad8a3d.js"
+  },
+  "error.css": {
+    "file": "assets/error-2174ef28.css",
+    "src": "error.css"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/image/action/estate.png": {
+    "file": "assets/estate-ad5148ce.png",
+    "src": "resources/image/action/estate.png"
+  },
+  "resources/image/action/kessan.png": {
+    "file": "assets/kessan-c55a0e0f.png",
+    "src": "resources/image/action/kessan.png"
+  },
+  "resources/image/action/lifelevelDrop.png": {
+    "file": "assets/lifelevelDrop-dcb969ef.png",
+    "src": "resources/image/action/lifelevelDrop.png"
+  },
+  "resources/image/action/lifelevelRise.png": {
+    "file": "assets/lifelevelRise-a36e01c5.png",
+    "src": "resources/image/action/lifelevelRise.png"
+  },
+  "resources/image/action/stock_buy_fmale.png": {
+    "file": "assets/stock_buy_fmale-453d83ea.png",
+    "src": "resources/image/action/stock_buy_fmale.png"
+  },
+  "resources/image/action/stock_buy_male.png": {
+    "file": "assets/stock_buy_male-4b84529b.png",
+    "src": "resources/image/action/stock_buy_male.png"
+  },
+  "resources/image/action/trade_fmale.png": {
+    "file": "assets/trade_fmale-5f897213.png",
+    "src": "resources/image/action/trade_fmale.png"
+  },
+  "resources/image/action/trade_male.png": {
+    "file": "assets/trade_male-d9c178d2.png",
+    "src": "resources/image/action/trade_male.png"
+  },
+  "resources/image/action/vacation.png": {
+    "file": "assets/vacation-7828dfb7.png",
+    "src": "resources/image/action/vacation.png"
+  },
+  "resources/image/action/work_fmale.png": {
+    "file": "assets/work_fmale-033ad6c9.png",
+    "src": "resources/image/action/work_fmale.png"
+  },
+  "resources/image/action/work_male.png": {
+    "file": "assets/work_male-728848b2.png",
+    "src": "resources/image/action/work_male.png"
+  },
+  "resources/image/bg.jpg": {
+    "file": "assets/bg-d2e3eac4.jpg",
+    "src": "resources/image/bg.jpg"
+  },
+  "resources/image/c0.jpg": {
+    "file": "assets/c0-9708a3ec.jpg",
+    "src": "resources/image/c0.jpg"
+  },
+  "resources/image/c1.jpg": {
+    "file": "assets/c1-1ff255b8.jpg",
+    "src": "resources/image/c1.jpg"
+  },
+  "resources/image/c2.jpg": {
+    "file": "assets/c2-f8e51564.jpg",
+    "src": "resources/image/c2.jpg"
+  },
+  "resources/image/c3.jpg": {
+    "file": "assets/c3-f3ae555a.jpg",
+    "src": "resources/image/c3.jpg"
+  },
+  "resources/image/c4.jpg": {
+    "file": "assets/c4-6b73097a.jpg",
+    "src": "resources/image/c4.jpg"
+  },
+  "resources/image/c5.jpg": {
+    "file": "assets/c5-febc674a.jpg",
+    "src": "resources/image/c5.jpg"
+  },
+  "resources/image/c6.jpg": {
+    "file": "assets/c6-b4e3ec19.jpg",
+    "src": "resources/image/c6.jpg"
+  },
+  "resources/image/cardBg.jpg": {
+    "file": "assets/cardBg-682ade16.jpg",
+    "src": "resources/image/cardBg.jpg"
+  },
+  "resources/image/cardDesign.jpg": {
+    "file": "assets/cardDesign-b6b4d587.jpg",
+    "src": "resources/image/cardDesign.jpg"
+  },
+  "resources/image/control/circle-add.svg": {
+    "file": "assets/circle-add-acab8e6f.svg",
+    "src": "resources/image/control/circle-add.svg"
+  },
+  "resources/image/control/circle-remove.svg": {
+    "file": "assets/circle-remove-9936ee64.svg",
+    "src": "resources/image/control/circle-remove.svg"
+  },
+  "resources/image/frame.png": {
+    "file": "assets/frame-1d2244b4.png",
+    "src": "resources/image/frame.png"
+  },
+  "resources/image/github-mark.svg": {
+    "file": "assets/github-mark-7a0dd11e.svg",
+    "src": "resources/image/github-mark.svg"
+  },
+  "resources/image/plate.png": {
+    "file": "assets/plate-d6881a48.png",
+    "src": "resources/image/plate.png"
+  },
+  "resources/image/player.png": {
+    "file": "assets/player-17f91a28.png",
+    "src": "resources/image/player.png"
+  },
+  "resources/image/status/bank.svg": {
+    "file": "assets/bank-11a79b82.svg",
+    "src": "resources/image/status/bank.svg"
+  },
+  "resources/image/status/estate.svg": {
+    "file": "assets/estate-5b494f7d.svg",
+    "src": "resources/image/status/estate.svg"
+  },
+  "resources/image/status/health.svg": {
+    "file": "assets/health-cfbfa0e0.svg",
+    "src": "resources/image/status/health.svg"
+  },
+  "resources/image/status/money.svg": {
+    "file": "assets/money-8b727d2d.svg",
+    "src": "resources/image/status/money.svg"
+  },
+  "resources/image/status/stock.svg": {
+    "file": "assets/stock-a50437de.svg",
+    "src": "resources/image/status/stock.svg"
+  },
+  "resources/image/stock_bg.jpg": {
+    "file": "assets/stock_bg-4f811e2d.jpg",
+    "src": "resources/image/stock_bg.jpg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-b480cc72.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/play/app.css": {
+    "file": "assets/app-cea1c80b.css",
+    "src": "resources/js/play/app.css"
+  },
+  "resources/js/play/app.js": {
+    "assets": [
+      "assets/money-8b727d2d.svg",
+      "assets/health-cfbfa0e0.svg",
+      "assets/lifelevelRise-a36e01c5.png",
+      "assets/lifelevelDrop-dcb969ef.png",
+      "assets/stock-a50437de.svg",
+      "assets/estate-5b494f7d.svg",
+      "assets/bank-11a79b82.svg",
+      "assets/katakata-943523b5.mp3",
+      "assets/slide-e5f5bca9.mp3",
+      "assets/action-c46e5a05.mp3",
+      "assets/dropLifelevel-e46e8a31.mp3",
+      "assets/riseLifelevel-edb69850.mp3",
+      "assets/buyAsset-901a2086.mp3",
+      "assets/trade-9ae359dc.mp3",
+      "assets/treate-a3683b12.mp3",
+      "assets/work-6e87c892.mp3",
+      "assets/sic-0896e131.mp3",
+      "assets/noTrade-ccd135c1.mp3",
+      "assets/period-096e01dc.mp3",
+      "assets/riseFire-a204e2f1.mp3",
+      "assets/dropFire-6a01fafc.mp3",
+      "assets/win-c8991fae.mp3",
+      "assets/github-mark-7a0dd11e.svg",
+      "assets/cardDesign-b6b4d587.jpg",
+      "assets/cardBg-682ade16.jpg",
+      "assets/frame-1d2244b4.png",
+      "assets/work_male-728848b2.png",
+      "assets/work_fmale-033ad6c9.png",
+      "assets/vacation-7828dfb7.png",
+      "assets/estate-ad5148ce.png",
+      "assets/stock_bg-4f811e2d.jpg",
+      "assets/plate-d6881a48.png",
+      "assets/trade_male-d9c178d2.png",
+      "assets/trade_fmale-5f897213.png",
+      "assets/stock_buy_male-4b84529b.png",
+      "assets/stock_buy_fmale-453d83ea.png",
+      "assets/kessan-c55a0e0f.png",
+      "assets/player-17f91a28.png",
+      "assets/bg-d2e3eac4.jpg"
+    ],
+    "css": [
+      "assets/app-cea1c80b.css"
+    ],
+    "file": "assets/app-59a8291f.js",
+    "imports": [
+      "resources/js/app.js",
+      "_error-27ad8a3d.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/play/app.js"
+  },
+  "resources/js/room/app.css": {
+    "file": "assets/app-5d90a56e.css",
+    "src": "resources/js/room/app.css"
+  },
+  "resources/js/room/app.js": {
+    "assets": [
+      "assets/circle-add-acab8e6f.svg",
+      "assets/circle-remove-9936ee64.svg",
+      "assets/c0-9708a3ec.jpg",
+      "assets/c1-1ff255b8.jpg",
+      "assets/c2-f8e51564.jpg",
+      "assets/c3-f3ae555a.jpg",
+      "assets/c4-6b73097a.jpg",
+      "assets/c5-febc674a.jpg",
+      "assets/c6-b4e3ec19.jpg",
+      "assets/bg-d2e3eac4.jpg"
+    ],
+    "css": [
+      "assets/app-5d90a56e.css"
+    ],
+    "file": "assets/app-0ad68974.js",
+    "imports": [
+      "resources/js/app.js",
+      "_error-27ad8a3d.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/room/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-cbf7c96c.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  },
+  "resources/se/action.mp3": {
+    "file": "assets/action-c46e5a05.mp3",
+    "src": "resources/se/action.mp3"
+  },
+  "resources/se/buyAsset.mp3": {
+    "file": "assets/buyAsset-901a2086.mp3",
+    "src": "resources/se/buyAsset.mp3"
+  },
+  "resources/se/dropFire.mp3": {
+    "file": "assets/dropFire-6a01fafc.mp3",
+    "src": "resources/se/dropFire.mp3"
+  },
+  "resources/se/dropLifelevel.mp3": {
+    "file": "assets/dropLifelevel-e46e8a31.mp3",
+    "src": "resources/se/dropLifelevel.mp3"
+  },
+  "resources/se/error.mp3": {
+    "file": "assets/error-98bd2f1e.mp3",
+    "src": "resources/se/error.mp3"
+  },
+  "resources/se/katakata.mp3": {
+    "file": "assets/katakata-943523b5.mp3",
+    "src": "resources/se/katakata.mp3"
+  },
+  "resources/se/noTrade.mp3": {
+    "file": "assets/noTrade-ccd135c1.mp3",
+    "src": "resources/se/noTrade.mp3"
+  },
+  "resources/se/period.mp3": {
+    "file": "assets/period-096e01dc.mp3",
+    "src": "resources/se/period.mp3"
+  },
+  "resources/se/push.mp3": {
+    "file": "assets/push-075d2c29.mp3",
+    "src": "resources/se/push.mp3"
+  },
+  "resources/se/riseFire.mp3": {
+    "file": "assets/riseFire-a204e2f1.mp3",
+    "src": "resources/se/riseFire.mp3"
+  },
+  "resources/se/riseLifelevel.mp3": {
+    "file": "assets/riseLifelevel-edb69850.mp3",
+    "src": "resources/se/riseLifelevel.mp3"
+  },
+  "resources/se/sic.mp3": {
+    "file": "assets/sic-0896e131.mp3",
+    "src": "resources/se/sic.mp3"
+  },
+  "resources/se/slide.mp3": {
+    "file": "assets/slide-e5f5bca9.mp3",
+    "src": "resources/se/slide.mp3"
+  },
+  "resources/se/success.mp3": {
+    "file": "assets/success-4aeaa03a.mp3",
+    "src": "resources/se/success.mp3"
+  },
+  "resources/se/trade.mp3": {
+    "file": "assets/trade-9ae359dc.mp3",
+    "src": "resources/se/trade.mp3"
+  },
+  "resources/se/treate.mp3": {
+    "file": "assets/treate-a3683b12.mp3",
+    "src": "resources/se/treate.mp3"
+  },
+  "resources/se/win.mp3": {
+    "file": "assets/win-c8991fae.mp3",
+    "src": "resources/se/win.mp3"
+  },
+  "resources/se/work.mp3": {
+    "file": "assets/work-6e87c892.mp3",
+    "src": "resources/se/work.mp3"
+  }
+}

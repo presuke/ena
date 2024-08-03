@@ -1,0 +1,249 @@
+.activePlayer{
+	transition: all 0.5s 0s ease;
+	animation: 5s activePlayerAnimation linear infinite;
+}
+.passivePlayer{
+	transition: all 0.5s 0s ease;
+}
+.scaleShow{
+	transition: all 0.5s 0s ease;
+	transform:scale(1.0,1.0);
+}
+.scaleHide{
+	transition: all 0.5s 0s ease;
+	transform:scale(1.0,0.0);
+	position: absolute;
+	transform-origin-y: 0px;
+}
+.rowPlayer{
+    position: relative;
+    margin-top:1px;
+	margin-bottom: 1px;
+	padding:min(0.5vw, 5px);
+	border-radius:min(0.5vw, 5px);
+	text-align: left;
+	font-size:min(2vw, 20px);
+    background-image:url('../../../image/player.png');
+    background-size: 100% 100%;
+
+    .player{
+        float:left; 
+        width:40%; 
+        margin-top:-10px;
+        > img.icon{
+            float:left;
+            vertical-align: middle;
+            width:min(12vw, 60px);
+            height:min(12vw, 60px);
+            background-color: white;
+            transition: all 0.5s 0s ease;
+        }
+        > img.fine{
+            box-shadow: 0 0 5px lightgreen;
+        }
+        > img.caution{
+            box-shadow: 0 0 5px yellow;
+        }
+        > img.denger{
+            box-shadow: 0 0 5px orange;
+        }
+        > img.out{
+            box-shadow: 0 0 5px red;
+        }
+        > img.die{
+            box-shadow: 0 0 5px darkred;
+        }
+        .name {
+            font-family: 'Kosugi Maru', sans-serif;
+            font-size:min(6vw, 30px);
+        }
+        .turn{
+            font-family: 'Shrikhand', cursive;
+            font-size:min(4vw, 20px);
+        }
+        .work{
+            clear:left;
+            float:left;
+            width:min(20vw, 200px);
+            font-family: 'Kosugi Maru', sans-serif;
+            font-size:min(4vw, 20px);
+            > img.icon{
+                vertical-align: middle;
+                float:left;
+                width:min(12vw, 60px);
+                height:min(12vw, 60px);
+                background-color: white;
+                filter: drop-shadow(3px 3px 2px #999);
+            }
+            .salary{
+                font-family: 'Shrikhand', cursive;
+
+                > img.icon{
+                    float:left;
+                    vertical-align: middle;
+                    width:min(5vw, 25px);
+                    height:min(5vw, 25px);
+                    filter: drop-shadow(3px 3px 2px #999);
+                }
+                >div{
+                    float:left;
+                }
+            }
+        }
+    }
+    .status{
+        float:left; 
+        width:60%; 
+        margin-top:-10px;
+        font-family: 'Shrikhand', cursive;
+        font-size:min(4vw, 20px);
+        .parameter{
+            float:left;
+            width:50%; 
+            margin-top:10px;
+            padding:5px;
+            background-image: url('../../../image/plate.png');
+            background-size: contain;
+            img.icon{
+                vertical-align: middle;
+                width:min(8vw, 30px);
+                height:min(8vw, 30px);
+            }
+        }
+    }
+}
+.valuePlus{
+	color:red;
+}
+.valueNormal{
+	color:gray;
+}
+.valueMinus{
+	color: blue;
+}
+
+@keyframes activePlayerAnimation{
+    0%{background-color: rgba(255, 255, 255, 0.7)}
+    50%{background-color: rgba(255, 230, 0, 0.7)}
+    100%{background-color: rgba(255, 255, 255, 0.7)}
+}
+
+@media screen and (max-width: 767px) {
+    .rowPlayer{
+        position: relative;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        padding:min(0.5vw, 5px);
+        border-radius:min(0.5vw, 5px);
+        text-align: left;
+        font-size:min(2vw, 20px);
+        background-image:url('../../../image/player.png');
+        background-size: 100% 100%;
+
+        .fire{
+            position: absolute;
+            right: 15;
+            top: 5;
+            z-index:-1;
+            margin-top:20px;
+            color: rgba(255,255,255,0.5);
+            text-shadow: 
+            0 0 10px lightcoral,
+            0 0 20px red,
+            0 0 40px darkred;
+            will-change: filter, color;
+            filter: saturate(60%);
+            font-family: 'Shrikhand', cursive;
+            font-size: 500%;
+            font-weight: 700;
+        }
+
+        .player{
+            float:left; 
+            width:40%; 
+            margin-top:-10px;
+            > img.icon{
+                float:left;
+                vertical-align: middle;
+                width:min(12vw, 60px);
+                height:min(12vw, 60px);
+                background-color: white;
+                transition: all 0.5s 0s ease;
+            }
+            > img.fine{
+                box-shadow: 0 0 5px lightgreen;
+            }
+            > img.caution{
+                box-shadow: 0 0 5px yellow;
+            }
+            > img.denger{
+                box-shadow: 0 0 5px orange;
+            }
+            > img.out{
+                box-shadow: 0 0 5px red;
+            }
+            > img.die{
+                box-shadow: 0 0 5px darkred;
+            }
+            .name {
+                font-family: 'Kosugi Maru', sans-serif;
+                font-size:min(5vw, 25px);
+            }
+            .turn{
+                font-family: 'Shrikhand', cursive;
+                font-size:min(4vw, 20px);
+            }
+            .work{
+                clear:left;
+                float:left;
+                width:200px;
+                font-family: 'Kosugi Maru', sans-serif;
+                font-size:min(3vw, 15px);
+                > img.icon{
+                    vertical-align: middle;
+                    float:left;
+                    width:min(12vw, 60px);
+                    height:min(12vw, 60px);
+                    background-color: white;
+                    filter: drop-shadow(3px 3px 2px #999);
+                }
+                .salary{
+                    font-family: 'Shrikhand', cursive;
+    
+                    > img.icon{
+                        float:left;
+                        vertical-align: middle;
+                        width:min(5vw, 25px);
+                        height:min(5vw, 25px);
+                        filter: drop-shadow(3px 3px 2px #999);
+                    }
+                    >div{
+                        float:left;
+                        margin-left:10px;
+                    }
+                }
+            }
+        }
+        .status{
+            float:left; 
+            width:60%; 
+            margin-top:-10px;
+            font-family: 'Shrikhand', cursive;
+            font-size:min(4vw, 20px);
+            .parameter{
+                float:left;
+                width:50%; 
+                margin-top:2px;
+                padding:5px;
+                background-image: url('../../../image/plate.png');
+                background-size: 100% 100%;
+                img.icon{
+                    vertical-align: middle;
+                    width:20px;
+                    height:20px;
+                }
+            }
+        }
+    }
+    
+  }
