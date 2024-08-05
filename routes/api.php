@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\v1\Log as LogV1;
+use App\Http\Controllers\v1\Regist as RegistV1;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,8 @@ Route::prefix('/v1')->group(function () {
         Route::post('write', [LogV1::Class, 'write']);
         Route::get('getMyHybridInverterNumbers', [LogV1::Class, 'getMyHybridInverterNumbers']);
         Route::get('getHybridInverterDatas', [LogV1::Class, 'getHybridInverterDatas']);
+    });
+    Route::prefix('/regist')->group(function () {
+        Route::post('read', [RegistV1::Class, 'read']);
     });
 });
