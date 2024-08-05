@@ -83,18 +83,19 @@ class Log extends BaseController
     }
 
     /**
-     * ユーザが保有しているハイブリッドインバータのNo一覧を取得する
+     * ユーザが保有しているハイブリッドインバータの最新値をNoごとに取得する
      *
      * @param Request $request
      * @return void
      */
-    public function getMyHybridInverterNumbers(Request $request)
+    public function getMyHybridInverters(Request $request)
     {
         try {
             $params = $request->query();
             $token = TokenController::getTokenInfo($params['token']);
-            $datas = DB::table('hidata')->select('no')->where(['user' => $token->name]);
-            $data = $datas->groupBy('no')->get();
+            //noごとの最新を取ってくる
+            $sql = "SELECT * FROM hidata AS h1 WHERE user='" . $token->name . "' AND create_at = (SELECT MAX(create_at) FROM hidata AS h2 WHERE h1.no = h2.no)";
+            $data = DB::select($sql);
             $ret['code'] = 0;
             $ret['data'] = $data;
         } catch (\Exception $ex) {
@@ -127,7 +128,6 @@ class Log extends BaseController
             $sql .= " AND no ='" . $params['no'] . "' ";
             $sql .= " AND create_at BETWEEN '" . $params['date'] . " 00:00:00' AND '" . $params['date'] . " 23:59:59' ";
             $sql .= " ORDER BY create_at ASC";
-            $ret['sql'] = $sql;
             $rec = DB::select($sql);
 
             $datas = [];

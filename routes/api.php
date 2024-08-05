@@ -29,7 +29,7 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/log')->group(function () {
         Route::get('serverTime', [LogV1::Class, 'getServerTime']);
         Route::post('write', [LogV1::Class, 'write']);
-        Route::get('getMyHybridInverterNumbers', [LogV1::Class, 'getMyHybridInverterNumbers']);
+        Route::get('getMyHybridInverters', [LogV1::Class, 'getMyHybridInverters']);
         Route::get('getHybridInverterDatas', [LogV1::Class, 'getHybridInverterDatas']);
     });
     Route::prefix('/regist')->group(function () {
