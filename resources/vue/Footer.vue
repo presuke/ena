@@ -1,5 +1,5 @@
 <template>
     <div>
-        Copyright &copy; 2023, reno Allright reserved.
+        Copyright &copy; 2024, presuke Allright reserved.
     </div>
 </template>

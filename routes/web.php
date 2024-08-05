@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,23 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/room/{any?}', function () {
-    return view('room');
-})->where(
-    'any',
-    '.*'
-);
+Route::post('login', [LoginController::class, 'destroy'])->middleware('auth');
+Route::post('regist', [Logoutcontroller::class, 'destroy'])->middleware('auth');
 
-Route::get('/play/{any?}', function () {
-    return view('play');
-})->where(
-    'any',
-    '.*'
-);
+Route::get('/register', [RegisterController::class, 'create']);
+Route::get('/logout', [Logoutcontroller::class, 'destroy'])->middleware('auth');
 
-Route::get('/{any?}', function () {
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/index', function () {
     return view('index');
-})->where(
-    'any',
-    '.*'
-);
+});
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

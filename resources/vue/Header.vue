@@ -20,16 +20,16 @@ viewBox="0 24 100 28" preserveAspectRatio="none" shape-rendering="auto">
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
             <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0,0,0,0.7" />
-                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0,0,0,0.5)" />
-                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0,0,0,0.3)" />
-                <use xlink:href="#gentle-wave" x="48" y="7" fill="#000" />
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
             </g>
         </svg>
         <div class="logo">
             <img :src="logo" />
             <x-sign id="title">
-                人狼
+                Enagy Manager
             </x-sign>
         </div>
     </div>
@@ -40,9 +40,10 @@ viewBox="0 24 100 28" preserveAspectRatio="none" shape-rendering="auto">
 </template>
 <style>
     #title {
-        font-size: 60px;
+        font-size: 50px;
         margin-left: 30px;
         float:left;
+        font-family: 'Times New Roman', Times, serif;
     }
     .logo {
         margin-top: -50px;
@@ -53,9 +54,10 @@ viewBox="0 24 100 28" preserveAspectRatio="none" shape-rendering="auto">
     }
     .logo img{
         float:left;
+        padding:10px;
         width:80px; 
         height:80px;
-        filter: drop-shadow(0px 0px 15px red);
+        filter: drop-shadow(0px 0px 15px sky-light);
     }
 
     x-sign {
@@ -72,13 +74,13 @@ viewBox="0 24 100 28" preserveAspectRatio="none" shape-rendering="auto">
     }
     x-sign:nth-of-type(1) {
         color: lightyellow;
-        --color1: red;
-        --color2: red;
-        --color3: red;
-        --color4: pink;
+        --color1: blue;
+        --color2: blue;
+        --color3: blue;
+        --color4: lightblue;
         font-size: min(10vw, 40px);
         font-weight: 700;
-        font-family: 'Reggae One', cursive;
+        font-family: 'sans-serif', cursive;
     }
     @import url(//fonts.googleapis.com/css?family=Lato:300:400);
 
@@ -86,7 +88,7 @@ viewBox="0 24 100 28" preserveAspectRatio="none" shape-rendering="auto">
         position:relative;
         text-align:center;
         height:100px;
-        background: black;
+        background: white;
     }
 
     .waves {

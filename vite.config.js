@@ -4,23 +4,14 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
     server: {
-        host: '0.0.0.0',
         hmr: {
-            host: '192.168.10.200',
-        }
-    },
-    base: './',
-    build: {
-        outDir: 'public/build',
+            host: 'localhost',
+        },
     },
     plugins: [
         laravel({
             input: [
                 'resources/sass/app.scss',
-                'resources/css/app.css',
-                'resources/js/index/app.js',
-                'resources/js/room/app.js',
-                'resources/js/play/app.js',
                 'resources/js/app.js',
             ],
             refresh: true,
@@ -34,4 +25,9 @@ export default defineConfig({
             },
         }),
     ],
+    resolve: {
+        alias: {
+            vue: 'vue/dist/vue.esm-bundler.js',
+        },
+    },
 });

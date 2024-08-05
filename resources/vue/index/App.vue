@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import CopyRight from '../CopyRight.vue';
 import Header from '../Header.vue';
 import Footer from '../Footer.vue';
@@ -11,16 +12,74 @@ export default {
 
 	},
 	data: () => ({
-		dialog:{
+		rootPath: '',
+    form:{
+      id:'',
+      password:'',
+      error:'',
+    },
+    dialog:{
 			copyright:{
 				show: false,
 			},
 		},
 	}),
+	created() {
+    this.rootPath = 'http://localhost:8001'
+  },
+  methods: {
+		login(){
+			this.form.error = '';
+
+      /*
+			if(this.form.player.name == ''){
+				this.form.player.error ='名前を入力してください。';
+			}
+			else if(this.form.player.name.length > 5){
+				this.form.player.error ='お名前は5文字以内にしてください。';
+			}
+			else if(this.form.player.pass == ''){
+				this.form.player.error = 'パスワードを入力してください。';
+			}
+      */
+      axios
+      .post(this.rootPath + '/api/login', this.form)
+      .then((response) => {
+        try {
+          if(response.data.player != undefined){
+            this.form.player = response.data.player;
+            this.form.player.roomid = 0;
+            this.form.player.step = 3;
+          }else if(response.data.code !=undefined){
+            response.data.avators.forEach((avator) =>{
+              this.form.selection.selected.push(avator.sex + '_' + avator.img);
+            });
+            if(response.data.code == 1){
+              this.form.player.error = '同じ名前のプレイヤーが存在します。別の名前にしてください。';
+              this.se.Error.play();
+            }
+            else if(response.data.code == 2){
+              this.form.player.error = '同じアバターのプレイヤーが存在します。別のアバターを選択してください。';
+              this.se.Error.play();
+            }
+          }
+          else if(response.data.error != undefined){
+            this.form.player.error = response.data.error.errorInfo;
+          }else{
+            this.form.player.error = '特定できないエラー';
+          }
+        } catch (e) {
+          this.errors = e;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+		},
+  },
 };
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Reggae+One&display=swap');
 </style>
 <style lang="scss" scoped>
 @import '../../scss/app.scss';
@@ -92,7 +151,7 @@ button.btn {
 
 a.btn-border-gradient {
   font-size: 2rem;
-  background: #000;
+  background: #fff;
 }
 
 .btn-text-gradient--gold {
@@ -121,24 +180,27 @@ a.btn-border-gradient {
 		<Header></Header>
 	</header>
 	<div style="text-align: center; height:calc(100vh - 100px);">
-		<div style="margin:auto; position: relative;">
-
-			<img src="image/top2.png" style="max-width:600px; width:100%; height:auto;" />
-			<div class="btn-border-gradient-wrap btn-border-gradient-wrap--gold">
-				<a 
-        href="./room/" 
-        style="width:360px;"
-        class="btn btn-border-gradient"><span class="btn-text-gradient--gold">Play Game</span></a>
-			</div>
-			<div class="btn-border-gradient-wrap btn-border-gradient-wrap--gold">
-				<a 
-        href="https://www.nicovideo.jp/watch/sm43303622" 
-        style="width:360px;"
-        target="_blank" 
-        class="btn btn-border-gradient"><span class="btn-text-gradient--gold">How To</span></a>
-			</div>
-		</div>
-	</div>
+    <v-text-field
+        label="ID"
+        v-model="this.form.id"
+        placeholder="IDを入力してください。"
+      >
+		</v-text-field>
+    <v-text-field
+      label="パスワード"
+      type="password"
+      v-model="this.form.password"
+      hint="パスワードを入力してください"
+      >
+    </v-text-field>
+    <v-btn
+     @click="this.login();"
+     >
+      login
+    </v-btn>
+    <v-card v-model="this.form.error" >
+    </v-card>
+  </div>
 	<!--Notifyダイアログ-->
 	<v-dialog 
 	v-model="this.dialog.copyright.show"

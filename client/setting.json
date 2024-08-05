@@ -1,0 +1,19 @@
+{
+    "user":{
+        "id":"test", 
+        "no":1
+    },
+    "com":{
+        "deviceid":"/dev/ttyUSB0",
+        "slaveaddress":1,
+        "baudrate":9600,
+        "timeout":1,
+        "debug":0
+    },
+    "db":{
+        "file":"ena.sqlite"
+    },
+    "api":{
+        "host":"http://192.168.10.200:8001"
+    }
+}

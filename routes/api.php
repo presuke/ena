@@ -2,9 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\v1\Room as RoomV1;
-use App\Http\Controllers\v1\Player as PlayerV1;
-use App\Http\Controllers\v1\Play as PlayV1;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\v1\Log as LogV1;
 
 /*
@@ -18,19 +16,19 @@ use App\Http\Controllers\v1\Log as LogV1;
 |
 */
 
+Route::prefix('/auth')->group(function () {
+    Route::post('regist', [RegisterController::Class, 'store']);
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 Route::prefix('/v1')->group(function () {
-    Route::prefix('/room')->group(function () {
-        Route::get('getAll', [RoomV1::Class, 'getAll']);
-        Route::get('get', [RoomV1::Class, 'get']);
-        Route::post('create', [RoomV1::Class, 'create']);
-        Route::post('remove', [RoomV1::Class, 'remove']);
-        Route::post('restart', [RoomV1::Class, 'restart']);
-    });
-    Route::prefix('/player')->group(function () {
-        Route::post('create', [PlayerV1::Class, 'create']);
-    });
     Route::prefix('/log')->group(function () {
         Route::get('serverTime', [LogV1::Class, 'getServerTime']);
         Route::post('write', [LogV1::Class, 'write']);
+        Route::get('getMyHybridInverterNumbers', [LogV1::Class, 'getMyHybridInverterNumbers']);
+        Route::get('getHybridInverterDatas', [LogV1::Class, 'getHybridInverterDatas']);
     });
 });

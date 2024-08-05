@@ -15,7 +15,7 @@
 
 <body>
   <div style="text-align:center;">
-    <div id="app" style="max-width:800px; margin: 0 auto; background-color: black;"></div>
+    <div id="app" style="max-width:800px; margin: 0 auto; background-color: white;"></div>
   </div>
 </body>
 
