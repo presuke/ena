@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/authed';
 
     protected function redirectTo()
     {
@@ -40,7 +40,7 @@ class LoginController extends Controller
         $token = md5($id . $time);
         $data = ['name' => $id, 'tokenable_type' => '', 'tokenable_id' => 0, 'created_at' => $time, 'token' => $token];
         DB::table('personal_access_tokens')->insert($data);
-        return '/home?' . $token;
+        return '/authed?' . $token;
     }
 
     /**

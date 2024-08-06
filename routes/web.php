@@ -22,6 +22,9 @@ Route::post('regist', [Logoutcontroller::class, 'destroy'])->middleware('auth');
 Route::get('/register', [RegisterController::class, 'create']);
 Route::get('/logout', [Logoutcontroller::class, 'destroy'])->middleware('auth');
 
+Route::get('/authed', function () {
+    return view('authed');
+});
 
 Route::get('/', function () {
     return view('welcome');
