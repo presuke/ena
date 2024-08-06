@@ -1,6 +1,7 @@
 import serial
 import json
 import time
+import datetime
 import requests
 import minimalmodbus
 import math
@@ -57,6 +58,16 @@ INVERTER_COMMANDS_WRITE = {
 
 }
 
+INVERTER_COMMANDS_WRITE_VALUE = {
+    'output_priority_SOL': 0,
+    'output_priority_UTI': 1,
+    'output_priority_SBU': 2,
+    'chargerPriority_CSO': 0,
+    'chargerPriority_CUB': 1,
+    'chargerPriority_SNU': 2,
+    'chargerPriority_OSO': 3,
+}
+
 DB = {
     'table':{
         'data': {
@@ -98,10 +109,14 @@ DB = {
     }
 }
 
+GRID_AREA = ['01','02','03','04','05','06','07','08','09','10']
+
 #SEC
 ROCCESS_TIMING = {
-    'get_hibridinverter_parameter': 30,
-    'report_server': 900
+    'margin': 10,
+    'get_hibridinverter_parameter': 60,
+    'server_regist': 120,
+    'report_server': 300
 }
 
 def loadSetting():
@@ -173,7 +188,6 @@ def saveValues(values):
         
         sql = 'INSERT INTO ' + str(table.get('name')) + ' (' + ','.join(fields) + ')VALUES(' +  ','.join(datas) + ')'
         ret = executeSql(sql)
-        print(str(ret) + ':' + sql)
     except Exception as e:
         print("error:", e)
     return ret
@@ -181,6 +195,7 @@ def saveValues(values):
 def readValues(timestamp):
     ret = []
     try:
+
         table = DB.get('table').get('data')
         fields = []
         for field in table.get('fields').keys():
@@ -199,6 +214,10 @@ def readValues(timestamp):
                 val = row[idx]
                 dat[key] = val
                 idx += 1
+                if(key == 'create_at'):
+                    a = datetime.datetime.fromtimestamp(val)
+                    print("data:" + str(a))
+                
             ret.append(dat)
     except Exception as e:
         print("error:", e)
@@ -213,6 +232,14 @@ def deleteValues(timestamp):
         table = DB.get('table').get('data')
         sql = 'DELETE FROM ' + str(table.get('name')) + ' WHERE create_at <' + str(timestamp)
         ret = executeSql(sql)
+    except Exception as e:
+        print("error:", e)
+    return ret
+
+def write_register(instr, value: [int, float], register: int, decimals: int = 0, functioncode: int = 6, signed: bool = False):
+    ret = {}
+    try:
+        ret = instr.write_register(register, value, decimals, functioncode, signed)
     except Exception as e:
         print("error:", e)
     return ret
@@ -232,11 +259,13 @@ def main():
         ut = math.floor(time.time())
         servertime_gap = servertime - ut
 
+    area = 0
     cnt = 0
     while True:
         try:
             ut = math.floor(time.time()) + servertime_gap
-            if ut % ROCCESS_TIMING.get('get_hibridinverter_parameter') <= 10:
+            #get inverter values
+            if ut % ROCCESS_TIMING.get('get_hibridinverter_parameter') <= ROCCESS_TIMING.get('margin'):
                 cnt += 1
                 print('##################' + str(cnt) + 'th try##################')
                 values = {}
@@ -249,7 +278,34 @@ def main():
 
                 saveValues(values)
 
-                if(ut % ROCCESS_TIMING.get('report_server') <= 10):
+                #get servers regist
+                if(ut % ROCCESS_TIMING.get('server_regist') <= ROCCESS_TIMING.get('margin')):
+                    try:
+                        url = setting_json['api']['host'] + '/api/v1/regist/read'
+                        post_data = {'user':setting_json['user']}
+                        res = requests.post(url, json = post_data)
+                        res_json = json.loads(res.text)
+                        if(res_json['code'] == 0):
+                            if(res_json['regist'] != None):
+                                regist = res_json['regist']['regist']
+                                value = res_json['regist']['value']
+                                
+                                match regist:
+                                    case 'inverter_output_priority_write':
+                                        key = 'inverter_output_priority'
+                                        val = INVERTER_COMMANDS_WRITE_VALUE.get(value)
+                                        
+                                write_register(instr, val, *INVERTER_COMMANDS_WRITE.get(regist))
+                                result = instr.read_register(*INVERTER_COMMANDS_READ.get(key))
+                                
+                                url = setting_json['api']['host_debug'] + '/api/v1/regist/report'
+                                post_data = {'regist':res_json['regist'], 'request': val, 'result': result, 'done_at': ut}
+                                requests.post(url, json = post_data)
+                    except Exception as e:
+                        print("error:", e)
+                        
+                #report_server inverter values
+                if(ut % ROCCESS_TIMING.get('report_server') <= ROCCESS_TIMING.get('margin')):
                     data = readValues(ut - 3600)
                     url = setting_json['api']['host'] + '/api/v1/log/write'
                     post_data = {'user':setting_json['user'], 'datas': data}
@@ -257,16 +313,26 @@ def main():
                     res_json = json.loads(res.text)
                     if(res_json['code'] == 0):
                         print('request-success')
-                        deleteValues(ut - (3 * 24 *3600))
+                        deleteValues(ut - (6 * 3600))
+                    else:
+                        print('error:' + res.text) 
+                    area += 1
+                    area %= len(GRID_AREA)
+                    url ='https://looop-denki.com/api/prices?select_area=' + GRID_AREA[area]
+                    res = requests.get(url)
+                    contents = res.content
+                    url = setting_json['api']['host'] + '/api/v1/regist/recordGridPrice'
+                    post_data = {'contents':contents, 'time':ut, 'area':GRID_AREA[area]}
+                    requests.post(url, json = post_data)
                     
-                time.sleep(10)
+                time.sleep(ROCCESS_TIMING.get('margin'))
             else:
-                print(ut%60)
+                print(ut % 300)
                 time.sleep(1)
                 
         except Exception as e:
             print("error:", e)
-            time.sleep(10)
+            time.sleep(ROCCESS_TIMING.get('margin'))
 
 #run main
 main()

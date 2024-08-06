@@ -16,20 +16,64 @@
                     </div>
                     <div v-else style="padding:10px;">
                         <div class="card" v-for="hybridInverter in hybridInverters" :key="hybridInverter.no">
-                            <div class="btn" @click="this.selectInverter(hybridInverter.no);" :style="[selectedHybridInverter==hybridInverter.no ? 'background-color:#ffe;' : 'background-color:#fefefe;']">
+                            <div :calss="[selectedHybridInverter==hybridInverter.no ? 'selectedHivridInvertor' : 'selectedHivridInvertor']">
                                 <div class="card-header">@{{ hybridInverter.no }}</div>
-                                <div style="text-align:center;background-image:url('/image/hi_icon.png');height:200px;">
-                                    <img src="" />
+                                <div class="btn" @click="this.selectInverter(hybridInverter.no);">
+                                    <img src="/image/hi_icon.png" />
                                 </div>
-                                @{{ hybridInverter}}
+                                <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
+                                <div style="height:240px;">
+                                    <ul class="slider">
+                                        <li>
+                                            <h2>バッテリー</h2>
+                                            <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'yellow':'green']" :size="50" :width="8">
+                                                <div style="color:black;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
+                                            </v-progress-circular>
+                                            <div>電圧：@{{hybridInverter.battery_voltage}}v</div>
+                                            <div>電流：@{{hybridInverter.battery_current}}a</div>
+                                            <div>入力電力：@{{hybridInverter.battery_charge_power}}v</div>
+                                            <div>最大入力電流：@{{hybridInverter.battery_max_charge_current}}a</div>
+                                        </li>
+                                        <li>
+                                            <h2>PV</h2>
+                                            <div>電圧：@{{hybridInverter.pv_voltage}}v</div>
+                                            <div>電流：@{{hybridInverter.pv_current}}v</div>
+                                            <div>発電量：@{{hybridInverter.pv_power}}v</div>
+                                            <div>バッテリー流入電流：@{{hybridInverter.pv_battery_charge_current}}v</div>
+                                        </li>
+                                        <li>
+                                            <h2>商用電源</h2>
+                                            <div>電圧：@{{hybridInverter.grid_voltage}}v</div>
+                                            <div>電流：@{{hybridInverter.grid_input_current}}v</div>
+                                            <div>バッテリー流入電流：@{{hybridInverter.grid_battery_charge_current}}a</div>
+                                            <div>最大バッテリー流入電流：@{{hybridInverter.grid_battery_charge_max_current}}a</div>
+                                            <div>周波数：@{{hybridInverter.grid_frequency}}Hz</div>
+                                        </li>
+                                        <ii>
+                                            <h2>インバータ</h2>
+                                            <div>電圧：@{{hybridInverter.inverter_voltage}}v</div>
+                                            <div>電流：@{{hybridInverter.inverter_current}}v</div>
+                                            <div>消費電力量：@{{hybridInverter.inverter_power}}w</div>
+                                            <div>周波数：@{{hybridInverter.inverter_frequency}}Hz</div>
+                                            <div>使用系：@{{this.get_output_priority(hybridInverter.inverter_output_priority)}}</div>
+                                            <div>蓄電系：@{{this.get_chargepriority(hybridInverter.inverter_charger_priority)}}</div>
+                                            <div>DC温度：@{{Math.round(hybridInverter.temp_dc * 10 / 10)}}℃</div>
+                                            <div>AC温度：@{{Math.round(hybridInverter.temp_ac * 10 / 10)}}℃</div>
+                                            <div>TR温度：@{{Math.round(hybridInverter.temp_tr * 10 / 10)}}℃</div>
+                                        </ii>
+                                        <li>
+                                            @{{hybridInverter}}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div v-if="showControllBox" class="card">
                     <div class="card-header">リモート設定</div>
                     ハイブリッドインバータの設定を手動で変更します。
-
                     <button @click="this.selectInverter(0);">close</button>
                 </div>
                 <div v-if="showControllBox" class="card">
@@ -44,15 +88,15 @@
                     <p style="border-bottom: solid thin gray;width:240px;">日付: <input type="text" id="datepicker"></p>
                     <div id="tabs">
                         <ul>
-                            <li><a href="#tabs-1">発蓄電状況</a></li>
-                            <li><a href="#tabs-2">バッテリー状況</a></li>
-                            <li><a href="#tabs-3">発電VS消費</a></li>
+                            <li><a href="#tabs-1">推移</a></li>
+                            <li><a href="#tabs-2">累積</a></li>
+                            <li><a href="#tabs-3">バッテリー</a></li>
                         </ul>
                         <div id="tabs-1">
                             <div style="height:250px">
                                 <canvas id="chartA" width="100"></canvas>
                             </div>
-                            <div class="chartGudance">日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
+                            <div class="chartGudance">aa日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
                         </div>
                         <div id="tabs-2">
                             <div style="height:250px">
@@ -79,6 +123,10 @@
 
     div.btn:hover {
         background-color: lightgray;
+    }
+
+    .selectedHivridInvertor {
+        background-color: #ffe;
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -127,6 +175,17 @@
             selectedHybridInverter: 0,
             showControllBox: false,
             hybridInverterData: [],
+            output_priority: {
+                0: 'PV優先',
+                1: 'Grid優先',
+                2: 'Batt優先',
+            },
+            chargerPriority: {
+                0: 'CSO?',
+                1: 'Grid',
+                2: 'PV',
+                3: 'OSO?',
+            },
         }),
         setup() {},
         created() {},
@@ -141,10 +200,17 @@
                 } else {
                     this.token = window.localStorage.getItem('token');
                 }
-                this.getMyHybridInverters();
+                this.getMyHybridInverters()
+                setInterval(this.getMyHybridInverters, 60000);
             };
         },
         methods: {
+            get_output_priority(priority) {
+                return this.output_priority[priority];
+            },
+            get_chargepriority(priority) {
+                return this.chargerPriority[priority];
+            },
             getMyHybridInverters() {
                 const accessToken = this.token;
                 axios
@@ -153,6 +219,15 @@
                         try {
                             if (response.data.code == 0) {
                                 this.hybridInverters = response.data.data;
+                                if (!$('.slider').hasClass('slick-initialized')) {
+                                    setTimeout(function() {
+                                        $('.slider').slick({
+                                            autoplay: true, // 自動再生
+                                            autoplaySpeed: 4000, // 再生速度（ミリ秒設定） 1000ミリ秒=1秒
+                                            infinite: true, // 無限スライド
+                                        });
+                                    }, 500);
+                                }
                                 if (response.data.length == 0) {
                                     this.hybridInverters = response.data;
                                 }
@@ -189,7 +264,7 @@
                         try {
                             if (response.data.code == 0) {
                                 this.hybridInverterData = response.data.data;
-                                this.makeChartDaily(response.data.datas);
+                                this.makeChartDaily(response.data.data);
                             } else {
                                 this.error = '特定できないエラー';
                                 console.log(response.data);
@@ -216,9 +291,11 @@
                         PowerBatt: 'batteryPower',
                         PowerGridCharge: 'gridPowerCharge',
                         PowerGridUse: 'gridPowerUse',
+                        PowerGridUseTotal: 'gridPowerUseTotal',
                         PoolBatt: 'batteryPoolPower',
                     };
 
+                    const intervalPerHour = dataOrgn.interval / 60;
                     let labels = [];
                     let datas = [];
                     let totals = [];
@@ -226,8 +303,8 @@
                         totals[keyTotal[key]] = [];
                     });
 
-                    Object.keys(dataOrgn).forEach((key) => {
-                        let row = dataOrgn[key];
+                    Object.keys(dataOrgn.datas).forEach((key) => {
+                        let row = dataOrgn.datas[key];
                         Object.keys(row).forEach((clm) => {
                             if (datas[clm] == undefined) {
                                 datas[clm] = [];
@@ -238,42 +315,43 @@
                         var num = 0;
 
                         key2 = keyTotal.PowerPV;
-                        num = row['pv_power'];
+                        num = row['pv_power'] * intervalPerHour;
                         if (totals[key2].length > 0) {
                             num += totals[key2][totals[key2].length - 1];
                         }
                         totals[key2].push(num);
 
                         key2 = keyTotal.PowerInverter;
-                        num = row['inverter_power'];
+                        num = row['inverter_power'] * intervalPerHour;
                         if (totals[key2].length > 0) {
                             num += totals[key2][totals[key2].length - 1];
                         }
                         totals[key2].push(num);
 
-                        key2 = keyTotal.PowerInverter;
-                        num = row['battery_charge_power'];
+                        key2 = keyTotal.PowerBatt;
+                        num = row['battery_charge_power'] * intervalPerHour;
                         if (totals[key2].length > 0) {
                             num += totals[key2][totals[key2].length - 1];
                         }
                         totals[key2].push(num);
 
                         key2 = keyTotal.PowerGridCharge;
-                        num = row['grid_battery_charge_current'] * row['grid_voltage'];
+                        num = row['grid_battery_charge_current'] * row['grid_voltage'] * intervalPerHour;
                         if (totals[key2].length > 0) {
                             num += totals[key2][totals[key2].length - 1];
                         }
                         totals[key2].push(num);
 
-                        key2 = keyTotal.PowerGridUse;
-                        num = row['grid_input_current'] * row['grid_voltage'];
+                        key2 = keyTotal.PowerGridUseTotal;
+                        num = row['grid_input_current'] * row['grid_voltage'] * intervalPerHour;
+                        totals[keyTotal.PowerGridUse].push(num);
                         if (totals[key2].length > 0) {
                             num += totals[key2][totals[key2].length - 1];
                         }
                         totals[key2].push(num);
 
                         key2 = keyTotal.PoolBatt;
-                        num = row['battery_current'] * row['battery_voltage'];
+                        num = row['battery_current'] * row['battery_voltage'] * intervalPerHour;
                         totals[key2].push(num);
 
                         labels.push(key);
@@ -281,91 +359,137 @@
 
 
                     // JSONデータ
+                    var jsonDataCommonSOC = {
+                        "label": "バッテリー残量（SOC）",
+                        "data": datas['battery_soc'],
+                        "borderColor": "rgba(235, 235, 102, 0.5)",
+                        "backgroundColor": "rgba(235, 235, 102, 0.2)",
+                        fill: true, // 塗りつぶしを有効にする
+                        pointRadius: 0, // 点を非表示にする
+                        yAxisID: 'y2'
+                    }
                     var jsonDataA = {
                         "labels": labels,
                         "datasets": [{
-                                "label": "battery_charge_power",
-                                "data": datas['battery_charge_power'],
-                                "borderColor": "rgba(255, 99, 132, 1)",
-                                "backgroundColor": "rgba(255, 99, 132, 0.2)"
-                            },
-                            {
-                                "label": "pv_power",
+                                "label": "発電量",
                                 "data": datas['pv_power'],
-                                "borderColor": "rgba(54, 162, 235, 1)",
-                                "backgroundColor": "rgba(54, 162, 235, 0.2)"
+                                "borderColor": "rgba(99, 255, 132, 1)",
+                                "backgroundColor": "rgba(54, 162, 235, 0.2)",
+                                yAxisID: 'y1'
                             },
                             {
-                                "label": "inverter_power",
+                                "label": "消費量",
                                 "data": datas['inverter_power'],
                                 "borderColor": "rgba(75, 192, 192, 1)",
-                                "backgroundColor": "rgba(75, 192, 192, 0.2)"
-                            }
+                                "backgroundColor": "rgba(75, 192, 192, 0.2)",
+                                yAxisID: 'y1'
+                            },
+                            {
+                                "label": "買電量",
+                                "data": totals[keyTotal.PowerGridUse],
+                                "borderColor": "rgba(255, 132, 99, 1)",
+                                "backgroundColor": "rgba(255, 132, 99, 0.2)",
+                                yAxisID: 'y1'
+                            },
+                            jsonDataCommonSOC,
                         ]
                     };
 
                     var jsonDataB = {
                         "labels": labels,
                         "datasets": [{
-                                "label": "battery_voltage",
-                                "data": datas['battery_voltage'],
-                                "borderColor": "rgba(255, 99, 132, 1)",
-                                "backgroundColor": "rgba(255, 99, 132, 0.2)",
+                                "label": "発電量",
+                                "data": totals[keyTotal.PowerPV],
+                                "borderColor": "rgba(99, 255, 132, 1)",
+                                "backgroundColor": "rgba(99, 255, 132, 0.2)",
                                 yAxisID: 'y1'
                             },
                             {
-                                "label": "battery_soc",
-                                "data": datas['battery_soc'],
-                                "borderColor": "rgba(54, 162, 235, 1)",
-                                "backgroundColor": "rgba(54, 162, 235, 0.2)",
+                                "label": "消費量",
+                                "data": totals[keyTotal.PowerInverter],
+                                "borderColor": "rgba(75, 192, 192, 1)",
+                                "backgroundColor": "rgba(99, 132, 255, 0.2)",
                                 yAxisID: 'y1'
                             },
                             {
-                                "label": "battery_cap",
-                                "data": totals[keyTotal.PoolBatt],
-                                "borderColor": "rgba(235, 162, 235, 1)",
-                                "backgroundColor": "rgba(54, 162, 235, 0.2)",
-                                yAxisID: 'y2'
+                                "label": "買電量",
+                                "data": totals[keyTotal.PowerGridUse],
+                                "borderColor": "rgba(255, 132, 99, 1)",
+                                "backgroundColor": "rgba(255, 132, 99, 0.2)",
+                                yAxisID: 'y1'
                             },
+                            jsonDataCommonSOC,
                         ]
                     };
 
                     var jsonDataC = {
                         "labels": labels,
                         "datasets": [{
-                                "label": "PowerBatt",
-                                "data": totals[keyTotal.PowerBatt],
+                                "label": "バッテリー電圧",
+                                "data": datas['battery_voltage'],
                                 "borderColor": "rgba(255, 99, 132, 1)",
-                                "backgroundColor": "rgba(255, 99, 132, 0.2)"
+                                "backgroundColor": "rgba(255, 99, 132, 0.2)",
+                                yAxisID: 'y1'
                             },
-                            {
-                                "label": "PowerPV",
-                                "data": totals[keyTotal.PowerPV],
-                                "borderColor": "rgba(99, 255, 132, 1)",
-                                "backgroundColor": "rgba(99, 255, 132, 0.2)"
-                            },
-                            {
-                                "label": "PowerInverter",
-                                "data": totals[keyTotal.PowerInverter],
-                                "borderColor": "rgba(99, 132, 255, 1)",
-                                "backgroundColor": "rgba(99, 132, 255, 0.2)"
-                            },
-                            {
-                                "label": "PowerGridUse",
-                                "data": totals[keyTotal.PowerGridUse],
-                                "borderColor": "rgba(255, 132, 99, 1)",
-                                "backgroundColor": "rgba(255, 132, 99, 0.2)"
-                            },
-                            {
-                                "label": "PowerGridCharge",
-                                "data": totals[keyTotal.PowerGridCharge],
-                                "borderColor": "rgba(132, 99, 255, 1)",
-                                "backgroundColor": "rgba(132, 99, 255, 0.2)"
-                            },
+                            jsonDataCommonSOC,
                         ]
                     };
 
+
                     $(".chartGudance").slideUp();
+
+                    //共通
+                    const ICON_PV_CHARGE = '⚡';
+                    const ICON_GRID_CHARGE = '🔌';
+                    const common_x = {
+                        ticks: {
+                            callback: function(value, index, values) {
+                                var label = jsonDataB.labels[index];
+                                var buf = dataOrgn.datas[label];
+                                try {
+                                    if (buf['grid_battery_charge_current'] > 0) {
+                                        return ICON_GRID_CHARGE + label;
+                                    } else if (buf['pv_battery_charge_current'] > 0) {
+                                        return ICON_PV_CHARGE + label;
+                                    }
+                                    return label;
+                                } catch (err) {
+                                    console.log(err);
+                                }
+                            },
+                            color: function(context) {
+                                var label = context.tick.label;
+                                try {
+                                    if (label.indexOf(ICON_GRID_CHARGE) != -1) {
+                                        return 'rgba(128, 0, 0, 1)';
+                                    } else if (label.indexOf(ICON_PV_CHARGE) != -1) {
+                                        return 'rgba(0, 168, 1)';
+                                    }
+                                    return 'rgba(0, 0, 0, 1)';
+                                } catch (err) {
+                                    console.log(err);
+                                }
+                            },
+                        }
+                    }
+                    const common_y_soc = {
+                        type: 'linear',
+                        position: 'right',
+                        max: 100,
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function(value, index, values) {
+                                return value + ' %'; // Y軸のラベルに単位を追加
+                            }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: '(%)' // Y軸全体のラベルに単位を追加
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
 
                     //chartA
                     if (chartA != null) {
@@ -378,31 +502,27 @@
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                x: {
+                                x: common_x,
+                                y1: {
+                                    type: 'linear',
+                                    position: 'left',
                                     ticks: {
+                                        beginAtZero: true,
                                         callback: function(value, index, values) {
-                                            return jsonDataA.labels[index];
-                                        },
-                                        color: function(context) {
-                                            var label = context.tick.label;
-                                            var hour = parseInt(label.split(':')[0]);
-                                            return 'rgba(0, 0, 0, 1)'; // 黒色
-                                        },
-                                        backgroundColor: function(context) {
-                                            var label = context.tick.label;
-                                            var hour = parseInt(label.split(':')[0]);
-                                            if (hour >= 11 && hour < 12) {
-                                                return 'rgba(0, 0, 0, 0.5)'; // 半透明の黒色
-                                            }
-                                            return 'rgba(255, 0, 255, 0.5)'; // 透明
+                                            return value + ' w'; // Y軸のラベルに単位を追加
                                         }
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: '(w)' // Y軸全体のラベルに単位を追加
                                     }
-                                }
+                                },
+                                y2: common_y_soc,
                             }
                         }
                     });
 
-                    //chartB
+                    //chartB*
                     if (chartB != null) {
                         chartB.destroy();
                     }
@@ -413,48 +533,22 @@
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                x: {
-                                    ticks: {
-                                        callback: function(value, index, values) {
-                                            return jsonDataB.labels[index];
-                                        },
-                                        color: function(context) {
-                                            var label = context.tick.label;
-                                            var buf = dataOrgn[label];
-                                            if (buf['grid_battery_charge_current'] > 0) {
-                                                return 'rgba(255, 128, 128, 1)'; // 緑色
-                                            } else if (dataOrgn[label]['pv_battery_charge_current'] > 0) {
-                                                return 'rgba(128, 255, 128, 1)'; // 緑色
-                                            }
-                                            return 'rgba(0, 0, 0, 1)'; // 黒色
-                                        },
-                                        backgroundColor: function(context) {
-                                            var label = context.tick.label;
-                                            var hour = parseInt(label.split(':')[0]);
-                                            if (hour >= 11 && hour < 12) {
-                                                return 'rgba(0, 0, 0, 0.5)'; // 半透明の黒色
-                                            }
-                                            return 'rgba(255, 0, 255, 0.5)'; // 透明
-                                        }
-                                    }
-                                },
+                                x: common_x,
                                 y1: {
                                     type: 'linear',
                                     position: 'left',
                                     ticks: {
-                                        beginAtZero: true
+                                        beginAtZero: true,
+                                        callback: function(value, index, values) {
+                                            return value + ' wh'; // Y軸のラベルに単位を追加
+                                        }
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: '(wh)' // Y軸全体のラベルに単位を追加
                                     }
                                 },
-                                y2: {
-                                    type: 'linear',
-                                    position: 'right',
-                                    ticks: {
-                                        beginAtZero: true
-                                    },
-                                    grid: {
-                                        drawOnChartArea: false
-                                    }
-                                }
+                                y2: common_y_soc,
                             }
                         },
                     });
@@ -470,31 +564,22 @@
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                x: {
+                                x: common_x,
+                                y1: {
+                                    type: 'linear',
+                                    position: 'left',
                                     ticks: {
+                                        beginAtZero: true,
                                         callback: function(value, index, values) {
-                                            return jsonDataB.labels[index];
-                                        },
-                                        color: function(context) {
-                                            var label = context.tick.label;
-                                            var buf = dataOrgn[label];
-                                            if (buf['grid_battery_charge_current'] > 0) {
-                                                return 'rgba(255, 128, 128, 1)'; // 緑色
-                                            } else if (dataOrgn[label]['pv_battery_charge_current'] > 0) {
-                                                return 'rgba(128, 255, 128, 1)'; // 緑色
-                                            }
-                                            return 'rgba(0, 0, 0, 1)'; // 黒色
-                                        },
-                                        backgroundColor: function(context) {
-                                            var label = context.tick.label;
-                                            var hour = parseInt(label.split(':')[0]);
-                                            if (hour >= 11 && hour < 12) {
-                                                return 'rgba(0, 0, 0, 0.5)'; // 半透明の黒色
-                                            }
-                                            return 'rgba(255, 0, 255, 0.5)'; // 透明
+                                            return value + ' v'; // Y軸のラベルに単位を追加
                                         }
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: '(v)' // Y軸全体のラベルに単位を追加
                                     }
-                                }
+                                },
+                                y2: common_y_soc,
                             }
                         },
                     });

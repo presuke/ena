@@ -168,7 +168,8 @@ class Log extends BaseController
             }
 
             $ret['code'] = 0;
-            $ret['datas'] = $datas;
+            $ret['data']['interval'] = $interval;
+            $ret['data']['datas'] = $datas;
         } catch (\Exception $ex) {
             $ret['code'] = 99;
             $ret['errors'][] = $ex;
