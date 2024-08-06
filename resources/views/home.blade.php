@@ -22,7 +22,7 @@
                                     <img src="/image/hi_icon.png" />
                                 </div>
                                 <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
-                                <div style="height:240px;">
+                                <div style="height:240px;width: 300px;">
                                     <ul class="slider">
                                         <li>
                                             <h2>バッテリー</h2>
@@ -62,7 +62,9 @@
                                             <div>TR温度：@{{Math.round(hybridInverter.temp_tr * 10 / 10)}}℃</div>
                                         </ii>
                                         <li>
+                                            <textarea style="width:200px; height:300px;">
                                             @{{hybridInverter}}
+                                            </textarea>
                                         </li>
                                     </ul>
                                 </div>

@@ -34,5 +34,6 @@ Route::prefix('/v1')->group(function () {
     });
     Route::prefix('/regist')->group(function () {
         Route::post('read', [RegistV1::Class, 'read']);
+        Route::post('recordGridPrice', [RegistV1::Class, 'recordGridPrice']);
     });
 });

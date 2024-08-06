@@ -12,10 +12,10 @@
             $.get('/api/v1/log/getMyHybridInverters?token=' + token, {})
                 .then((response) => {
                     try {
-                        if (response.data.code == 0) {
+                        if (response.code == 0) {
                             location.href = '/home';
                         } else {
-                            alert('api error[' + response.data.code + ']');
+                            alert('api error[' + response.code + ']');
                         }
                     } catch (err) {
                         alert('system error[1]: ' + err.message);

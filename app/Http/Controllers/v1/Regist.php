@@ -97,14 +97,41 @@ class Regist extends BaseController
         try {
             $ret = [];
             $params = $request->all();
+
             try {
-                $contents = $params['contents'];
-                $json = json_decode($contents);
-                foreach ($json as $item) {
-                    $text = $item->text;
+                $hour = date('G', $params['time']);
+                if ($hour > 0 && $hour < 23) {
+                    $area = intVal($params['area']);
+                    $contents = $params['contents'];
+                    DB::beginTransaction();
+                    for ($idx = 0; $idx <= 2; $idx++) {
+                        $data = $contents[$idx];
+                        if (isset($data['price_data'])) {
+                            $timezone = 0;
+                            foreach ($data['price_data'] as $price) {
+                                $date = date('Y-m-d', $params['time'] + (($idx - 1) * 24 * 3600));
+                                $rec['date'] = $date;
+                                $rec['kbn'] = $area;
+                                $rec['timezone'] = $timezone;
+                                $rec['price'] = $price;
+                                $where = [
+                                    'date' => $rec['date'],
+                                    'kbn' => $rec['kbn'],
+                                    'timezone' => $rec['timezone'],
+                                ];
+                                $record = DB::table('gridprice')->where($where);
+                                if ($record->count() == 0) {
+                                    DB::table('gridprice')->insert($rec);
+                                } else {
+                                    $record->update($rec);
+                                }
+                                $timezone++;
+                            }
+                        }
+                    }
+                    DB::commit();
                 }
                 $ret['code'] = 0;
-                $ret['regist'] = $regist;
             } catch (\Exception $ex) {
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();
