@@ -193,7 +193,6 @@
             vueObj = this;
             window.onload = () => {
                 this.token = window.localStorage.getItem('token');
-                alert(this.token);
                 this.getMyHybridInverters()
                 setInterval(this.getMyHybridInverters, 60000);
             };
