@@ -192,14 +192,8 @@
         mounted() {
             vueObj = this;
             window.onload = () => {
-                url = window.location.href;
-                if (url.indexOf('?') != -1) {
-                    this.token = url.split('?')[1];
-                    this.token = this.token.split('=')[0];
-                    window.localStorage.setItem('token', this.token);
-                } else {
-                    this.token = window.localStorage.getItem('token');
-                }
+                this.token = window.localStorage.getItem('token');
+                alert(this.token);
                 this.getMyHybridInverters()
                 setInterval(this.getMyHybridInverters, 60000);
             };
