@@ -5,7 +5,12 @@
     <div>
         yourtoken:<span id="token"></span>
     </div>
-    <a href="/home"></a>
+    <div>
+        <a href="/home">home</a>
+    </div>
+    <div>
+        <a href="/logout">logout</a>
+    </div>
 </div>
 <style>
     div.btn {
@@ -26,9 +31,8 @@
         if (location.href.indexOf('?')) {
             const token = location.href.split('?')[1];
             window.localStorage.setItem('token', token);
-            $("token").html(window.localStorage.getItem('token'));
+            $("#token").html(window.localStorage.getItem('token'));
         }
-        alert(location.href);
     });
 </script>
 @endsection
