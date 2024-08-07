@@ -420,8 +420,8 @@
                     var jsonDataC = {
                         "labels": labels,
                         "datasets": [{
-                                "label": "バッテリー電圧",
-                                "data": datas['battery_voltage'],
+                                "label": "バッテリー充放電",
+                                "data": totals[keyTotal.PoolBatt],
                                 "borderColor": "rgba(255, 99, 132, 1)",
                                 "backgroundColor": "rgba(255, 99, 132, 0.2)",
                                 yAxisID: 'y1'
@@ -429,7 +429,6 @@
                             jsonDataCommonSOC,
                         ]
                     };
-
 
                     $(".chartGudance").slideUp();
 
@@ -517,7 +516,7 @@
                         }
                     });
 
-                    //chartB*
+                    //chartB
                     if (chartB != null) {
                         chartB.destroy();
                     }
