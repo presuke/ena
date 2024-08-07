@@ -346,7 +346,7 @@
                         totals[key2].push(num);
 
                         key2 = keyTotal.PoolBatt;
-                        num = row['battery_current'] * row['battery_voltage'] * intervalPerHour;
+                        num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1;
                         totals[key2].push(num);
 
                         labels.push(key);
@@ -565,12 +565,12 @@
                                     ticks: {
                                         beginAtZero: true,
                                         callback: function(value, index, values) {
-                                            return value + ' v'; // Y軸のラベルに単位を追加
+                                            return value + ' w'; // Y軸のラベルに単位を追加
                                         }
                                     },
                                     scaleLabel: {
                                         display: true,
-                                        labelString: '(v)' // Y軸全体のラベルに単位を追加
+                                        labelString: '(w)' // Y軸全体のラベルに単位を追加
                                     }
                                 },
                                 y2: common_y_soc,
