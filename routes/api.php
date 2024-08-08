@@ -33,6 +33,7 @@ Route::prefix('/v1')->group(function () {
         Route::get('getHybridInverterDatas', [LogV1::Class, 'getHybridInverterDatas']);
     });
     Route::prefix('/regist')->group(function () {
+        Route::get('getGridPrice', [RegistV1::Class, 'getGridPrice']);
         Route::post('read', [RegistV1::Class, 'read']);
         Route::post('recordGridPrice', [RegistV1::Class, 'recordGridPrice']);
     });

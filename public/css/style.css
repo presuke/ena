@@ -1,0 +1,60 @@
+    .slider-background {
+        border-radius: 10px;
+        height: 240px;
+        padding:10px;
+        background-color: rgba(255, 255, 255, 0.7);
+    }
+    .iconBtn{
+        filter: hue-rotate(240deg);
+        height:40px;
+        width:40px;
+        border-radius: 50%;
+    }
+    .iconModule{
+        filter: hue-rotate(240deg);
+        height:50px;
+        width:50px;
+        border-radius: 50%;
+    }
+
+    .val {
+        filter: hue-rotate(240deg);
+        background-size: contain;
+        background-color:rgba(0,0,0,0.7);
+        border-radius: 10px;
+        height:50px;
+        width:200px;
+        margin-top:5px;
+        padding: 5px;
+        padding-left:50px;
+        color:white;
+    }
+
+    .val_battery {
+        background-image: url('/image/icon_battery.png');
+        background-size: contain;
+        background-color:rgba(0,0,0,0.7);
+        border-radius: 10px;
+        height:60px;
+        margin-top:5px;
+        padding: 10px;
+        padding-left:70px;
+    }
+
+    .val_voltage {
+        background-image: url('/image/icon_voltage.png');
+    }
+
+    .val_power {
+        background-image: url('/image/icon_power.png');
+    }
+    .val_use {
+        background-image: url('/image/icon_use.png');
+    }
+    .val_charge {
+        background-image: url('/image/icon_battery.png');
+    }
+    .val_temp {
+        background-image: url('/image/icon_temp.png');
+    }
+    

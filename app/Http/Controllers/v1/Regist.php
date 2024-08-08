@@ -142,4 +142,27 @@ class Regist extends BaseController
         }
         return response()->json($ret);
     }
+
+    /**
+     * 商用電源の価格を取得する.
+     *
+     * @return void
+     */
+    public function getGridPrice(Request $request)
+    {
+        try {
+            $ret = [];
+            $params = $request->query();
+            //データ
+            $date = str_replace("/", "-", $params['date']);
+            $sql = "SELECT * FROM gridprice WHERE kbn='" . $params['area'] . "' AND date='" . $date . "' ORDER BY timezone ASC";
+            $data = DB::select($sql);
+            $ret['code'] = 0;
+            $ret['data'] = $data;
+        } catch (\Exception $ex) {
+            $ret['code'] = 9;
+            $ret['error'] = $ex->getMessage();
+        }
+        return response()->json($ret);
+    }
 }
