@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div id="app">
-            <div class="col-md-3" :style="[screen.width > 400 ? 'float:left;margin-right:10px;' : '']">
+            <div style="width:calc(100vw - 10);">
                 <div class="card">
                     <div class="card-header">ハイブリッドインバータ</div>
                     <div v-if="hybridInverters == -1" style="padding:10px;">
