@@ -489,7 +489,8 @@
                             //データが有るときだけプッシュ
                             if (row['battery_voltage'] > 0) {
                                 labelsExistsData.push(key);
-                                datasExistsData.push(row);
+                                datasExistsData['battery_voltage'].push(row['battery_voltage']);
+                                datasExistsData['battery_soc'].push(row['battery_soc']);
                             }
 
                             labels.push(key);
