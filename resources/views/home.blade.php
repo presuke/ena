@@ -410,6 +410,7 @@
                 },
                 makeChartDaily(dataOrgn) {
                     try {
+                        console.log("makechart");
                         const ctxA = $('#chartA');
                         const ctxB = $('#chartB');
                         const ctxC = $('#chartC');
@@ -554,7 +555,7 @@
                         var jsonDataC = {
                             "labels": labels,
                             "datasets": [{
-                                    "label": "バッテリー充放電",
+                                    "label": "バッテリー電圧",
                                     "data": totals[keyTotal.PoolBatt],
                                     "borderColor": "rgba(255, 99, 132, 1)",
                                     "backgroundColor": "rgba(255, 99, 132, 0.2)",
