@@ -410,7 +410,7 @@
                 },
                 makeChartDaily(dataOrgn) {
                     try {
-                        console.log("makechart2");
+                        console.log("makechart3");
                         const ctxA = $('#chartA');
                         const ctxB = $('#chartB');
                         const ctxC = $('#chartC');
