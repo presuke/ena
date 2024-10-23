@@ -502,9 +502,9 @@
 
 
                         // JSONデータ
-                        var jsonDataCommonSOC = {
-                            "label": "バッテリー残量（SOC）",
-                            "data": datas['battery_soc'],
+                        var jsonDataCommonBAT = {
+                            "label": "バッテリ電圧",
+                            "data": datas['battery_voltage'],
                             "borderColor": "rgba(235, 235, 102, 0.5)",
                             "backgroundColor": "rgba(235, 235, 102, 0.2)",
                             fill: true, // 塗りつぶしを有効にする
@@ -534,7 +534,7 @@
                                     "backgroundColor": "rgba(255, 132, 99, 0.2)",
                                     yAxisID: 'y1'
                                 },
-                                jsonDataCommonSOC,
+                                jsonDataCommonBAT,
                             ]
                         };
 
@@ -568,24 +568,24 @@
                                     "backgroundColor": "rgba(255, 132, 99, 0.2)",
                                     yAxisID: 'y1'
                                 },
-                                jsonDataCommonSOC,
+                                jsonDataCommonBAT,
                             ]
                         };
 
                         var jsonDataC = {
                             "labels": labelsExistsData,
                             "datasets": [{
-                                    "label": "バッテリー電圧",
+                                    "label": "バッテリ電圧",
                                     "data": datasExistsData['battery_voltage'],
-                                    "borderColor": "rgba(255, 99, 132, 1)",
-                                    "backgroundColor": "rgba(255, 99, 132, 0.2)",
+                                    "borderColor": jsonDataCommonBAT.borderColor,
+                                    "backgroundColor": jsonDataCommonBAT.backgroundColor,
                                     yAxisID: 'y1'
                                 },
                                 {
-                                    "label": "バッテリー残量（SOC）",
+                                    "label": "バッテリ残量（SOC）",
                                     "data": datasExistsData['battery_soc'],
-                                    "borderColor": "rgba(235, 235, 102, 0.5)",
-                                    "backgroundColor": "rgba(235, 235, 102, 0.2)",
+                                    "borderColor": "rgba(168, 255, 168, 0.5)",
+                                    "backgroundColor": "rgba(168, 255, 168, 0.2)",
                                     fill: true, // 塗りつぶしを有効にする
                                     pointRadius: 0, // 点を非表示にする
                                     yAxisID: 'y2'
