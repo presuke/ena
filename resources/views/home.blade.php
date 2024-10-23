@@ -410,7 +410,7 @@
                 },
                 makeChartDaily(dataOrgn) {
                     try {
-                        console.log("makechart");
+                        console.log("makechart3");
                         const ctxA = $('#chartA');
                         const ctxB = $('#chartB');
                         const ctxC = $('#chartC');
@@ -556,7 +556,7 @@
                                 },
                                 {
                                     "label": "買電量",
-                                    "data": totals[keyTotal.PowerGridUseTotal],
+                                    "data": totals[keyTotal.PowerGridUse],
                                     "borderColor": "rgba(255, 132, 99, 1)",
                                     "backgroundColor": "rgba(255, 132, 99, 0.2)",
                                     yAxisID: 'y1'
