@@ -632,7 +632,8 @@
                         const common_y_battery_voltage = {
                             type: 'linear',
                             position: 'right',
-                            max: 100,
+                            min: 45,
+                            max: 60,
                             ticks: {
                                 beginAtZero: true,
                                 callback: function(value, index, values) {
