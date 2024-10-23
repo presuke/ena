@@ -427,7 +427,9 @@
 
                         const intervalPerHour = dataOrgn.interval / 60;
                         let labels = [];
+                        let labelsExistsData = [];
                         let datas = [];
+                        let datasExistsData = [];
                         let totals = [];
                         Object.keys(keyTotal).forEach((key) => {
                             totals[keyTotal[key]] = [];
@@ -483,6 +485,12 @@
                             key2 = keyTotal.PoolBatt;
                             num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1;
                             totals[key2].push(num);
+
+                            //データが有るときだけプッシュ
+                            if (row['battery_voltage'] > 0) {
+                                labelsExistsData.push(key);
+                                datasExistsData.push(row);
+                            }
 
                             labels.push(key);
                         });
@@ -553,15 +561,23 @@
                         };
 
                         var jsonDataC = {
-                            "labels": labels,
+                            "labels": labelsExistsData,
                             "datasets": [{
                                     "label": "バッテリー電圧",
-                                    "data": datas['battery_voltage'],
+                                    "data": datasExistsData['battery_voltage'],
                                     "borderColor": "rgba(255, 99, 132, 1)",
                                     "backgroundColor": "rgba(255, 99, 132, 0.2)",
                                     yAxisID: 'y1'
                                 },
-                                jsonDataCommonSOC,
+                                {
+                                    "label": "バッテリー残量（SOC）",
+                                    "data": datasExistsData['battery_soc'],
+                                    "borderColor": "rgba(235, 235, 102, 0.5)",
+                                    "backgroundColor": "rgba(235, 235, 102, 0.2)",
+                                    fill: true, // 塗りつぶしを有効にする
+                                    pointRadius: 0, // 点を非表示にする
+                                    yAxisID: 'y2'
+                                }
                             ]
                         };
 
