@@ -474,15 +474,9 @@
                             }
                             totals[key2].push(num);
 
-                            key2 = keyTotal.PowerGridUse;
-                            num = row['grid_input_current'] * row['grid_voltage'] * intervalPerHour;
-                            if (totals[key2].length > 0) {
-                                num += totals[key2][totals[key2].length - 1];
-                            }
-                            totals[key2].push(num);
-
                             key2 = keyTotal.PowerGridUseTotal;
                             num = row['grid_input_current'] * row['grid_voltage'] * intervalPerHour;
+                            totals[keyTotal.PowerGridUse].push(num);
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
                             }
