@@ -548,6 +548,13 @@
                                     yAxisID: 'y1'
                                 },
                                 {
+                                    "label": "商用蓄電量",
+                                    "data": totals[keyTotal.PowerGridCharge],
+                                    "borderColor": "rgb(153, 102, 255, 1)",
+                                    "backgroundColor": "rgba(99, 132, 255, 0.2)",
+                                    yAxisID: 'y1'
+                                },
+                                {
                                     "label": "消費量",
                                     "data": totals[keyTotal.PowerInverter],
                                     "borderColor": "rgba(75, 192, 192, 1)",
