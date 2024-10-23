@@ -632,7 +632,7 @@
                         const common_y_battery_voltage = {
                             type: 'linear',
                             position: 'right',
-                            min: 45,
+                            min: 46,
                             max: 60,
                             ticks: {
                                 beginAtZero: true,
@@ -642,7 +642,7 @@
                             },
                             scaleLabel: {
                                 display: true,
-                                labelString: '(%)' // Y軸全体のラベルに単位を追加
+                                labelString: '(v)' // Y軸全体のラベルに単位を追加
                             },
                             grid: {
                                 drawOnChartArea: false
@@ -737,7 +737,25 @@
                                             labelString: '(v)' // Y軸全体のラベルに単位を追加
                                         }
                                     },
-                                    y2: common_y_battery_voltage,
+                                    y2: {
+                                        type: 'linear',
+                                        position: 'right',
+                                        min: 0,
+                                        max: 100,
+                                        ticks: {
+                                            beginAtZero: true,
+                                            callback: function(value, index, values) {
+                                                return value + ' %'; // Y軸のラベルに単位を追加
+                                            }
+                                        },
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: '(%)' // Y軸全体のラベルに単位を追加
+                                        },
+                                        grid: {
+                                            drawOnChartArea: false
+                                        }
+                                    },
                                 }
                             },
                         });
