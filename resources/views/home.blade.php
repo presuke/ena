@@ -489,8 +489,12 @@
                             //データが有るときだけプッシュ
                             if (row['battery_voltage'] > 0) {
                                 labelsExistsData.push(key);
-                                datasExistsData['battery_voltage'].push(row['battery_voltage']);
-                                datasExistsData['battery_soc'].push(row['battery_soc']);
+                                for (const [key2, value2] in row) {
+                                    if (datasExistsData[key2] == undefined) {
+                                        datasExistsData[key2] = [];
+                                    }
+                                    datasExistsData[key2].push(value2);
+                                }
                             }
 
                             labels.push(key);
