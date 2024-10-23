@@ -162,7 +162,11 @@ class Log extends BaseController
                             }
                         }
                     }
-                    $datas[$timestamp] = $row;
+                    //値が0なら配列に入れない
+                    if ($row['battery_voltage'] > 0) {
+                        $datas[$timestamp] = $row;
+                    }
+                    //次の時刻へ
                     $start->addMinutes($interval);
                 }
             }
