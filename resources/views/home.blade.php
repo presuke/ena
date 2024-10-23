@@ -556,7 +556,7 @@
                             "labels": labels,
                             "datasets": [{
                                     "label": "バッテリー電圧",
-                                    "data": totals[keyTotal.PoolBatt],
+                                    "data": datas['battery_voltage'],
                                     "borderColor": "rgba(255, 99, 132, 1)",
                                     "backgroundColor": "rgba(255, 99, 132, 0.2)",
                                     yAxisID: 'y1'
@@ -700,12 +700,12 @@
                                         ticks: {
                                             beginAtZero: true,
                                             callback: function(value, index, values) {
-                                                return value + ' w'; // Y軸のラベルに単位を追加
+                                                return value + ' v'; // Y軸のラベルに単位を追加
                                             }
                                         },
                                         scaleLabel: {
                                             display: true,
-                                            labelString: '(w)' // Y軸全体のラベルに単位を追加
+                                            labelString: '(v)' // Y軸全体のラベルに単位を追加
                                         }
                                     },
                                     y2: common_y_soc,
