@@ -629,14 +629,14 @@
                                 },
                             }
                         }
-                        const common_y_soc = {
+                        const common_y_battery_voltage = {
                             type: 'linear',
                             position: 'right',
                             max: 100,
                             ticks: {
                                 beginAtZero: true,
                                 callback: function(value, index, values) {
-                                    return value + ' %'; // Y軸のラベルに単位を追加
+                                    return value + ' v'; // Y軸のラベルに単位を追加
                                 }
                             },
                             scaleLabel: {
@@ -674,7 +674,7 @@
                                             labelString: '(w)' // Y軸全体のラベルに単位を追加
                                         }
                                     },
-                                    y2: common_y_soc,
+                                    y2: common_y_battery_voltage,
                                 }
                             }
                         });
@@ -705,7 +705,7 @@
                                             labelString: '(wh)' // Y軸全体のラベルに単位を追加
                                         }
                                     },
-                                    y2: common_y_soc,
+                                    y2: common_y_battery_voltage,
                                 }
                             },
                         });
@@ -736,7 +736,7 @@
                                             labelString: '(v)' // Y軸全体のラベルに単位を追加
                                         }
                                     },
-                                    y2: common_y_soc,
+                                    y2: common_y_battery_voltage,
                                 }
                             },
                         });
