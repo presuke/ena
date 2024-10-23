@@ -556,7 +556,7 @@
                                 },
                                 {
                                     "label": "買電量",
-                                    "data": totals[keyTotal.PowerGridUse],
+                                    "data": totals[keyTotal.PowerGridUseTotal],
                                     "borderColor": "rgba(255, 132, 99, 1)",
                                     "backgroundColor": "rgba(255, 132, 99, 0.2)",
                                     yAxisID: 'y1'
