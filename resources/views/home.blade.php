@@ -410,6 +410,7 @@
                 },
                 makeChartDaily(dataOrgn) {
                     try {
+                        const kw = 1000;
                         console.log("makechart3");
                         const ctxA = $('#chartA');
                         const ctxB = $('#chartB');
@@ -446,7 +447,7 @@
                             var key2 = ''
                             var num = 0;
 
-                            key2 = keyTotal.PowerPV;
+                            key2 = keyTotal.PowerPV / kw;
                             num = row['pv_power'] * intervalPerHour;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
