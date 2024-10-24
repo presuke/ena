@@ -121,28 +121,7 @@ class Log extends BaseController
 
             //データ
             $sql = "SELECT ";
-            $sql .= "battery_voltage, ";
-            $sql .= "battery_current, ";
-            $sql .= "battery_charge_power / 1000 as battery_charge_power, ";
-            $sql .= "battery_soc, ";
-            $sql .= "battery_max_charge_current, ";
-            $sql .= "pv_voltage, ";
-            $sql .= "pv_current, ";
-            $sql .= "pv_power / 1000 as pv_power, ";
-            $sql .= "pv_battery_charge_current, ";
-            $sql .= "grid_voltage, ";
-            $sql .= "grid_input_current, ";
-            $sql .= "grid_battery_charge_current, ";
-            $sql .= "grid_frequency, ";
-            $sql .= "grid_battery_charge_max_current, ";
-            $sql .= "inverter_voltage, ";
-            $sql .= "inverter_current, ";
-            $sql .= "inverter_frequency, ";
-            $sql .= "inverter_power / 1000 as inverter_power, ";
-            $sql .= "inverter_output_priority, ";
-            $sql .= "inverter_charger_priority, ";
-            $sql .= "temp_dc, temp_ac, temp_tr, ";
-            $sql .= "create_at,";
+            $sql .= "battery_voltage, battery_current, battery_charge_power, battery_soc, battery_max_charge_current, pv_voltage, pv_current, pv_power, pv_battery_charge_current, grid_voltage, grid_input_current, grid_battery_charge_current, grid_frequency, grid_battery_charge_max_current, inverter_voltage, inverter_current, inverter_frequency, inverter_power, inverter_output_priority, inverter_charger_priority, temp_dc, temp_ac, temp_tr, create_at,";
             $sql .= "DATE_FORMAT(FROM_UNIXTIME(FLOOR(UNIX_TIMESTAMP(create_at) / 900) * 900) ,'%H:%i') AS timestamp";
             $sql .= " FROM hidata ";
             $sql .= " WHERE user='" . $token->name . "' ";
