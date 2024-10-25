@@ -25,11 +25,7 @@
                                     <div style="float:left;">
                                         <img src="/image/icon_solor.png" class="iconModule">
                                     </div>
-
-
-                                    <div class="box">
-                                        <span class="box__line"></span>
-                                        <span class="box__line"></span>
+                                    <div class="box" style="float:left;width:200px;height:100px;">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>

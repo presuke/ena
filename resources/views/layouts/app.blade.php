@@ -43,14 +43,12 @@
             position: absolute;
         }
 
-        .box__line:nth-child(1),
-        .box__line:nth-child(3) {
+        .box__line:nth-child(1) {
             width: 100%;
             height: 2px;
         }
 
-        .box__line:nth-child(2),
-        .box__line:nth-child(4) {
+        .box__line:nth-child(2) {
             width: 2px;
             height: 100%;
         }
