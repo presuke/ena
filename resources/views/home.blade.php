@@ -418,7 +418,7 @@
 
                         const keyTotal = {
                             PowerPV: 'pvPower',
-                            PowerInverter: 'inverterPoser',
+                            PowerInverter: 'inverterPower',
                             PowerBatt: 'batteryPower',
                             PowerGridCharge: 'gridPowerCharge',
                             PowerGridUse: 'gridPowerUse',
