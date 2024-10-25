@@ -23,9 +23,9 @@
                                 </div>
                                 <div>
                                     <div style="float:left;">
-                                        <img src="/image/icon_solor.png" class="iconModule">
+                                        <img src="/image/icon_solor.png">
                                     </div>
-                                    <div class="box" style="float:left;width:200px;height:100px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: calc(50vw-50px); height: 50px;">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
