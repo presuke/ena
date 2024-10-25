@@ -22,6 +22,13 @@
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
                                 <div>
+                                    <div style="float:left;">
+                                        <img src="/image/icon_solor.png" class="iconModule">
+                                    </div>
+                                    <div class="box" style="float:left;">
+                                        <span class="box__line"></span>
+                                        <span class="box__line"></span>
+                                    </div>
                                     <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
                                     <ul class="">
                                         <li>
@@ -843,4 +850,21 @@
             objApp.use(vuetify);
             objApp.mount('#app');
         </script>
+        <style>
+            .box__line:nth-child(1) {
+                top: 0;
+                left: 0;
+                background: linear-gradient(to right, transparent, orange);
+                animation: animate1 2s linear infinite;
+            }
+
+            .box__line:nth-child(2) {
+                top: 0;
+                right: 0;
+                animation: animate2 2s linear infinite;
+                animation-delay: 1s;
+                /**追記**/
+                background: linear-gradient(to bottom, transparent, orange);
+            }
+        </style>
         @endsection
