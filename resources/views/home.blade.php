@@ -426,7 +426,7 @@
                             PoolBatt: 'batteryPoolPower',
                         };
 
-                        const intervalPerHour = dataOrgn.interval / 60 / kw;
+                        const intervalPerHour = dataOrgn.interval / 60;
                         let labels = [];
                         let labelsExistsData = [];
                         let datas = [];
@@ -448,7 +448,7 @@
                             var num = 0;
 
                             key2 = keyTotal.PowerPV;
-                            num = row['pv_power'] * intervalPerHour;
+                            num = row['pv_power'] * intervalPerHour / kw;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
                             }
@@ -462,21 +462,21 @@
                             totals[key2].push(num);
 
                             key2 = keyTotal.PowerBatt;
-                            num = row['battery_charge_power'] * intervalPerHour;
+                            num = row['battery_charge_power'] * intervalPerHour / kw;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
                             }
                             totals[key2].push(num);
 
                             key2 = keyTotal.PowerGridCharge;
-                            num = row['grid_battery_charge_current'] * row['grid_voltage'] * intervalPerHour;
+                            num = row['grid_battery_charge_current'] * row['grid_voltage'] * intervalPerHour / kw;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
                             }
                             totals[key2].push(num);
 
                             key2 = keyTotal.PowerGridUseTotal;
-                            num = row['grid_input_current'] * row['grid_voltage'] * intervalPerHour;
+                            num = row['grid_input_current'] * row['grid_voltage'] * intervalPerHour / kw;
                             totals[keyTotal.PowerGridUse].push(num);
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
@@ -484,7 +484,7 @@
                             totals[key2].push(num);
 
                             key2 = keyTotal.PoolBatt;
-                            num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1;
+                            num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1 / kw;
                             totals[key2].push(num);
 
                             //データが有るときだけプッシュ
