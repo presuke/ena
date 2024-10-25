@@ -25,10 +25,16 @@
                                     <div style="float:left;">
                                         <img src="/image/icon_solor.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float:left;">
+
+
+                                    <div class="box">
+                                        <span class="box__line"></span>
+                                        <span class="box__line"></span>
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
+
+
                                     <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
                                     <ul class="">
                                         <li>
