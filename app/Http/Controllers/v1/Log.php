@@ -128,7 +128,7 @@ class Log extends BaseController
             $sql .= "battery_max_charge_current, ";
             $sql .= "pv_voltage, ";
             $sql .= "pv_current, ";
-            $sql .= "pv_power as pv_power, ";
+            $sql .= "pv_power / 1000 as pv_power, ";
             $sql .= "pv_battery_charge_current, ";
             $sql .= "grid_voltage, ";
             $sql .= "grid_input_current, ";
@@ -138,7 +138,7 @@ class Log extends BaseController
             $sql .= "inverter_voltage, ";
             $sql .= "inverter_current, ";
             $sql .= "inverter_frequency, ";
-            $sql .= "inverter_power as inverter_power, ";
+            $sql .= "inverter_power / 1000 as inverter_power, ";
             $sql .= "inverter_output_priority, ";
             $sql .= "inverter_charger_priority, ";
             $sql .= "temp_dc, temp_ac, temp_tr, create_at,";
