@@ -21,7 +21,6 @@
                                     <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting();" />　
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
-                                <div>{{this.$refs.myElement.offsetHeight}}*{{this.$refs.myElement.offsetWidth}}</div>
                                 <div>
                                     <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
                                     <ul class="">
