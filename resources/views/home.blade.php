@@ -851,6 +851,31 @@
             objApp.mount('#app');
         </script>
         <style>
+            HTML CSS Result Skip Results Iframe EDIT ON .box {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto;
+                position: relative;
+                display: block;
+                overflow: hidden;
+            }
+
+            .box__line {
+                position: absolute;
+            }
+
+            .box__line:nth-child(1),
+            .box__line:nth-child(3) {
+                width: 100%;
+                height: 2px;
+            }
+
+            .box__line:nth-child(2),
+            .box__line:nth-child(4) {
+                width: 2px;
+                height: 100%;
+            }
+
             .box__line:nth-child(1) {
                 top: 0;
                 left: 0;
@@ -858,13 +883,69 @@
                 animation: animate1 2s linear infinite;
             }
 
+
             .box__line:nth-child(2) {
                 top: 0;
                 right: 0;
                 animation: animate2 2s linear infinite;
                 animation-delay: 1s;
-                /**追記**/
                 background: linear-gradient(to bottom, transparent, orange);
+            }
+
+            .box__line:nth-child(3) {
+                bottom: 0;
+                left: 0;
+                background: linear-gradient(to left, transparent, orange);
+                animation: animate3 2s linear infinite;
+            }
+
+            .box__line:nth-child(4) {
+                top: 0;
+                left: 0;
+                background: linear-gradient(to top, transparent, orange);
+                animation: animate4 2s linear infinite;
+                animation-delay: 1s;
+            }
+
+            @keyframes animate1 {
+                0% {
+                    transform: translateX(-100%);
+                }
+
+                100% {
+                    transform: translateX(100%);
+                }
+            }
+
+            @keyframes animate2 {
+                0% {
+                    transform: translateY(-100%);
+                }
+
+                100% {
+                    transform: translateY(100%);
+                }
+            }
+
+            @keyframes animate3 {
+                0% {
+                    transform: translateX(100%);
+                }
+
+                100% {
+                    transform: translateX(-100%);
+                }
+            }
+
+            @keyframes animate4 {
+                0% {
+                    transform: translateY(100%);
+                }
+
+                100% {
+                    transform: translateY(-100%);
+                }
+
             }
         </style>
         @endsection
