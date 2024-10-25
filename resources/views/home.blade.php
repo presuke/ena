@@ -32,13 +32,13 @@
                                     <div style="clear:left; float:left;">
                                         <img src="/image/icon_grid.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float: left; margin-top:20px; width: 50%; height: 50px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: 40%; height: 50px;">
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="float:left;">
+                                    <div style="float:left;margin-left:-25px;">
                                         <img src="/image/icon_hi.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float: left; margin-top:20px; width: 50%; height: 50px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: 40%; height: 50px;">
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="float:left;">
