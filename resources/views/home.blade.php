@@ -668,12 +668,12 @@
                                         ticks: {
                                             beginAtZero: true,
                                             callback: function(value, index, values) {
-                                                return value + ' w'; // Y軸のラベルに単位を追加
+                                                return value + ' kW'; // Y軸のラベルに単位を追加
                                             }
                                         },
                                         scaleLabel: {
                                             display: true,
-                                            labelString: '(w)' // Y軸全体のラベルに単位を追加
+                                            labelString: '(kW)' // Y軸全体のラベルに単位を追加
                                         }
                                     },
                                     y2: common_y_battery_voltage,
@@ -699,12 +699,12 @@
                                         ticks: {
                                             beginAtZero: true,
                                             callback: function(value, index, values) {
-                                                return value + ' wh'; // Y軸のラベルに単位を追加
+                                                return value + ' kWh'; // Y軸のラベルに単位を追加
                                             }
                                         },
                                         scaleLabel: {
                                             display: true,
-                                            labelString: '(wh)' // Y軸全体のラベルに単位を追加
+                                            labelString: '(kWh)' // Y軸全体のラベルに単位を追加
                                         }
                                     },
                                     y2: common_y_battery_voltage,
