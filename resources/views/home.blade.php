@@ -32,10 +32,10 @@
                                     <div style="clear:left; float:left;">
                                         <img src="/image/icon_grid.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float: left; margin-top:20px; width: calc(50vw-50px); height: 50px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: calc(50vw-75px); height: 50px;">
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="clear:left; float:left;">
+                                    <div style="float:left;">
                                         <img src="/image/icon_hi.png" class="iconModule">
                                     </div>
                                     <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
