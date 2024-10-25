@@ -426,7 +426,7 @@
                             PoolBatt: 'batteryPoolPower',
                         };
 
-                        const intervalPerHour = dataOrgn.interval / 60;
+                        const intervalPerHour = dataOrgn.interval / 60 / kw;
                         let labels = [];
                         let labelsExistsData = [];
                         let datas = [];
@@ -447,7 +447,7 @@
                             var key2 = ''
                             var num = 0;
 
-                            key2 = keyTotal.PowerPV / kw;
+                            key2 = keyTotal.PowerPV;
                             num = row['pv_power'] * intervalPerHour;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
