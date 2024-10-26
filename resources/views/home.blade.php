@@ -32,7 +32,7 @@
                                     </div>
                                     <div style="clear: left; float: left;">
                                         <img src="/image/icon_grid.png" class="iconModule">
-                                        <div style="font-size:2.5vw; color:white;">@{{(hybridInverter.grid_voltage * hybridInverter.grid_input_current).toLocaleString()}}w</div>
+                                        <div style="font-size:2.5vw; color:white;">@{{(hybridInverter.grid_voltage * hybridInverter.grid_input_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                         <div style="font-size:1vw; color:white;">@{{hybridInverter.grid_voltage.toLocaleString()}}v　@{{hybridInverter.grid_input_current.toLocaleString()}}A (@{{hybridInverter.grid_frequency}}Hz)</div>
                                     </div>
                                     <div class="box" style="float: left; margin-top: 5vw; width: 15vw; height: 5vw;">
@@ -56,7 +56,7 @@
                                     </div>
                                     <div style="float: left;">
                                         <img src="/image/icon_use.png" class="iconModule">
-                                        <div style="font-size:2.5vw; color:white;">@{{hybridInverter.inverter_power.toLocaleString()}}w</div>
+                                        <div style="font-size:2.5vw; color:white;">@{{hybridInverter.inverter_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                         <div style="font-size:1vw; color:white;">@{{hybridInverter.inverter_voltage.toLocaleString()}}v　@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                     </div>
                                     <div style="clear:left; float:left; width: 31vw;"><br /></div>
@@ -74,7 +74,7 @@
                                             <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                         </v-progress-circular>
                                         <div style="font-size:2.5vw; color:white; float:left;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
-                                        <div style="clear:left; font-size:2.5vw; color:white;">⚡️@{{hybridInverter.battery_charge_power.toLocaleString()}}w</div>
+                                        <div style="clear:left; font-size:2.5vw; color:white;">⚡️@{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                     </div>
                                     <div style="clear:left; color:#CCF;">
                                         @{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ
