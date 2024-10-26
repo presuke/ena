@@ -56,7 +56,7 @@
         .box__line:nth-child(1) {
             top: 0;
             left: 0;
-            background: linear-gradient(to right, transparent, orange);
+            background: linear-gradient(to right, transparent, #CCF);
             animation: animate1 2s linear infinite;
         }
 
@@ -66,20 +66,20 @@
             right: 0;
             animation: animate2 2s linear infinite;
             animation-delay: 1s;
-            background: linear-gradient(to bottom, transparent, orange);
+            background: linear-gradient(to bottom, transparent, #CCF);
         }
 
         .box__line:nth-child(3) {
             bottom: 0;
             left: 0;
-            background: linear-gradient(to left, transparent, orange);
+            background: linear-gradient(to left, transparent, #CCF);
             animation: animate3 2s linear infinite;
         }
 
         .box__line:nth-child(4) {
             top: 0;
             left: 0;
-            background: linear-gradient(to top, transparent, orange);
+            background: linear-gradient(to top, transparent, #CCF);
             animation: animate4 2s linear infinite;
             animation-delay: 1s;
         }

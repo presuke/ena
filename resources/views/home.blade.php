@@ -21,34 +21,26 @@
                                     <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting();" />　
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
-                                <div style="padding:10px;">
-                                    <div style="float: left;">
-                                        <img src="/image/icon_solor.png" class="iconModule">
-                                    </div>
-                                    <div class="box" style="float: left; margin-top: 20px; width: calc(40% - 25px); height: 50px;">
+                                <div style="padding: 10px; background-color:#111;">
+                                    <div style="float: left;"><img src="/image/icon_solor.png" class="iconModule"></div>
+                                    <div class="box" style="float: left; margin-top: 5vw; width: calc(20vw); height: 5vw;">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="clear: left; float: left;">
-                                        <img src="/image/icon_grid.png" class="iconModule">
-                                    </div>
-                                    <div class="box" style="float: left; margin-top: 20px; width: calc(40% - 50px); height: 50px;">
+                                    <div style="clear: left; float: left;"><img src="/image/icon_grid.png" class="iconModule"></div>
+                                    <div class="box" style="float: left; margin-top: 5vw; width: calc(15vw); height: 5vw;">
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="float: left;">
-                                        <img src="/image/icon_hi.png" class="iconModule">
-                                    </div>
-                                    <div class="box" style="float: left; margin-top: 20px; width: calc(40% - 50px); height: 50px;">
+                                    <div style="float: left;"><img src="/image/icon_hi.png" class="iconModule"></div>
+                                    <div class="box" style="float: left; margin-top: 5vw; width: calc(15vw); height: 5vw;">
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="float: left;">
-                                        <img src="/image/icon_use.png" class="iconModule">
-                                    </div>
-                                    <div class="box" style="clear: left; margin-left: calc(40% + 20px); width: 5px; height: 60px; transform: rotate(0deg);top:-20px;">
+                                    <div style="float: left;"><img src="/image/icon_use.png" class="iconModule"></div>
+                                    <div class="box" style="clear: left; margin-left: calc(29vw); width: 1vw; height: 5vw; transform: scaleY(-1);">
                                         <span class="box__line" style="display: none;"></span>
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="margin-left: calc(40%); margin-top:-20px;">
+                                    <div style="margin-left: calc(25vw);">
                                         <img src="/image/icon_battery.png" class="iconModule">
                                     </div>
                                 </div>
