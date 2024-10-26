@@ -52,6 +52,7 @@
                                             <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                         </v-progress-circular>
                                     </div>
+                                    <div style="clear:left;">aa</div>
                                 </div>
                                 <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
                                 <ul class="">
