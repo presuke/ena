@@ -55,12 +55,11 @@
                                     </div>
                                     <div style="margin-left: 25vw; float:left;">
                                         <img src="/image/icon_battery.png" class="iconModule">
-                                        <div style="font-size:2.5vw; color:white;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
-                                    </div>
-                                    <div style="float:left;">
                                         <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" :size="45" :width="8">
                                             <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                         </v-progress-circular>
+                                        <div style="font-size:2.5vw; color:white;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
+                                        ⚡️<div style="font-size:2.5vw; color:white;">@{{hybridInverter.battery_charge_power.toLocaleString()}}v</div>
                                     </div>
                                     <div style="clear:left; color:yellow;">
                                         aa
@@ -98,7 +97,6 @@
                                         </div>
                                         <div class="val val_power">
                                             <div>@{{hybridInverter.pv_power.toLocaleString()}}w</div>
-                                            <div>⚡️@{{hybridInverter.pv_battery_charge_current}}A</div>
                                         </div>
                                     </li>
                                     <li>
