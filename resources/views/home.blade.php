@@ -32,9 +32,8 @@
                                     </div>
                                     <div style="clear: left; float: left;">
                                         <img src="/image/icon_grid.png" class="iconModule">
-                                        <div style="font-size:2.5vw; color:white;">@{{hybridInverter.grid_voltage.toLocaleString()}}v</div>
-                                        <div style="font-size:2.5vw; color:white;">@{{hybridInverter.grid_input_current.toLocaleString()}}v</div>
-                                        <div style="font-size:2.5vw; color:white;">@{{(hybridInverter.grid_voltage * hybridInverter.grid_input_current).toLocaleString()}}v</div>
+                                        <div style="font-size:2.5vw; color:white;">@{{(hybridInverter.grid_voltage * hybridInverter.grid_input_current).toLocaleString()}}w</div>
+                                        <div style="font-size:1vw; color:white;">@{{hybridInverter.grid_voltage.toLocaleString()}}v　@{{hybridInverter.grid_input_current.toLocaleString()}}A (@{{hybridInverter.grid_frequency}}Hz)</div>
                                     </div>
                                     <div class="box" style="float: left; margin-top: 5vw; width: 15vw; height: 5vw;">
                                         <span class="box__line"></span>
