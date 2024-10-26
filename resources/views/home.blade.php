@@ -21,7 +21,7 @@
                                     <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting();" />　
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
-                                <div style="padding: 10px; background-color:#111;">
+                                <div style="padding: 10px; background-color:#333;">
                                     <div style="float: left;">
                                         <img src="/image/icon_solor.png" class="iconModule">
                                         <div style="font-size:2.5vw; color:white;">@{{hybridInverter.pv_power.toLocaleString()}}w</div>
@@ -76,7 +76,7 @@
                                         <div style="font-size:2.5vw; color:white; float:left;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
                                         <div style="clear:left; font-size:2.5vw; color:white;">⚡️@{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                     </div>
-                                    <div style="clear:left; color:#CCF;">
+                                    <div style="clear:left; color:#CCF; text-align:right;">
                                         @{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ
                                     </div>
                                 </div>
