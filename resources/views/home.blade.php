@@ -54,7 +54,7 @@
                                         <span class="box__line" style="display: none;"></span>
                                         <span class="box__line"></span>
                                     </div>
-                                    <div class="box" style="float: left; width: 1vw; height: 5vw;">
+                                    <div class="box" style="float: left; width: 1vw; height: 5vw; transform: scaleY(-1);">
                                         <span class="box__line" style="display: none;"></span>
                                         <span class="box__line"></span>
                                     </div>
