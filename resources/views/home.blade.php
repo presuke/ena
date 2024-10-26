@@ -22,8 +22,11 @@
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
                                 <div style="padding: 10px; background-color:#111;">
-                                    <div style="float: left;"><img src="/image/icon_solor.png" class="iconModule"></div>
-                                    <div class="box" style="float: left; margin-top: 5vw; width: 20vw; height: 5vw;">
+                                    <div style="float: left;">
+                                        <img src="/image/icon_solor.png" class="iconModule">
+                                        <div style="font-size:2.5vw; color:white;">@{{hybridInverter.pv_power.toLocaleString()}}w</div>
+                                    </div>
+                                    <div class="box" style="float: left; margin-top: 5vw; width: 20vw; height: 10vw;" v-if="@{{hybridInverter.pv_power}} > 0">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
