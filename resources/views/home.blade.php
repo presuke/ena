@@ -21,35 +21,35 @@
                                     <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting();" />　
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
-                                <div>
+                                <div style="padding:10px;">
                                     <div style="float:left;">
                                         <img src="/image/icon_solor.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float: left; margin-top:20px; width: 40%; height: 50px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: calc(40% - 50px); height: 50px;">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="clear:left; float:left;">
                                         <img src="/image/icon_grid.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float: left; margin-top:20px; width: 40%; height: 50px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: calc(40% - 50px); height: 50px;">
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="float:left;margin-left:-25px;">
                                         <img src="/image/icon_hi.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float: left; margin-top:20px; width: 40%; height: 50px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: calc(40% - 50px); height: 50px;">
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="float:left;">
                                         <img src="/image/icon_use.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="clear: left; margin-left:40%; width:50px; height: 50px;">
-                                        <span class="box__line"></span>
+                                    <div class="box" style="clear: left; margin-left:calc(40% - 50px); width:20px; height: 50px;">
+                                        <span class="box__line" style="display:none;"></span>
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="margin-left:40%;">
-                                        <img src="/image/icon_grid.png" class="iconModule">
+                                        <img src="/image/icon_battery.png" class="iconModule">
                                     </div>
                                     <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
                                     <ul class="">
