@@ -25,7 +25,7 @@
                                     <div style="float:left;">
                                         <img src="/image/icon_solor.png" class="iconModule">
                                     </div>
-                                    <div class="box" style="float: left; margin-top:20px; width: 50%; height: 50px;">
+                                    <div class="box" style="float: left; margin-top:20px; width: 40%; height: 50px;">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
@@ -42,7 +42,14 @@
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="float:left;">
-                                        <img src="/image/use.png" class="iconModule">
+                                        <img src="/image/icon_use.png" class="iconModule">
+                                    </div>
+                                    <div class="box" style="clear: left; margin-left:40%; width:50px; height: 50px;">
+                                        <span class="box__line"></span>
+                                        <span class="box__line"></span>
+                                    </div>
+                                    <div style="margin-left:40%;">
+                                        <img src="/image/icon_grid.png" class="iconModule">
                                     </div>
                                     <div>@{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ</div>
                                     <ul class="">
