@@ -12,8 +12,8 @@
     }
     .iconModule{
         filter: hue-rotate(240deg);
-        height:5vw;
-        width:5vw;
+        height:10vw;
+        width:10vw;
         border-radius: 50%;
     }
 
