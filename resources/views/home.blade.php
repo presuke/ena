@@ -40,8 +40,7 @@
                                     </div>
                                     <div style="float: left;">
                                         <img src="/image/icon_hi.png" class="iconModule" style="float:left;">
-                                        <div style="clear:left;"></div>
-                                        <v-progress-circular :model-value="hybridInverter.temp_dc" :color="[hybridInverter.temp_dc<30?'#99F':hybridInverter.temp_dc<50?'yellow':'red']" :size="40" :width="7" style="float:left;">
+                                        <v-progress-circular :model-value="hybridInverter.temp_dc" :color="[hybridInverter.temp_dc<30?'#99F':hybridInverter.temp_dc<50?'yellow':'red']" :size="40" :width="7" style="clear:left; float:left;">
                                             <div style="color:white;">@{{ Math.ceil(hybridInverter.temp_dc)}}℃</div>
                                         </v-progress-circular>
                                         <v-progress-circular :model-value="hybridInverter.temp_ac" :color="[hybridInverter.temp_ac<30?'#99F':hybridInverter.temp_ac<50?'yellow':'red']" :size="40" :width="7" style="float:left;">
