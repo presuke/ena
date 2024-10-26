@@ -49,13 +49,16 @@
                                         <img src="/image/icon_use.png" class="iconModule">
                                         <div style="font-size:2.5vw; color:white;">@{{hybridInverter.inverter_power.toLocaleString()}}v</div>
                                     </div>
-                                    <div class="box" style="clear: left; margin-left: 31vw; width: 1vw; height: 5vw;">
-                                        <span class="box__line" style="display: none;"></span>
-                                        <span class="box__line"></span>
+                                    <div style="clear:left; margin-left: 31vw;"></div>
+                                    <div class="box" style="float: left; width: 1vw; height: 5vw;">
                                         <span class="box__line" style="display: none;"></span>
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="margin-left: 27.5vw; float:left;">
+                                    <div class="box" style="float: left; width: 1vw; height: 5vw;">
+                                        <span class="box__line" style="display: none;"></span>
+                                        <span class="box__line"></span>
+                                    </div>
+                                    <div style="clear:left; float:left; margin-left: 27.5vw; ">
                                         <img src="/image/icon_battery.png" class="iconModule">
                                         <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" :size="45" :width="8">
                                             <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
