@@ -23,24 +23,24 @@
                                 </div>
                                 <div style="padding: 10px; background-color:#111;">
                                     <div style="float: left;"><img src="/image/icon_solor.png" class="iconModule"></div>
-                                    <div class="box" style="float: left; margin-top: 5vw; width: calc(20vw); height: 5vw;">
+                                    <div class="box" style="float: left; margin-top: 5vw; width: 20vw; height: 5vw;">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="clear: left; float: left;"><img src="/image/icon_grid.png" class="iconModule"></div>
-                                    <div class="box" style="float: left; margin-top: 5vw; width: calc(15vw); height: 5vw;">
+                                    <div class="box" style="float: left; margin-top: 5vw; width: 15vw; height: 5vw;">
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="float: left;"><img src="/image/icon_hi.png" class="iconModule"></div>
-                                    <div class="box" style="float: left; margin-top: 5vw; width: calc(15vw); height: 5vw;">
+                                    <div class="box" style="float: left; margin-top: 5vw; width: 15vw; height: 5vw;">
                                         <span class="box__line"></span>
                                     </div>
                                     <div style="float: left;"><img src="/image/icon_use.png" class="iconModule"></div>
-                                    <div class="box" style="clear: left; margin-left: calc(29vw); width: 1vw; height: 5vw; transform: scaleY(-1);">
+                                    <div class="box" style="clear: left; margin-left: 29vw; width: 1vw; height: 5vw; transform: scaleY(-1);">
                                         <span class="box__line" style="display: none;"></span>
                                         <span class="box__line"></span>
                                     </div>
-                                    <div style="margin-left: calc(25vw);">
+                                    <div style="margin-left: 25vw;">
                                         <img src="/image/icon_battery.png" class="iconModule">
                                     </div>
                                 </div>
