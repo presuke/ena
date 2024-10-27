@@ -69,7 +69,7 @@
                                             </v-progress-circular>
                                         </div>
                                         <div style="font-size:2.5vw; color:white; clear:left; float:left;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
-                                        <div style="clear:left; font-size:2.5vw; color:white;">⚡️@{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
+                                        <div style="clear:left; font-size:2.5vw; color:white;">⚡️@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                     </div>
                                     <div style="clear:left; color:#CCF; text-align:right;">
                                         @{{Math.floor( (new Date() - new Date(hybridInverter.create_at)) / 1000 / 60)}}分前データ
