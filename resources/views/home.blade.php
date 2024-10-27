@@ -36,8 +36,8 @@
                                         <div style="font-size:1.5vw; color:white;">@{{hybridInverter.grid_voltage.toLocaleString()}}v</div>
                                         <div style="font-size:1.5vw; color:white;">@{{hybridInverter.grid_input_current.toLocaleString()}}A (@{{hybridInverter.grid_frequency}}Hz)</div>
                                     </div>
-                                    <div class="box" style="float: left; margin-top: 5vw; width: 15vw; height: 5vw;" v-if="hybridInverter.grid_input_current > 0">
-                                        <span class="box__line"></span>
+                                    <div class="box" style="float: left; margin-top: 5vw; width: 15vw; height: 5vw;">
+                                        <span class="box__line" v-if="hybridInverter.grid_input_current > 0"></span>
                                     </div>
                                     <div style="float: left;">
                                         <img src="/image/icon_hi.png" class="iconModule" style="float:left;">
