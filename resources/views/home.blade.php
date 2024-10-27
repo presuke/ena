@@ -38,6 +38,7 @@
                                     </div>
                                     <div class="box" style="float: left; margin-top: 5vw; width: 15vw; height: 5vw;">
                                         <span class="box__line" v-if="hybridInverter.grid_input_current > 0"></span>
+                                        <br />
                                     </div>
                                     <div style="float: left;">
                                         <img src="/image/icon_hi.png" class="iconModule" style="float:left;">
