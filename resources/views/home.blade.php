@@ -57,7 +57,7 @@
                                             <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                             <!--line-->
                                             <div style="float:left;">
-                                                <div style="margin-left:min(4vw, 40px); height:min(5vw, 50px);">
+                                                <div style="margin-left:min(7vw, 70px); height:min(5vw, 50px);">
                                                     <div class="box" style="float: left; width: 1vw; height:100%;" v-if="hybridInverter.battery_current < 0">
                                                         <span class="box__line" style="display: none;"></span>
                                                         <span class="box__line"></span>
@@ -88,7 +88,7 @@
                                                     <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" style="float:left; width:5vw; height:5vw; max-width:50px; max-height:50px;">
                                                         <div>@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                     </v-progress-circular>
-                                                    <div style="font-size:min(2vw, 16px); float:left;">⚡️@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
+                                                    <div class="fontMain" style="clear:left;">⚡️@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
                                                 </div>
                                             </div>
                                         </div>
