@@ -26,7 +26,7 @@
         0 0 42px #66f;
     }
     .fontSub{
-        font-size:min(2w, 24px);
+        font-size:min(2vw, 24px);
     }
 
     .val {
