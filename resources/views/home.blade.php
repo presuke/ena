@@ -50,9 +50,11 @@
                                         <div style="width:min(10vw, 100px); float:left;">
                                             <!-- hi-->
                                             <div>
-                                                <img src="/image/icon_hi.png" class="iconModule" style="float:left;">
-                                                <div class="fontMain">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
+                                                <img src="/image/icon_hi.png" class="iconModule">
                                             </div>
+                                            <div class="fontMain">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
+                                            <div class="fontSub">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
+                                            <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                             <!--line-->
                                             <div style="float:left;">
                                                 <div style="margin-left:min(4vw, 40px); float:left;"><br /></div>
@@ -91,8 +93,6 @@
                                         <div style="width:min(10vw, 100px); height:min(20vw,200px); float:left;">
                                             <img src="/image/icon_use.png" class="iconModule">
                                             <div class="fontMain">@{{Math.floor(hybridInverter.inverter_power).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
-                                            <div class="fontSub">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
-                                            <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                         </div>
 
                                         <div style="clear:left;">@{{hybridInverter.create_at}}</div>
