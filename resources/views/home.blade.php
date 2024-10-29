@@ -52,7 +52,7 @@
                                             <div>
                                                 <img src="/image/icon_hi.png" class="iconModule">
                                             </div>
-                                            <div class="fontMain">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
+                                            <div class="fontMain">@{{(hybridInverter.inverter_voltage * hybridInverter.inverter_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
                                             <div class="fontSub">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
                                             <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                             <!--line-->
