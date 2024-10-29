@@ -73,7 +73,7 @@
                                             <span class="box__line"></span>
                                         </div>
                                     </div>
-                                    <div style="width:30vw; max-width:300px; margin-top:-15vw; clear:left; float:left;">
+                                    <div style="width:30vw; max-width:300px; margin-top:-10vw; clear:left; float:left;">
                                         <br />
                                     </div>
                                     <div style="width:20vw; max-width:200px; height:20vw; max-height:200px; float:left;">
