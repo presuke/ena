@@ -27,7 +27,7 @@
                                             <img src="/image/icon_solor.png" class="iconModule">
                                             <div class="fontMain">@{{Math.floor(hybridInverter.pv_power).toLocaleString()}}w</div>
                                         </div>
-                                        <div style="width:min(25vw, 250px); height: min(20vw, 200px); float:left;">
+                                        <div style="width:min(25vw, 250px); height: min(15vw, 150px); float:left;">
                                             <div style="width:100%; height:min(5vw, 50px);"><br /></div>
                                             <div class="box" style="width:100%; height:100%;" v-if="hybridInverter.pv_power == 0">
                                                 <span class="box__line"></span>
@@ -57,14 +57,17 @@
                                             <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                             <!--line-->
                                             <div style="float:left;">
-                                                <div style="margin-left:min(4vw, 40px); float:left;"><br /></div>
-                                                <div class="box" style="float: left; width: 1vw; height:5vw;" v-if="hybridInverter.battery_current < 0">
-                                                    <span class="box__line" style="display: none;"></span>
-                                                    <span class="box__line"></span>
-                                                </div>
-                                                <div class="box" style="float: left; width: 1vw; height:5vw; transform: scaleY(-1);" v-if="hybridInverter.battery_current > 0">
-                                                    <span class="box__line" style="display: none;"></span>
-                                                    <span class="box__line"></span>
+                                                <div style="margin-left:min(4vw, 40px); height:min(5vw, 50px);">
+                                                    <div class="box" style="float: left; width: 1vw; height:100%;" v-if="hybridInverter.battery_current < 0">
+                                                        <span class="box__line" style="display: none;"></span>
+                                                        <span class="box__line"></span>
+                                                        4w
+                                                    </div>
+                                                    <div class="box" style="float: left; width: 1vw; height:100%; transform: scaleY(-1);" v-if="hybridInverter.battery_current > 0">
+                                                        <span class="box__line" style="display: none;"></span>
+                                                        <span class="box__line"></span>
+                                                        5w
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- batt -->
