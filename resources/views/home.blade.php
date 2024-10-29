@@ -72,10 +72,10 @@
                                             <div style="width:min(30vw, 300px); clear:left;">
                                                 <div class="fontMain" style="width:min(10vw, 100px);">
                                                     <div v-if="hybridInverter.grid_battery_charge_current != 0">
-                                                        🔌@{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
+                                                        🔌@{{Math.floor(hybridInverter.battery_charge_power).toLocaleString()}}w
                                                     </div>
                                                     <div v-if="hybridInverter.pv_battery_charge_current != 0">
-                                                        🌞@{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
+                                                        🌞@{{Math.floor(hybridInverter.battery_charge_power).toLocaleString()}}w
                                                     </div>
                                                 </div>
                                                 <div class="fontMain" style="width:min(10vw, 100px);" v-if="hybridInverter.battery_current > 0">
