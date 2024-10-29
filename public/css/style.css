@@ -12,10 +12,8 @@
     }
     .iconModule{
         filter: hue-rotate(240deg);
-        width:10vw;
-        max-width:100px;
-        height:10vw;
-        max-height:100px;
+        width:min(15vw, 150px);
+        height:min(15vw, 150px);
         border-radius: 50%;
     }
     .fontMain{
