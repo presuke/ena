@@ -23,13 +23,9 @@
         font-style: italic;
         text-shadow:
         0 0 7px #fff,
-        0 0 10px #fff,
-        0 0 21px #fff,
-        0 0 42px #0fa,
-        0 0 82px #0fa,
-        0 0 92px #0fa,
-        0 0 102px #0fa,
-        0 0 151px #0fa;
+        0 0 10px #ccf,
+        0 0 21px #99f,
+        0 0 42px #66f;
     }
     .fontSub{
         font-size:min(1.5vw, 18px);
