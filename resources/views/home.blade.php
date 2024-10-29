@@ -54,7 +54,8 @@
                                             </div>
                                             <div class="fontMain">@{{(hybridInverter.inverter_voltage * hybridInverter.inverter_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
                                             <div class="fontSub">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
-                                            <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
+                                            <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A</div>
+                                            <div class="fontSub">(@{{hybridInverter.inverter_frequency}}Hz)</div>
                                             <!--line-->
                                             <div style="float:left;">
                                                 <div style="margin-left:min(7vw, 70px); height:min(5vw, 50px);">
@@ -85,7 +86,7 @@
                                                     <img src="/image/icon_battery.png" class="iconModule">
                                                     <div class="fontMain" style="margin-top:-3vw; z-index:1;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
                                                 </div>
-                                                <div style="width:min(15vw, 150px); float:left;">
+                                                <div style="width:min(10vw, 100px); float:left;">
                                                     <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" style="clear:left; width:5vw; height:5vw; max-width:50px; max-height:50px;">
                                                         <div>@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                     </v-progress-circular>
