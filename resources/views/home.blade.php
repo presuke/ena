@@ -55,7 +55,7 @@
                                             </div>
                                             <!--line-->
                                             <div style="float:left;">
-                                                <div style="width:(4vw, 40px); float:left;"><br /></div>
+                                                <div style="margin-left:min(4vw, 40px); float:left;"><br /></div>
                                                 <div class="box" style="float: left; width: 1vw; height:5vw;" v-if="hybridInverter.battery_current < 0">
                                                     <span class="box__line" style="display: none;"></span>
                                                     <span class="box__line"></span>
