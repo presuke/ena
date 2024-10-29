@@ -71,17 +71,14 @@
                                             <!-- batt -->
                                             <div style="width:min(30vw, 300px); clear:left;">
                                                 <div class="fontMain" style="width:min(10vw, 100px);">
-                                                    <span v-if="hybridInverter.grid_battery_charge_current != 0">🔌</span>
-                                                    <span v-if="hybridInverter.pv_battery_charge_current != 0">🌞</span>
-                                                    <span v-if="hybridInverter.battery_charge_power != 0">
+                                                    <div style="float:left;" v-if="hybridInverter.grid_battery_charge_current != 0">🔌</div>
+                                                    <div style="float:left;" v-if="hybridInverter.pv_battery_charge_current != 0">🌞</div>
+                                                    <div style="float:left;" v-if="hybridInverter.battery_charge_power != 0">
                                                         @{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
-                                                    </span>
+                                                    </div>
                                                 </div>
-                                                <div class="fontMain" style="width:min(10vw, 100px);">
+                                                <div class="fontMain" style="width:min(10vw, 100px);" v-if="hybridInverter.battery_current > 0">
                                                     @{{(hybridInverter.battery_voltage * hybridInverter.battery_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA
-                                                </div>
-                                                <div class="fontMain" style="width:min(10vw, 100px);">
-                                                    🔌@{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
                                                 </div>
                                                 <div style="width:min(10vw, 100px); float:left;">
                                                     <img src="/image/icon_battery.png" class="iconModule">
