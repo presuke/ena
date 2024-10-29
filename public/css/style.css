@@ -17,7 +17,7 @@
         border-radius: 50%;
     }
     .fontMain{
-        margin-top:-5vw;
+        margin-top:-3vw;
         position: relative;
         z-index:1;
         font-size:min(3vw, 36px);
@@ -29,6 +29,8 @@
         0 0 42px #66f;
     }
     .fontSub{
+        position: relative;
+        z-index:1;
         font-size:min(2vw, 24px);
     }
 
