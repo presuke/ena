@@ -65,6 +65,7 @@
                                             <!-- batt -->
                                             <div style="width:30vw; max-width:300px;clear:left;">
                                                 <div style="width:10vw; max-width:100px; float:left;">
+                                                    <div style="font-size:2vw;">@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                                     <img src="/image/icon_battery.png" class="iconModule">
                                                 </div>
                                                 <div style="float:left; width:10vw; max-width:100px;">
@@ -73,7 +74,6 @@
                                                     </v-progress-circular>
                                                     <div style="font-size:2vw; float:left;">⚡️@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
                                                 </div>
-                                                <div style="clear:left; font-size:2vw;">@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                             </div>
                                         </div>
                                         <div style="width:20vw; max-width:200px; height:20vw; max-height:200px; float:left;">
