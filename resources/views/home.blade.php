@@ -52,7 +52,8 @@
                                                 <div style="font-size:2vw;">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                             </div>
                                             <!--line-->
-                                            <div style="width:10vw; margin-left:4vw; float:left;">
+                                            <div style="float:left;">
+                                                <div style="width:4vw; max-width:40px; float:left;"><br /></div>
                                                 <div class="box" style="float: left; width: 1vw; height: 10vw;" v-if="hybridInverter.battery_current < 0">
                                                     <span class="box__line" style="display: none;"></span>
                                                     <span class="box__line"></span>
