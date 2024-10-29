@@ -21,6 +21,16 @@
                                     <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting();" />　
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
+                                <div style="width:5vw; height:5vw; background-color:#00f; float:left;">a</div>
+                                <div style="width:25vw; height:5vw; background-color:#33f; float:left;">b</div>
+                                <div style="width:5vw; height:5vw; background-color:#66f; float:left;">c</div>
+                                <div style="width:5vw; height:5vw; background-color:#99f; clear:left; float:left;">a</div>
+                                <div style="width:25vw; height:5vw; background-color:#ccf; float:left;">b</div>
+                                <div style="width:5vw; height:5vw; background-color:#0f0; float:left;">c</div>
+                                <div style="width:5vw; height:5vw; background-color:#3f3; clear:left; float:left;">a</div>
+                                <div style="width:25vw; height:5vw; background-color:#6f6; float:left;">b</div>
+                                <div style="width:5vw; height:5vw; background-color:#9f9; float:left;">c</div>
+                                <div style="width:5vw; height:5vw; background-color:#cfc; clear:left;">z</div>
                                 <div style="padding: 10px; background-color:#333;">
                                     <div style="float: left;">
                                         <img src="/image/icon_solor.png" class="iconModule">
@@ -502,7 +512,7 @@
                             var num = 0;
 
                             key2 = keyTotal.PowerPV;
-                            num = row['pv_power'] * intervalPerHour / kw;
+                            num = row['pv_power'] * intervalPerHour;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
                             }
