@@ -21,7 +21,7 @@
                                     <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting();" />　
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
-                                <div style="background-color:#333; max-width:1000px;">
+                                <div style="background-color:#333; max-width:1000px; padding:1vw;">
                                     <div style="width:10vw; max-width:100px; float:left;">
                                         <img src="/image/icon_solor.png" class="iconModule">
                                         <div style="font-size:2vw; color:white;">@{{Math.floor(hybridInverter.pv_power).toLocaleString()}}w</div>
@@ -87,14 +87,8 @@
                                         <div style="font-size:1.5vw; color:white;">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
                                         <div style="font-size:1.5vw; color:white;">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                     </div>
-                                    <div style="width:30vw; max-width:300px; clear:left; float:left;">
-                                        <br />
-                                    </div>
-                                    <div style="width:30vw; max-width:300px; margin-top:-10vw; clear:left; float:left;">
-                                        <br />
-                                    </div>
 
-                                    <div style="width:5vw; height:5vw; background-color:#cfc; clear:left;">@{{hybridInverter.create_at}}</div>
+                                    <div style="clear:left;">@{{hybridInverter.create_at}}</div>
                                 </div>
 
                                 <ul class="">
