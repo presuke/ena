@@ -26,7 +26,7 @@
                                     <div style="font-size:2.5vw; color:white;">@{{hybridInverter.pv_power.toLocaleString()}}w</div>
                                 </div>
                                 <div style="width:20vw; height:10vw; float:left;">
-                                    <div class="box" style="" v-if="hybridInverter.pv_power > 0">
+                                    <div class="box" style="margin-top:5vw; width:25vw; height:15vw;" v-if="hybridInverter.pv_power > 0">
                                         <span class="box__line"></span>
                                         <span class="box__line"></span>
                                     </div>
@@ -38,7 +38,7 @@
                                     <div style="font-size:1.5vw; color:white;">@{{hybridInverter.grid_input_current.toLocaleString()}}A (@{{hybridInverter.grid_frequency}}Hz)</div>
                                 </div>
                                 <div style="width:20vw; height:20vw; float:left;">
-                                    <div class="box" style="width: 100%; height: 100%;">
+                                    <div class="box" style="margin-top:5vw; width:20vw; height:10vw;">
                                         <span class="box__line" v-if="hybridInverter.grid_input_current > 0"></span>
                                         <br />
                                     </div>
@@ -48,7 +48,7 @@
                                     <div style="font-size:2.5vw; color:white;">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                 </div>
                                 <div style="width:20vw; height:20vw; float:left;">
-                                    <div class="box" style="width: 100%; height: 100%;">
+                                    <div class="box" style="margin-top:5vw; width:20vw; height:10vw;">
                                         <span class="box__line" v-if="hybridInverter.inverter_power > 0"></span>
                                         <br />
                                     </div>
@@ -59,9 +59,9 @@
                                     <div style="font-size:1.5vw; color:white;">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
                                     <div style="font-size:1.5vw; color:white;">@{{hybridInverter.inverter_current.toLocaleString()}}A (@{{hybridInverter.inverter_frequency}}Hz)</div>
                                 </div>
-                                <div style="width:20vw; height:20vw; background-color:#3f3; clear:left; float:left;">
+                                <div style="width:30vw; height:5vw; background-color:#3f3; clear:left; float:left;">
                                 </div>
-                                <div style="width:10vw; height:20vw; background-color:#9f9; float:left;">
+                                <div style="width:10vw; height:5vw; background-color:#9f9; float:left;">
                                     <div class="box" style="float: left; width: 1vw; height: 10vw; top:-5vw;" v-if="hybridInverter.battery_current < 0">
                                         <span class="box__line" style="display: none;"></span>
                                         <span class="box__line"></span>
