@@ -61,19 +61,27 @@
                                                     <div class="box" style="float: left; width: 1vw; height:100%;" v-if="hybridInverter.battery_current < 0">
                                                         <span class="box__line" style="display: none;"></span>
                                                         <span class="box__line"></span>
-                                                        4w
                                                     </div>
                                                     <div class="box" style="float: left; width: 1vw; height:100%; transform: scaleY(-1);" v-if="hybridInverter.battery_current > 0">
                                                         <span class="box__line" style="display: none;"></span>
                                                         <span class="box__line"></span>
-                                                        5w
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- batt -->
                                             <div style="width:min(30vw, 300px); clear:left;">
-                                                <div class="fontMain" style="width:10vw; max-width:100px;">
-                                                    @{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
+                                                <div class="fontMain" style="width:min(10vw, 100px);">
+                                                    <span v-if="hybridInverter.grid_battery_charge_current != 0">🔌</span>
+                                                    <span v-if="hybridInverter.pv_battery_charge_current != 0">🌞</span>
+                                                    <span v-if="hybridInverter.battery_charge_power != 0">
+                                                        @{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
+                                                    </span>
+                                                </div>
+                                                <div class="fontMain" style="width:min(10vw, 100px);">
+                                                    @{{(hybridInverter.battery_voltage * hybridInverter.battery_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA
+                                                </div>
+                                                <div class="fontMain" style="width:min(10vw, 100px);">
+                                                    🔌@{{hybridInverter.battery_charge_power.toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
                                                 </div>
                                                 <div style="width:min(10vw, 100px); float:left;">
                                                     <img src="/image/icon_battery.png" class="iconModule">
@@ -604,7 +612,7 @@
                         $(".chartGudance").slideUp();
 
                         //共通
-                        const ICON_PV_CHARGE = '⚡';
+                        const ICON_PV_CHARGE = '🌞';
                         const ICON_GRID_CHARGE = '🔌';
                         const common_x = {
                             ticks: {
