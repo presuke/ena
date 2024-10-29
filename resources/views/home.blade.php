@@ -27,8 +27,8 @@
                                             <img src="/image/icon_solor.png" class="iconModule">
                                             <div class="fontMain">@{{Math.floor(hybridInverter.pv_power).toLocaleString()}}w</div>
                                         </div>
-                                        <div style="width:min(25vw, 250px); height: min(15vw, 150px); float:left;">
-                                            <div style="width:100%; height:min(5vw, 50px);"><br /></div>
+                                        <div style="width:min(22.5vw, 225px); height: min(15vw, 150px); float:left;">
+                                            <div style="width:100%; height:min(7.5vw, 75px);"><br /></div>
                                             <div class="box" style="width:100%; height:100%;" v-if="hybridInverter.pv_power == 0">
                                                 <span class="box__line"></span>
                                                 <span class="box__line"></span>
@@ -40,8 +40,8 @@
                                             <div class="fontSub">@{{hybridInverter.grid_voltage.toLocaleString()}}v</div>
                                             <div class="fontSub">@{{hybridInverter.grid_input_current.toLocaleString()}}A (@{{hybridInverter.grid_frequency}}Hz)</div>
                                         </div>
-                                        <div style="width:min(20vw, 200px); float:left;">
-                                            <div style="width:100%; height:min(5vw, 50px);"><br /></div>
+                                        <div style="width:min(15vw, 150px); float:left;">
+                                            <div style="width:100%; height:min(7.5vw, 75px);"><br /></div>
                                             <div class="box">
                                                 <span class="box__line" v-if="hybridInverter.grid_input_current > 0"></span>
                                                 <br />
@@ -92,8 +92,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="width:min(20vw, 200px); height:min(20vw, 200px); float:left;">
-                                            <div style="width:100%; height:min(5vw, 50px);"><br /></div>
+                                        <div style="width:min(15vw, 150px); height:min(15vw, 150px); float:left;">
+                                            <div style="width:100%; height:min(7.5vw, 75px);"><br /></div>
                                             <div class="box" style="width:100%; height:100%;">
                                                 <span class="box__line" v-if="hybridInverter.inverter_power > 0"></span>
                                                 <br />
