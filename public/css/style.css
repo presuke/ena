@@ -18,6 +18,12 @@
         max-height:100px;
         border-radius: 50%;
     }
+    .fontMain{
+        font-size:min(2vw, 24px);
+    }
+    .fontSub{
+        font-size:min(1.5vw, 18px);
+    }
 
     .val {
         filter: hue-rotate(240deg);
