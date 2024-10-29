@@ -64,8 +64,10 @@
                                             </div>
                                             <!-- batt -->
                                             <div style="width:30vw; max-width:300px;clear:left;">
+                                                <div style="width:10vw; max-width:100px; font-size:2vw;">
+                                                    @{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w
+                                                </div>
                                                 <div style="width:10vw; max-width:100px; float:left;">
-                                                    <div style="font-size:2vw;">@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                                     <img src="/image/icon_battery.png" class="iconModule">
                                                 </div>
                                                 <div style="float:left; width:10vw; max-width:100px;">
