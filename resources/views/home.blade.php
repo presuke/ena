@@ -28,7 +28,8 @@
                                             <div class="fontMain">@{{Math.floor(hybridInverter.pv_power).toLocaleString()}}w</div>
                                         </div>
                                         <div style="width:25vw; height: 20vw; max-width:250px; max-height:200px; float:left;">
-                                            <div class="box" style="margin-top:5vw; width:100%; height:100%;" v-if="hybridInverter.pv_power == 0">
+                                            <div style="width:100%; height:min(5vw, 50px);"><br /></div>
+                                            <div class="box" style="width:100%; height:100%;" v-if="hybridInverter.pv_power == 0">
                                                 <span class="box__line"></span>
                                                 <span class="box__line"></span>
                                             </div>
