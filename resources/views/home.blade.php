@@ -26,7 +26,7 @@
                                         <img src="/image/icon_solor.png" class="iconModule">
                                         <div style="font-size:2vw; color:white;">@{{Math.floor(hybridInverter.pv_power).toLocaleString()}}w</div>
                                     </div>
-                                    <div style="width:25vw; height: 20vw; max-width:200px; max-height:200px; float:left;">
+                                    <div style="width:25vw; height: 20vw; max-width:250px; max-height:200px; float:left;">
                                         <div class="box" style="margin-top:5vw; width:100%; height:100%;" v-if="hybridInverter.pv_power == 0">
                                             <span class="box__line"></span>
                                             <span class="box__line"></span>
@@ -73,7 +73,7 @@
                                             <span class="box__line"></span>
                                         </div>
                                     </div>
-                                    <div style="width:30vw; max-width:300px; clear:left; float:left;">
+                                    <div style="width:30vw; max-width:300px; margin-top:-15vw; clear:left; float:left;">
                                         <br />
                                     </div>
                                     <div style="width:20vw; max-width:200px; height:20vw; max-height:200px; float:left;">
