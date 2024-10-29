@@ -44,7 +44,7 @@
                                             <br />
                                         </div>
                                     </div>
-                                    <div style="width:10vw; height:20vw; background-color:#0f0; float:left;">
+                                    <div style="width:10vw; height:20vw; float:left;">
                                         <img src="/image/icon_hi.png" class="iconModule" style="float:left;">
                                         <div style="font-size:2.5vw; color:white;">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                     </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div style="width:30vw; height:5vw; clear:left; float:left;">
                                     </div>
-                                    <div style="width:10vw; height:5vw; left:4vw; top:-5vw; background-color:#9f9; float:left;">
+                                    <div style="width:10vw; height:5vw; margin-top:-5vw; margin-left:4vw; float:left;">
                                         <div class="box" style="float: left; width: 1vw; height: 10vw;" v-if="hybridInverter.battery_current < 0">
                                             <span class="box__line" style="display: none;"></span>
                                             <span class="box__line"></span>
@@ -72,9 +72,9 @@
                                             <span class="box__line"></span>
                                         </div>
                                     </div>
-                                    <div style="width:30vw; height:20vw; background-color:#3f3; clear:left; float:left;">
+                                    <div style="width:30vw; height:20vw; clear:left; float:left;">
                                     </div>
-                                    <div style="width:20vw; height:20vw; background-color:#9f9; float:left;">
+                                    <div style="width:20vw; height:20vw; float:left;">
                                         <img src="/image/icon_battery.png" class="iconModule" style="float:left;">
                                         <div style="float:left;">
                                             <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" style="clear:left; float:left; width:5vw; height:5vw;">
