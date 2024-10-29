@@ -45,8 +45,24 @@
                                         </div>
                                     </div>
                                     <div style="width:10vw; max-width:100px; float:left;">
-                                        <img src="/image/icon_hi.png" class="iconModule" style="float:left;">
-                                        <div style="font-size:2vw; color:white;">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
+                                        <!-- hi-->
+                                        <div>
+                                            <img src="/image/icon_hi.png" class="iconModule" style="float:left;">
+                                            <div style="font-size:2vw; color:white;">@{{(hybridInverter.battery_voltage * (hybridInverter.battery_current < 0 ? 0 : hybridInverter.battery_current)).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
+                                        </div>
+                                        <!-- batt -->
+                                        <div style="width:20vw; max-width:200px; height:20vw; max-height:200px; float:left;">
+                                            <div style="float:left; width:10vw; max-width:100px;">
+                                                <img src="/image/icon_battery.png" class="iconModule" style="float:left;">
+                                            </div>
+                                            <div style="float:left; width:10vw; max-width:100px;">
+                                                <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" style="clear:left; float:left; width:5vw; height:5vw;">
+                                                    <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
+                                                </v-progress-circular>
+                                            </div>
+                                            <div style="font-size:2vw; color:white; clear:left; float:left;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
+                                            <div style="clear:left; font-size:2vw; color:white;">⚡️@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
+                                        </div>
                                     </div>
                                     <div style="width:20vw; max-width:200px; height:20vw; max-height:200px; float:left;">
                                         <div class="box" style="margin-top:5vw; width:100%; height:100%;">
@@ -76,18 +92,7 @@
                                     <div style="width:30vw; max-width:300px; margin-top:-10vw; clear:left; float:left;">
                                         <br />
                                     </div>
-                                    <div style="width:20vw; max-width:200px; height:20vw; max-height:200px; float:left;">
-                                        <div style="float:left; width:10vw; max-width:100px;">
-                                            <img src="/image/icon_battery.png" class="iconModule" style="float:left;">
-                                        </div>
-                                        <div style="float:left; width:10vw; max-width:100px;">
-                                            <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" style="clear:left; float:left; width:5vw; height:5vw;">
-                                                <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
-                                            </v-progress-circular>
-                                        </div>
-                                        <div style="font-size:2vw; color:white; clear:left; float:left;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
-                                        <div style="clear:left; font-size:2vw; color:white;">⚡️@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
-                                    </div>
+
                                     <div style="width:5vw; height:5vw; background-color:#cfc; clear:left;">@{{hybridInverter.create_at}}</div>
                                 </div>
 
