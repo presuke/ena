@@ -40,7 +40,7 @@
                                     </div>
                                     <div style="width:20vw; max-width:200px; float:left;">
                                         <div class="box" style="margin-top:5vw;">
-                                            <span class="box__line" v-if="hybridInverter.grid_input_current == 0"></span>
+                                            <span class="box__line" v-if="hybridInverter.grid_input_current > 0"></span>
                                             <br />
                                         </div>
                                     </div>
@@ -59,14 +59,14 @@
                                                 <v-progress-circular :model-value="hybridInverter.battery_soc" :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'green':'yellow']" style="clear:left; float:left; width:5vw; height:5vw;">
                                                     <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                 </v-progress-circular>
+                                                <div style="font-size:2vw; color:white; clear:left; float:left;">⚡️@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
                                             </div>
-                                            <div style="font-size:2vw; color:white; clear:left; float:left;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
-                                            <div style="clear:left; font-size:2vw; color:white;">⚡️@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
+                                            <div style="clear:left; font-size:2vw; color:white;">@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                         </div>
                                     </div>
                                     <div style="width:20vw; max-width:200px; height:20vw; max-height:200px; float:left;">
                                         <div class="box" style="margin-top:5vw; width:100%; height:100%;">
-                                            <span class="box__line" v-if="hybridInverter.inverter_power == 0"></span>
+                                            <span class="box__line" v-if="hybridInverter.inverter_power > 0"></span>
                                             <br />
                                         </div>
                                     </div>
