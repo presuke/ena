@@ -86,7 +86,7 @@
                                         <div style="font-size:2.5vw; color:white; clear:left; float:left;">@{{hybridInverter.battery_voltage.toLocaleString()}}v</div>
                                         <div style="clear:left; font-size:2.5vw; color:white;">⚡️@{{(hybridInverter.battery_voltage * hybridInverter.battery_current * -1).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                     </div>
-                                    <div style="width:5vw; height:5vw; background-color:#cfc; clear:left;">z</div>
+                                    <div style="width:5vw; height:5vw; background-color:#cfc; clear:left;">@{{hybridInverter.create_at}}</div>
                                 </div>
                                 <ul class="">
                                     <li>
