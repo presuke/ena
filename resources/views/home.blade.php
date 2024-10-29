@@ -54,11 +54,11 @@
                                             <!--line-->
                                             <div style="float:left;">
                                                 <div style="width:4vw; max-width:40px; float:left;"><br /></div>
-                                                <div class="box" style="float: left; width: 1vw; height: 10vw;" v-if="hybridInverter.battery_current < 0">
+                                                <div class="box" style="float: left; width: 1vw; height:5vw;" v-if="hybridInverter.battery_current < 0">
                                                     <span class="box__line" style="display: none;"></span>
                                                     <span class="box__line"></span>
                                                 </div>
-                                                <div class="box" style="float: left; width: 1vw; height: 10vw; transform: scaleY(-1);" v-if="hybridInverter.battery_current > 0">
+                                                <div class="box" style="float: left; width: 1vw; height:5vw; transform: scaleY(-1);" v-if="hybridInverter.battery_current > 0">
                                                     <span class="box__line" style="display: none;"></span>
                                                     <span class="box__line"></span>
                                                 </div>
