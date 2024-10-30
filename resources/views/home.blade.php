@@ -89,12 +89,12 @@
                                                     <img src="/image/icon_battery.png" class="iconModule">
                                                     <div class="fontMain" style="margin-top:-3vw; z-index:1;">@{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
                                                 </div>
-                                                <div style="width:min(10vw, 100px); float:left;">
+                                                <div style="width:min(10vw, 100px); margin-left:max(-5vw, -50px) float:left;">
                                                     <v-progress-circular
                                                         :model-value="hybridInverter.battery_soc"
                                                         :color="[hybridInverter.battery_soc<30?'#f33':hybridInverter.battery_soc<50?'#f93':hybridInverter.battery_soc<70?'#cf3':'#6f6']"
                                                         style="clear:left; width:min(5vw, 50px); height:min(5vw, 50px);">
-                                                        <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
+                                                        <div style="color:white; z-index:1;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                     </v-progress-circular>
                                                 </div>
                                             </div>
