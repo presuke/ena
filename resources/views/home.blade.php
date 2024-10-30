@@ -31,7 +31,7 @@
                                         </div>
                                         <div style="width:min(22.5vw, 225px); height: min(20vw, 200px); float:left;">
                                             <div style="width:100%; height:min(7.5vw, 75px);"><br /></div>
-                                            <div class="box" style="width:100%; height:100%;" v-if="hybridInverter.pv_power == 0">
+                                            <div class="box" style="width:100%; height:100%;" v-if="hybridInverter.pv_power > 0">
                                                 <span class="box__line"></span>
                                                 <span class="box__line"></span>
                                             </div>
@@ -75,10 +75,10 @@
                                             <!-- batt -->
                                             <div style="width:min(30vw, 300px); clear:left;">
                                                 <div class="fontMain" style="width:min(15vw, 150px);">
-                                                    <div v-if="hybridInverter.grid_battery_charge_current* hybridInverter.grid_battery_charge_voltage != 0">
+                                                    <div v-if="hybridInverter.grid_battery_charge_current* hybridInverter.grid_battery_charge_voltage > 0">
                                                         🔌@{{Math.floor(hybridInverter.battery_charge_power).toLocaleString()}}w
                                                     </div>
-                                                    <div v-if="hybridInverter.pv_battery_charge_current * hybridInverter.pv_power != 0">
+                                                    <div v-if="hybridInverter.pv_battery_charge_current * hybridInverter.pv_power > 0">
                                                         🌞@{{Math.floor(hybridInverter.battery_charge_power).toLocaleString()}}w
                                                     </div>
                                                 </div>
