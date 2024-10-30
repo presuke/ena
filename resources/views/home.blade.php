@@ -23,7 +23,7 @@
                                 </div>
                                 <div style="background-color:#333;">
                                     <div style="max-width:1000px; padding: 5px; margin:10px auto; text-align:center; color:white;">
-                                        <div style="width:min(15vw, 150px); float:left;" :style="[hybridInverter.grid_input_current > 0 ? '' : 'filter:brightness(20%);']">
+                                        <div style="width:min(15vw, 150px); float:left;" :style="[hybridInverter.pv_power > 0 ? '' : 'filter:brightness(50%);']">
                                             <img src="/image/icon_solor.png" class="iconModule">
                                             <div class="fontMain">@{{Math.floor(hybridInverter.pv_power).toLocaleString()}}w</div>
                                             <div class="fontSub">@{{hybridInverter.pv_voltage.toLocaleString()}}V</div>
@@ -36,7 +36,7 @@
                                                 <span class="box__line"></span>
                                             </div>
                                         </div>
-                                        <div style="width:min(15vw, 150px); clear:left; float:left;" :style="[hybridInverter.grid_input_current > 0 ? '' : 'filter:brightness(20%);']">
+                                        <div style="width:min(15vw, 150px); clear:left; float:left;" :style="[hybridInverter.grid_input_current > 0 ? '' : 'filter:brightness(50%);']">
                                             <img src="/image/icon_grid.png" class="iconModule">
                                             <div class="fontMain">@{{(hybridInverter.grid_voltage * hybridInverter.grid_input_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
                                             <div class="fontSub">@{{hybridInverter.grid_voltage.toLocaleString()}}V</div>
@@ -105,6 +105,7 @@
                                         <div style="width:min(15vw, 150px); height:min(20vw,200px); float:left;">
                                             <img src="/image/icon_use.png" class="iconModule">
                                             <div class="fontMain">@{{Math.floor(hybridInverter.inverter_power).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
+                                            <div style="height:min(3vw, 30px);"></div>
                                             <div class="fontMain">@{{(hybridInverter.inverter_voltage * hybridInverter.inverter_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
                                             <div class="fontSub">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
                                             <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A</div>
