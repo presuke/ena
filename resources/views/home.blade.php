@@ -95,7 +95,7 @@
                                                             <div style="color:white; z-index:1; text-shadow:0 0 4px #fff, 0 0 8px #ccc, 0 0 12px #999;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                         </v-progress-circular>
                                                     </div>
-                                                    <div class="fontMain" style="margin-top:7.5vw; z-index:1;">@{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
+                                                    <div class="fontMain" style="margin-top:min(7.5vw, 75px); z-index:1;">@{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                         <div style="width:min(15vw, 150px); height:min(20vw,200px); float:left;">
                                             <img src="/image/icon_use.png" class="iconModule">
                                             <div class="fontMain">@{{Math.floor(hybridInverter.inverter_power).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
-                                            <div style="height:min(3vw, 30px);"></div>
+                                            <div style="height:min(3vw, 50px);"></div>
                                             <div class="fontMain">@{{(hybridInverter.inverter_voltage * hybridInverter.inverter_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
                                             <div class="fontSub">@{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
                                             <div class="fontSub">@{{hybridInverter.inverter_current.toLocaleString()}}A</div>
