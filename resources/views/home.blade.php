@@ -92,7 +92,7 @@
                                                 <div style="width:min(10vw, 100px); float:left;">
                                                     <v-progress-circular
                                                         :model-value="hybridInverter.battery_soc"
-                                                        :color="[hybridInverter.battery_soc<30?'red':hybridInverter.battery_soc<50?'orange':hybridInverter.battery_soc<70?'yellow':'lightgreen']"
+                                                        :color="[hybridInverter.battery_soc<30?'#f33':hybridInverter.battery_soc<50?'#f93':hybridInverter.battery_soc<70?'#cf3':'#6f6']"
                                                         style="clear:left; width:min(5vw, 50px); height:min(5vw, 50px);">
                                                         <div style="color:white;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                     </v-progress-circular>
