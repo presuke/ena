@@ -111,7 +111,7 @@
                                             <div class="fontMain">@{{Math.floor(hybridInverter.inverter_power).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                         </div>
 
-                                        <div style="clear:left; background-color:black; margin-top:10px;">@{{hybridInverter.create_at}}</div>
+                                        <div style="clear:left;">@{{hybridInverter.create_at}}</div>
                                     </div>
                                 </div>
                                 <textarea style="width:60vw; height:300px;">
