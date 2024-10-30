@@ -21,7 +21,7 @@
         position: relative;
         z-index:1;
         font-size:min(3vw, 36px);
-        font-style: italic;
+        font-weight: bold;
         text-shadow:
         0 0 7px #fff,
         0 0 10px #ccf,

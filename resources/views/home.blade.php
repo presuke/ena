@@ -92,7 +92,7 @@
                                                             :model-value="hybridInverter.battery_soc"
                                                             :color="[hybridInverter.battery_soc<30?'#f33':hybridInverter.battery_soc<50?'#f93':hybridInverter.battery_soc<70?'#cf3':'#6f6']"
                                                             style="clear:left; width:min(5vw, 50px); height:min(5vw, 50px);">
-                                                            <div style="color:white; z-index:1;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
+                                                            <div style="color:white; z-index:1; text-shadow:0 0 4px #fff, 0 0 8px #ccc, 0 0 12px #999;">@{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                         </v-progress-circular>
                                                     </div>
                                                     <div class="fontMain" style="margin-top:7.5vw; z-index:1;">@{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
