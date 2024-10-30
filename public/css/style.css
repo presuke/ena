@@ -32,6 +32,7 @@
         position: relative;
         z-index:1;
         font-size:min(2vw, 24px);
+        margin-top:max(-1vw, -12px);
     }
 
     .val {
