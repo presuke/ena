@@ -78,7 +78,7 @@
                                                     <div v-if="hybridInverter.grid_battery_charge_voltage > 0">
                                                         🔌@{{Math.floor(hybridInverter.battery_current * hybridInverter.battery_voltage * -1).toLocaleString()}}w
                                                     </div>
-                                                    <div v-if="hybridInverter.pv_power > 0">
+                                                    <div v-if="hybridInverter.pv_battery_charge_current > 0">
                                                         🌞@{{Math.floor(hybridInverter.battery_current * hybridInverter.battery_voltage * -1).toLocaleString()}}w
                                                     </div>
                                                 </div>
