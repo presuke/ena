@@ -71,14 +71,11 @@
                                             <!-- batt -->
                                             <div style="width:min(30vw, 300px); clear:left;">
                                                 <div class="fontMain" style="width:min(15vw, 150px);" v-if="hybridInverter.battery_current < 0">
-                                                    <div style="float:left;" v-if="hybridInverter.grid_battery_charge_voltage > 0">
-                                                        🔌
+                                                    <div v-if="hybridInverter.grid_battery_charge_voltage > 0">
+                                                        🔌@{{(hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage < 1000) ? Math.floor(hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage).toLocaleString() : (hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage / 1000).toLocaleString() + "kVA"}}VA
                                                     </div>
-                                                    <div style="float:left;" v-if="hybridInverter.pv_battery_charge_current > 0">
-                                                        🌞
-                                                    </div>
-                                                    <div style="float:left;">
-                                                        @{{Math.floor(hybridInverter.battery_current * hybridInverter.battery_voltage * -1).toLocaleString()}}VA
+                                                    <div v-if="hybridInverter.pv_battery_charge_current > 0">
+                                                        🌞@{{(hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage < 1000) ? Math.floor(hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage).toLocaleString() : (hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage / 1000).toLocaleString() + "k"}}VA
                                                     </div>
                                                     <div style="clear:left;"></div>
                                                 </div>
