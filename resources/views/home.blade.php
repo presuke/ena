@@ -70,12 +70,12 @@
                                             </div>
                                             <!-- batt -->
                                             <div style="width:min(30vw, 300px); clear:left;">
-                                                <div class="fontMain" style="width:min(15vw, 150px);" v-if="hybridInverter.battery_current < 0">
+                                                <div class="fontMain" style="width:min(18vw, 180px);" v-if="hybridInverter.battery_current < 0">
                                                     <div v-if="hybridInverter.grid_battery_charge_voltage > 0">
-                                                        🔌@{{(hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage < 1000) ? Math.floor(hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage).toLocaleString() : (hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage / 1000).toLocaleString() + "kVA"}}VA
+                                                        🔌@{{Math.floor(hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage).toLocaleString()}}VA
                                                     </div>
                                                     <div v-if="hybridInverter.pv_battery_charge_current > 0">
-                                                        🌞@{{(hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage < 1000) ? Math.floor(hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage).toLocaleString() : (hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage / 1000).toLocaleString() + "k"}}VA
+                                                        🌞@{{Math.floor(hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage).toLocaleString()}}VA
                                                     </div>
                                                     <div style="clear:left;"></div>
                                                 </div>
