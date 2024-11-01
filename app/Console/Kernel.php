@@ -8,7 +8,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        \App\Console\Commands\UserCountCommand::class
+        \App\Console\Commands\Looop::class
     ];
     /**
      * Define the application's command schedule.
