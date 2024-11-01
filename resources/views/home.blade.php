@@ -72,7 +72,7 @@
                                             <div style="width:min(30vw, 300px); clear:left;">
                                                 <div class="fontMain" style="width:min(18vw, 180px);" v-if="hybridInverter.battery_current < 0">
                                                     <div v-if="hybridInverter.grid_battery_charge_current > 0">
-                                                        🔌@{{Math.floor(hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage).toLocaleString()}}VA
+                                                        🔌@{{Math.floor(hybridInverter.grid_battery_charge_current * hybridInverter.grid_voltage).toLocaleString()}}VA
                                                     </div>
                                                     <div v-if="hybridInverter.pv_battery_charge_current > 0">
                                                         🌞@{{Math.floor(hybridInverter.pv_battery_charge_current * hybridInverter.battery_voltage).toLocaleString()}}VA
@@ -196,6 +196,27 @@
                         <h3>リモート設定</h3>
                         <div>
                             <h4>現在の設定</h4>
+                            <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
+                                <div style="float:left;">
+                                    <img src="/image/icon_solor.png" class="iconModule">
+                                    <div class="fontMain">1st</div>
+                                </div>
+                                <div style="float:left;">
+                                    <img src="/image/icon_grid.png" class="iconModule">
+                                    <div class="fontMain">2nd</div>
+                                </div>
+                                <div style="clear:left;"></div>
+                            </div>
+                            <div style="border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
+                                <div style="float:left;">
+                                    <img src="/image/icon_grid.png" class="iconModule">
+                                    <div class="fontMain">2nd</div>
+                                </div>
+                                <div style="float:left;">
+                                    <img src="/image/icon_solor.png" class="iconModule">
+                                    <div class="fontMain">1st</div>
+                                </div>
+                            </div>
                             <div>
                                 <div>消費電力源：@{{this.get_output_priority(this.selectedHybridInverter.inverter_output_priority)}}</div>
                                 <div>蓄電元電源：@{{this.get_chargepriority(selectedHybridInverter.inverter_charger_priority)}}</div>

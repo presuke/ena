@@ -88,7 +88,7 @@ class Regist extends BaseController
     }
 
     /**
-     * 商用電源の価格を登録する.
+     * looop電気の価格を登録する.
      *
      * @return void
      */
@@ -144,7 +144,7 @@ class Regist extends BaseController
     }
 
     /**
-     * 商用電源の価格を取得する.
+     * looop電気の価格を取得する.
      *
      * @return void
      */
@@ -159,6 +159,46 @@ class Regist extends BaseController
             $data = DB::select($sql);
             $ret['code'] = 0;
             $ret['data'] = $data;
+        } catch (\Exception $ex) {
+            $ret['code'] = 9;
+            $ret['error'] = $ex->getMessage();
+        }
+        return response()->json($ret);
+    }
+
+    /**
+     * ハイブリッドインバータの電源設定を登録する.
+     *
+     * @return void
+     */
+    public function recordSettingHybridInverter(Request $request)
+    {
+        try {
+            $ret = [];
+            $params = $request->all();
+            $now = Carbon::now('Asia/Tokyo');
+            try {
+                $rec = [];
+                $rec['user'] = $params['user'];
+                $rec['no'] = $params['no'];
+                $rec['regist'] = $params['regist'];
+                $rec['value'] = $params['value'];
+                $rec['create_at'] = $now;
+                $where = [
+                    'user' => $rec['user'],
+                    'no' => $rec['no'],
+                ];
+                $record = DB::table('regist')->where($where);
+                if ($record->count() == 0) {
+                    DB::table('regist')->insert($rec);
+                } else {
+                    $record->update($rec);
+                }
+                $ret['code'] = 0;
+            } catch (\Exception $ex) {
+                $ret['code'] = 9;
+                $ret['error'] = $ex->getMessage();
+            }
         } catch (\Exception $ex) {
             $ret['code'] = 9;
             $ret['error'] = $ex->getMessage();
