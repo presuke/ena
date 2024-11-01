@@ -14,7 +14,7 @@ class Looop extends Command
      *
      * @var string
      */
-    protected $signature = 'command:looop';
+    protected $signature = 'looop';
 
     /**
      * The console command description.
