@@ -30,7 +30,8 @@ class Looop extends Command
      */
     public function handle()
     {
-        $this->info("test");
+        echo "test";
+        return Command::SUCCESS;
         /*
         try {
             //noごとの最新を取ってくる
