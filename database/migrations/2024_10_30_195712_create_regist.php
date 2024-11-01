@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('user', 100);
             $table->string('no', 100);
-            $table->string('loooparea', 100);
+            $table->string('looop_area', 100);
             $table->string('ip', 100);
             $table->datetime('create_at');
         });
