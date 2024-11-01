@@ -71,7 +71,7 @@
                                             <!-- batt -->
                                             <div style="width:min(30vw, 300px); clear:left;">
                                                 <div class="fontMain" style="width:min(18vw, 180px);" v-if="hybridInverter.battery_current < 0">
-                                                    <div v-if="hybridInverter.grid_battery_charge_voltage > 0">
+                                                    <div v-if="hybridInverter.grid_battery_charge_current > 0">
                                                         🔌@{{Math.floor(hybridInverter.grid_battery_charge_current * hybridInverter.battery_voltage).toLocaleString()}}VA
                                                     </div>
                                                     <div v-if="hybridInverter.pv_battery_charge_current > 0">
