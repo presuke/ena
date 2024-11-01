@@ -30,6 +30,8 @@ class Looop extends Command
      */
     public function handle()
     {
+        echo "loop";
+        /*
         try {
             //noごとの最新を取ってくる
             $sql = "SELECT * FROM hidata AS h1 WHERE user='" . $token->name . "' AND create_at = (SELECT MAX(create_at) FROM hidata AS h2 WHERE h1.no = h2.no)";
@@ -50,5 +52,6 @@ class Looop extends Command
             $ret['errors'][] = $ex;
             return Command::FAILURE;
         }
+            */
     }
 }
