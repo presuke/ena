@@ -199,22 +199,11 @@
                             <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
                                 <div style="float:left; width:80px; height:80px; text-align:center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="float:left; width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:100%; color:white;">Main</div>
+                                    <div class="fontMain">1st</div>
                                 </div>
                                 <div style="float:left; width:60px; height:60px;" text-align:center;">
                                     <img src="/image/icon_grid.png" class="iconModule" style="float:left; width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:100%; color:white;">Sub</div>
-                                </div>
-                                <div style="clear:left;"></div>
-                            </div>
-                            <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
-                                <div style="float:left; width:80px; height:80px; text-align:center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="float:left; width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:100%; color:white;">Main</div>
-                                </div>
-                                <div style="float:left; width:60px; height:60px;" text-align:center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="float:left; width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:100%; color:white;">Sub</div>
+                                    <div class="fontMain">2nd</div>
                                 </div>
                                 <div style="clear:left;"></div>
                             </div>
