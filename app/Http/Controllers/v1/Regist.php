@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\TokenController;
 use DB;
+use Carbon\Carbon;
 
 class Regist extends BaseController
 {
@@ -178,7 +179,6 @@ class Regist extends BaseController
             $ret = [];
             $params = $request->all();
             $ret['params'] = $params;
-            /*
             $token = TokenController::getTokenInfo($params['token']);
             $now = Carbon::now('Asia/Tokyo');
             try {
@@ -203,7 +203,6 @@ class Regist extends BaseController
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();
             }
-            */
         } catch (\Exception $ex) {
             $ret['code'] = 9;
             $ret['error'] = $ex->getMessage();
