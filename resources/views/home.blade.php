@@ -199,42 +199,43 @@
                             <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
                                 <div style="float:left; width:40px; height:40px; text-align: center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(3vw, 16px); color:white;">1st</div>
                                 </div>
-                                <div class="fontMain" style="float:left; color:white;">▶️</div>
                                 <div style="float:left; width:40px; height:40px; text-align: center;">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(3vw, 16px); color:white;">2nd</div>
                                 </div>
-                                <div class="fontMain" style="clear:left;">PV優先モード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(4vw, 24px); color:white;">PV優先モード</div>
                             </div>
                             <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
                                 <div style="float:left; width:40px; height:40px; text-align: center;">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(3vw, 16px); color:white;">1st</div>
                                 </div>
-                                <div class="fontMain" style="float:left; color:white;">▶️</div>
                                 <div style="float:left; width:40px; height:40px; text-align: center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(3vw, 16px); color:white;">2nd</div>
                                 </div>
-                                <div class="fontMain" style="clear:left;">Grid優先モード</div>
-                            </div>
-                            <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
-                                <div style="float:left; width:50px; height:50px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div class="fontMain" style="float:left; color:white;">⇄</div>
-                                <div style="float:left; width:50px; height:50px; text-align: center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div class="fontMain" style="clear:left;">ハイブリッドモード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(4vw, 24px); color:white;">Grid優先モード</div>
                             </div>
                             <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
                                 <div style="float:left; width:50px; height:50px; text-align: center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
                                 </div>
-                                <div class="fontMain" style="float:left; color:white;">⇄</div>
+                                <div style="float:left; width:50px; height:50px; text-align: center;">
+                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
+                                </div>
+                                <div class="fontMain" style="clear:left; font-size:min(4vw, 24px); color:white;">ハイブリッドモード</div>
+                            </div>
+                            <div style="margin-bottom: 10px; border-radius: 5px; padding:5px; background-color: black; border:solid thin gray;">
+                                <div style="float:left; width:50px; height:50px; text-align: center;">
+                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(3vw, 16px); color:white;">only</div>
+                                </div>
                                 <div style="float:left; width:50px; height:50px; text-align: center; filter:brightness(50%);">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
                                 </div>
-                                <div class="fontMain" style="clear:left;">PVのみモード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(4vw, 24px); color:white;">PVのみモード</div>
                             </div>
                             <div>
                                 <div>消費電力源：@{{this.get_output_priority(this.selectedHybridInverter.inverter_output_priority)}}</div>
