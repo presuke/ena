@@ -876,7 +876,7 @@
                         });
                 },
                 openSetting(hybridInverter) {
-                    this.selectInverter = hybridInverter;
+                    this.selectedHybridInverter = hybridInverter;
                     $("#dialogSetting").dialog({
                         title: '設定',
                         modal: true,
