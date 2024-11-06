@@ -177,6 +177,8 @@ class Regist extends BaseController
         try {
             $ret = [];
             $params = $request->all();
+            $ret['params'] = $params;
+            /*
             $token = TokenController::getTokenInfo($params['token']);
             $now = Carbon::now('Asia/Tokyo');
             try {
@@ -201,6 +203,7 @@ class Regist extends BaseController
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();
             }
+            */
         } catch (\Exception $ex) {
             $ret['code'] = 9;
             $ret['error'] = $ex->getMessage();
