@@ -207,7 +207,7 @@
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
                                     <div class="fontMain" style="font-size:min(2.5vw, 14px); color:white;">2nd</div>
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(4vw, 20px); color:white;">PV優先モード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">PV優先モード</div>
                             </div>
                             <div
                                 @click="modeChange(1)"
@@ -220,7 +220,7 @@
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
                                     <div class="fontMain" style="font-size:min(2.5vw, 14px); color:white;">2nd</div>
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(4vw, 20px); color:white;">Grid優先モード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">Grid優先モード</div>
                             </div>
                             <div
                                 @click="modeChange(2)"
@@ -231,7 +231,7 @@
                                 <div style="float:left; width:50px; height:50px; text-align: center;">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(4vw, 20px); color:white;">ハイブリッドモード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">ハイブリッドモード</div>
                             </div>
                             <div
                                 @click="modeChange(3)"
@@ -243,7 +243,7 @@
                                 <div style="float:left; width:50px; height:50px; text-align: center; filter:brightness(50%);">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(4vw, 20px); color:white;">PVのみモード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">PVのみモード</div>
                             </div>
                             <div>
                                 <div>消費電力源：@{{this.get_output_priority(this.selectedHybridInverter.inverter_output_priority)}}</div>
