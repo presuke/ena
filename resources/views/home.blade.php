@@ -911,7 +911,7 @@
                     axios
                         .post('api/v1/regist/recordSettingHybridInverter', {
                             token: this.token,
-                            no: selectedHybridInverter.no,
+                            no: this.selectedHybridInverter.no,
                             regist: 0,
                             value: {
                                 mode: mode
