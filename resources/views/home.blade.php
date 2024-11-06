@@ -18,7 +18,7 @@
                         <div class="card" v-for="hybridInverter in hybridInverters" :key="hybridInverter.no">
                             <div :calss="[selectedHybridInverter.no==hybridInverter.no ? 'selectedHivridInvertor' : 'selectedHivridInvertor']">
                                 <div class="card-header" style="text-align: right;">
-                                    <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting();" />　
+                                    <img src="/image/icon_setting.png" class="iconBtn" @click="openSetting(hybridInverter);" />　
                                     <img src="/image/icon_graph.png" class="iconBtn" @click="selectInverter(hybridInverter);" />
                                 </div>
                                 <div style="background-color:#333;">
@@ -875,7 +875,8 @@
                             console.log(err);
                         });
                 },
-                openSetting() {
+                openSetting(hybridInverter) {
+                    this.selectInverter = hybridInverter;
                     $("#dialogSetting").dialog({
                         title: '設定',
                         modal: true,
