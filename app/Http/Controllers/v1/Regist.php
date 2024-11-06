@@ -186,7 +186,7 @@ class Regist extends BaseController
                 $rec['user'] = $token->name;
                 $rec['no'] = $params['no'];
                 $rec['regist'] = $params['regist'];
-                $rec['value'] = $params['value'];
+                $rec['value'] = json_encode($params['value']);
                 $rec['create_at'] = $now;
                 $where = [
                     'user' => $rec['user'],
