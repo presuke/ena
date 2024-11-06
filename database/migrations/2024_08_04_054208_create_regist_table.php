@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('result', 100);
             $table->datetime('create_at');
             $table->datetime('done_at')->nullable();
-            $table->primary(['user', 'no', 'create_at']);
+            $table->primary(['user', 'no', 'regist', 'done_at']);
         });
     }
 
