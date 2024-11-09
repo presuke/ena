@@ -195,18 +195,19 @@
                         </div>
                         <h3>リモート設定</h3>
                         <div>
-                            <h4>現在の設定</h4>
                             <fieldset>
-                                <legend>Choose your favorite monster</legend>
-
-                                <input type="radio" id="kraken" name="monster" value="K" />
-                                <label for="kraken">Kraken</label><br />
-
-                                <input type="radio" id="sasquatch" name="monster" value="S" />
-                                <label for="sasquatch">Sasquatch</label><br />
-
-                                <input type="radio" id="mothman" name="monster" value="M" />
-                                <label for="mothman">Mothman</label>
+                                <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" checked="checked" />
+                                <label class="radio-inline__label" for="item-1">
+                                    Item 1
+                                </label>
+                                <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2" />
+                                <label class="radio-inline__label" for="item-2">
+                                    Item 2
+                                </label>
+                                <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3" />
+                                <label class="radio-inline__label" for="item-3">
+                                    Item 3
+                                </label>
                             </fieldset>
                             <div
                                 @click="modeChange(0)"
