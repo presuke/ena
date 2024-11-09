@@ -258,7 +258,7 @@
                                 <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">PVのみモード</div>
                             </div>
                             <div>
-                                <div>消費電力源：@{{this.get_output_priority(this.selectedHybridInverter.inverter_output_priority)}}</div>
+                                <div>消費電力源：@{{this.get_outputpriority(this.selectedHybridInverter.inverter_output_priority)}}</div>
                                 <div>蓄電元電源：@{{this.get_chargepriority(selectedHybridInverter.inverter_charger_priority)}}</div>
                             </div>
                         </div>
@@ -424,8 +424,8 @@
                 };
             },
             methods: {
-                get_output_priority(priority) {
-                    return this.output_priority[priority];
+                get_outputpriority(priority) {
+                    return this.outputPriority[priority];
                 },
                 get_chargepriority(priority) {
                     return this.chargerPriority[priority];
