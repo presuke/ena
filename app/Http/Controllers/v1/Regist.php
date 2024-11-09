@@ -54,6 +54,7 @@ class Regist extends BaseController
             $ret = [];
             $params = $request->all();
             try {
+                /*
                 $user = $params['user']['id'];
                 $no = $params['user']['no'];
                 $mode = $params['mode'];
@@ -69,7 +70,9 @@ class Regist extends BaseController
                 if ($regist->count() > 0) {
                     $regist->update(['result' => $result, 'done_at' => $done_at]);
                 }
+                */
                 $ret['code'] = 0;
+                $ret['params'] = $params;
             } catch (\Exception $ex) {
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();
