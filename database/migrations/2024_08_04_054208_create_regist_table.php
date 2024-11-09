@@ -16,12 +16,21 @@ return new class extends Migration
         Schema::create('regist', function (Blueprint $table) {
             $table->string('user', 100);
             $table->string('no', 100);
-            $table->string('regist', 100);
-            $table->string('value', 100);
+            $table->integer('mode')->length(1)->comment('0:都度、1:恒久');
+            $table->string('regist', 255);
             $table->string('result', 100);
             $table->datetime('create_at');
             $table->datetime('done_at')->nullable();
-            $table->primary(['user', 'no', 'regist', 'done_at']);
+            $table->primary(['user', 'no', 'mode']);
+        });
+        Schema::create('hi', function (Blueprint $table) {
+            $table->string('user', 100);
+            $table->string('no', 100);
+            $table->string('ip', 40);
+            $table->string('looop_area', 2);
+            $table->float('lat')->nullable();
+            $table->float('lon')->nullable();
+            $table->primary(['user', 'no']);
         });
     }
 
@@ -33,5 +42,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('regist');
+        Schema::dropIfExists('hi');
     }
 };

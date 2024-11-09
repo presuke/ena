@@ -15,7 +15,7 @@ class Regist extends BaseController
      *
      * @return void
      */
-    public function read(Request $request)
+    public function readRegistSetting(Request $request)
     {
         try {
             $ret = [];
