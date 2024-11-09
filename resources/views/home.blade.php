@@ -195,7 +195,7 @@
                         </div>
                         <h3>リモート設定</h3>
                         <div>
-                            {{this.setting.once}}
+                            @{{this.setting.once}}
                             <fieldset>
                                 <div style="border-bottom: solid thin gray;">蓄電のための電源</div>
                                 <div class="cp_ipradio02">
