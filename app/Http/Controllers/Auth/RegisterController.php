@@ -75,6 +75,6 @@ class RegisterController extends Controller
         $token = md5($id . $time);
         $data = ['name' => $id, 'tokenable_type' => '', 'tokenable_id' => 0, 'created_at' => $time, 'token' => $token];
         DB::table('personal_access_tokens')->insert($data);
-        return '/authed?' . $token;
+        return $user;
     }
 }
