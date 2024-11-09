@@ -41,7 +41,18 @@
         margin: 0;
         text-align: center;
       }
-
+      
+      h1 {
+        margin: 0;
+        line-height: 1.2;
+      }
+      
+      p {
+        margin: 0 0 1.6rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid #ddd;
+      }
+      
       .radio-inline__input {
           clip: rect(1px, 1px, 1px, 1px);
           position: absolute !important;
@@ -67,6 +78,8 @@
           outline-style: auto;
           outline-width: 5px;
       }
+      
+      
 
     .box {
         margin: 0 auto;
