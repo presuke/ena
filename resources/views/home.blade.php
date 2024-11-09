@@ -127,6 +127,84 @@
                 </div>
                 <div id="dialogSetting" style="display:none;">
                     <div class="accordion">
+                        <h3>リモート設定</h3>
+                        <div>
+                            @{{this.setting.once}}
+                            <fieldset>
+                                <div style="border-bottom: solid thin gray;">蓄電のための電源</div>
+                                <div class="cp_ipradio02">
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="0" />PV優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="1" />Grid優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="2" />ハイブリッド</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="3" />PVのみ</label>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div style="border-bottom: solid thin gray;">消費のための電源</div>
+                                <div class="cp_ipradio02">
+                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="0" />PV優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="1" />Grid優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="2" />バッテリー優先</label>
+                                </div>
+                            </fieldset>
+                            <!--
+                            <div
+                                @click="modeChange(0)"
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
+                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
+                                </div>
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
+                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
+                                </div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PV優先</div>
+                            </div>
+                            <div
+                                @click="modeChange(1)"
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
+                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
+                                </div>
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
+                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
+                                </div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">Grid優先</div>
+                            </div>
+                            <div
+                                @click="modeChange(2)"
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
+                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
+                                </div>
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
+                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
+                                </div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">ハイブリッド</div>
+                            </div>
+                            <div
+                                @click="modeChange(3)"
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
+                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">only</div>
+                                </div>
+                                <div style="float:left; width:30px; height:30px; text-align: center; filter:brightness(50%);">
+                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
+                                </div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PVのみ</div>
+                            </div>
+                            <div style="clear:left;">
+                                <div>消費電力源：@{{this.get_outputpriority(this.selectedHybridInverter.inverter_output_priority)}}</div>
+                                <div>蓄電元電源：@{{this.get_chargepriority(selectedHybridInverter.inverter_charger_priority)}}</div>
+                            </div>
+-->
+                            <div>@{{this.setting.once.message}}</div>
+                            <v-btn @click="settingOnce()">設定</v-btn>
+                        </div>
                         <h3>安く使う設定</h3>
                         <div>
                             <div>
@@ -192,80 +270,6 @@
                                 ％以下
                             </div>
                             <v-btn>商用電力で溜める</v-btn>
-                        </div>
-                        <h3>リモート設定</h3>
-                        <div>
-                            @{{this.setting.once}}
-                            <fieldset>
-                                <div style="border-bottom: solid thin gray;">蓄電のための電源</div>
-                                <div class="cp_ipradio02">
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="0" />PV優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="1" />Grid優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="2" />ハイブリッド</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="3" />PVのみ</label>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <div style="border-bottom: solid thin gray;">消費のための電源</div>
-                                <div class="cp_ipradio02">
-                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="0" />PV優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="1" />Grid優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="2" />バッテリー優先</label>
-                                </div>
-                            </fieldset>
-                            <div
-                                @click="modeChange(0)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PV優先</div>
-                            </div>
-                            <div
-                                @click="modeChange(1)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">Grid優先</div>
-                            </div>
-                            <div
-                                @click="modeChange(2)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">ハイブリッド</div>
-                            </div>
-                            <div
-                                @click="modeChange(3)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">only</div>
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center; filter:brightness(50%);">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PVのみ</div>
-                            </div>
-                            <div style="clear:left;">
-                                <div>消費電力源：@{{this.get_outputpriority(this.selectedHybridInverter.inverter_output_priority)}}</div>
-                                <div>蓄電元電源：@{{this.get_chargepriority(selectedHybridInverter.inverter_charger_priority)}}</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -417,6 +421,7 @@
                     once: {
                         outputPriority: -1,
                         chargerPriority: -1,
+                        message: '',
                     }
                 },
             }),
@@ -902,6 +907,7 @@
                     this.selectedHybridInverter = hybridInverter;
                     this.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority;
                     this.setting.once.outputPriority = this.selectedHybridInverter.inverter_output_priority;
+                    this.setting.once.message = '';
                     $("#dialogSetting").dialog({
                         title: '設定',
                         modal: true,
@@ -933,20 +939,23 @@
                     }
                     return values;
                 },
-                modeChange(kind, value) {
+                settingOnce() {
                     axios
                         .post('api/v1/regist/recordSettingHybridInverter', {
                             token: this.token,
                             no: this.selectedHybridInverter.no,
                             mode: 0,
                             regist: {
-                                value: value
+                                inverter_output_priority_write: setting.once.outputPriority,
+                                inverter_charger_priority_write: setting.once.chargerPriority,
                             },
                         })
                         .then((response) => {
                             try {
-                                if (response.data.code == 0) {} else {
-                                    this.error = '特定できないエラー';
+                                if (response.data.code == 0) {
+                                    setting.once.message = response.data.message;
+                                } else {
+                                    setting.once.message = 'error[' + response.data.code + ']:' + response.data.message;
                                     console.log(response.data);
                                 }
                             } catch (err) {
