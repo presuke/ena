@@ -64,17 +64,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
-        $id = $user->email;
-        $time = date('Y-m-d H:i:s');
-        $token = md5($id . $time);
-        $data = ['name' => $id, 'tokenable_type' => '', 'tokenable_id' => 0, 'created_at' => $time, 'token' => $token];
-        DB::table('personal_access_tokens')->insert($data);
-        return $user;
     }
 }
