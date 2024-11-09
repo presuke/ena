@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('looop_area', 2);
             $table->float('lat')->nullable();
             $table->float('lon')->nullable();
+            $table->datetime('create_at');
             $table->primary(['user', 'no']);
         });
     }
