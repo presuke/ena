@@ -201,6 +201,7 @@ class Regist extends BaseController
                     $record->update($rec);
                 }
                 $ret['code'] = 0;
+                $ret['message'] = '設定予約完了しました。';
             } catch (\Exception $ex) {
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();
