@@ -36,7 +36,7 @@ class Regist extends BaseController
                 } else if ($params['report'] == 1) {
                     $mode = $params['mode'];
                     $result = $params['result'];
-                    $done_at = $params['done_at'];
+                    $now = Carbon::now('Asia/Tokyo');
                     $regist = DB::table('regist')->where(
                         [
                             'user' => $user,
@@ -45,7 +45,7 @@ class Regist extends BaseController
                         ]
                     );
                     if ($regist->count() > 0) {
-                        $regist->update(['result' => $result, 'done_at' => $done_at]);
+                        $regist->update(['result' => $result, 'done_at' => $now]);
                     }
                 }
             } catch (\Exception $ex) {
@@ -59,46 +59,6 @@ class Regist extends BaseController
         return response()->json($ret);
     }
 
-    /**
-     * ハイブリッドインバータの設定変更結果をラズパイから受け取る.
-     *
-     * @return void
-     */
-    public function reportRegistSetting(Request $request)
-    {
-        try {
-            $ret = [];
-            $params = $request->all();
-            try {
-                /*
-                $user = $params['user']['id'];
-                $no = $params['user']['no'];
-                $mode = $params['mode'];
-                $result = $params['result'];
-                $done_at = $params['done_at'];
-                $regist = DB::table('regist')->where(
-                    [
-                        'user' => $user,
-                        'no' => $no,
-                        'mode' => $mode
-                    ]
-                );
-                if ($regist->count() > 0) {
-                    $regist->update(['result' => $result, 'done_at' => $done_at]);
-                }
-                */
-                $ret['code'] = 0;
-                $ret['params'] = $params;
-            } catch (\Exception $ex) {
-                $ret['code'] = 9;
-                $ret['error'] = $ex->getMessage();
-            }
-        } catch (\Exception $ex) {
-            $ret['code'] = 9;
-            $ret['error'] = $ex->getMessage();
-        }
-        return response()->json($ret);
-    }
 
     /**
      * looop電気の価格を登録する.
