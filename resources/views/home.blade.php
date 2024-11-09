@@ -196,18 +196,20 @@
                         <h3>リモート設定</h3>
                         <div>
                             <fieldset>
-                                <input id="item-1" class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" checked="checked" />
-                                <label class="radio-inline__label" for="item-1">
-                                    Item 1
-                                </label>
-                                <input id="item-2" class="radio-inline__input" type="radio" name="accessible-radio" value="item-2" />
-                                <label class="radio-inline__label" for="item-2">
-                                    Item 2
-                                </label>
-                                <input id="item-3" class="radio-inline__input" type="radio" name="accessible-radio" value="item-3" />
-                                <label class="radio-inline__label" for="item-3">
-                                    Item 3
-                                </label>
+                                <ul class="radios">
+                                    <li>
+                                        <input type="radio" name="group" id="facebook" value="facebook" checked>
+                                        <label for="facebook"><i class="fa fa-facebook"></i></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="group" id="twitter" value="twitter">
+                                        <label for="twitter"><i class="fa fa-twitter"></i></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="group" id="linkedin" value="linkedin">
+                                        <label for="linkedin"><i class="fa fa-linkedin"></i></label>
+                                    </li>
+                                </ul>
                             </fieldset>
                             <div
                                 @click="modeChange(0)"
