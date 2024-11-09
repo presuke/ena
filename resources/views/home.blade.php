@@ -195,8 +195,6 @@
                         </div>
                         <h3>リモート設定</h3>
                         <div>
-                            <div>chargerPriority:{{this.chargerPriority }} / outputPriority:{{this.outputPriority }}</div>
-                            <div>{{this.setting.once }}</div>
                             <fieldset>
                                 <div style="border-bottom: solid thin gray;">蓄電のための電源</div>
                                 <div class="cp_ipradio02">
