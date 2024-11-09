@@ -35,6 +35,36 @@
         margin-top:max(-1vw, -12px);
     }
 
+    .box {
+        margin: 0 auto;
+        position: relative;
+        display: block;
+        overflow: hidden;
+    }
+
+    .box__line {
+        position: absolute;
+        box-shadow:
+        0 0 7px #ccf,
+    }
+
+    .box__line:nth-child(1) {
+        width: 100%;
+        height: 2px;
+    }
+
+    .box__line:nth-child(2) {
+        width: 2px;
+        height: 100%;
+    }
+
+    .box__line:nth-child(1) {
+        top: 0;
+        left: 0;
+        background: linear-gradient(to right, transparent, #CCF);
+        animation: animate1 2s linear infinite;
+    }
+
     .cp_ipradio02 label {
         display: flex;
         align-items: center;
@@ -120,36 +150,6 @@
             transform: scale(8);
             opacity: 0;
         }
-    }
-
-    .box {
-        margin: 0 auto;
-        position: relative;
-        display: block;
-        overflow: hidden;
-    }
-
-    .box__line {
-        position: absolute;
-        box-shadow:
-        0 0 7px #ccf,
-    }
-
-    .box__line:nth-child(1) {
-        width: 100%;
-        height: 2px;
-    }
-
-    .box__line:nth-child(2) {
-        width: 2px;
-        height: 100%;
-    }
-
-    .box__line:nth-child(1) {
-        top: 0;
-        left: 0;
-        background: linear-gradient(to right, transparent, #CCF);
-        animation: animate1 2s linear infinite;
     }
 
     .box__line:nth-child(2) {

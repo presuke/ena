@@ -195,12 +195,23 @@
                         </div>
                         <h3>リモート設定</h3>
                         <div>
+                            <div>chargerPriority:{{this.chargerPriority }} / outputPriority:{{this.outputPriority }}</div>
+                            <div>{{this.setting.once }}</div>
                             <fieldset>
+                                <div style="border-bottom: solid thin gray;">蓄電のための電源</div>
                                 <div class="cp_ipradio02">
-                                    <label><input type="radio" class="option-input radio" name="cpipr02" checked />ネコ</label>
-                                    <label><input type="radio" class="option-input radio" name="cpipr02" />イヌ</label>
-                                    <label><input type="radio" class="option-input radio" name="cpipr02" />ウサギ</label>
-                                    <label class="disabled"><input type="radio" class="option-input radio" name="cpipr02" disabled />トリ</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" v-model="setting.once.chargerPriority" value="0" />PV優先</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" v-model="setting.once.chargerPriority" value="1" />Grid優先</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" v-model="setting.once.chargerPriority" value="2" />ハイブリッド</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" v-model="setting.once.chargerPriority" value="3" />PVのみ</label>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div style="border-bottom: solid thin gray;">消費のための電源</div>
+                                <div class="cp_ipradio02">
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" v-model="setting.once.outputPriority" value="0" />PV優先</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" v-model="setting.once.outputPriority" value="1" />Grid優先</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" v-model="setting.once.outputPriority" value="2" />バッテリー優先</label>
                                 </div>
                             </fieldset>
                             <div
@@ -402,6 +413,12 @@
                     1: 'Grid',
                     2: 'PV',
                     3: 'OSO?',
+                },
+                setting: {
+                    once: {
+                        outputPriority: -1,
+                        chargerPriority: -1,
+                    }
                 },
             }),
             setup() {},
