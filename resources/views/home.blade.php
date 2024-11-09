@@ -210,54 +210,54 @@
                             </fieldset>
                             <div
                                 @click="modeChange(0)"
-                                style="margin-bottom: 10px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:40px; height:40px; text-align: center;">
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2.5vw, 14px); color:white;">1st</div>
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
                                 </div>
-                                <div style="float:left; width:40px; height:40px; text-align: center;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2.5vw, 14px); color:white;">2nd</div>
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">PV優先モード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PV優先</div>
                             </div>
                             <div
                                 @click="modeChange(1)"
-                                style="margin-bottom: 10px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:40px; height:40px; text-align: center;">
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2.5vw, 14px); color:white;">1st</div>
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
                                 </div>
-                                <div style="float:left; width:40px; height:40px; text-align: center;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2.5vw, 14px); color:white;">2nd</div>
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">Grid優先モード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">Grid優先</div>
                             </div>
                             <div
                                 @click="modeChange(2)"
-                                style="margin-bottom: 10px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:50px; height:50px; text-align: center;">
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
                                 </div>
-                                <div style="float:left; width:50px; height:50px; text-align: center;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">ハイブリッドモード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">ハイブリッド</div>
                             </div>
                             <div
                                 @click="modeChange(3)"
-                                style="margin-bottom: 10px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:50px; height:50px; text-align: center;">
+                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
+                                <div style="float:left; width:30px; height:30px; text-align: center;">
                                     <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2.5vw, 14px); color:white;">only</div>
+                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">only</div>
                                 </div>
-                                <div style="float:left; width:50px; height:50px; text-align: center; filter:brightness(50%);">
+                                <div style="float:left; width:30px; height:30px; text-align: center; filter:brightness(50%);">
                                     <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
                                 </div>
-                                <div class="fontMain" style="clear:left; font-size:min(3vw, 16px); color:white;">PVのみモード</div>
+                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PVのみ</div>
                             </div>
-                            <div>
+                            <div style="clear:left;">
                                 <div>消費電力源：@{{this.get_outputpriority(this.selectedHybridInverter.inverter_output_priority)}}</div>
                                 <div>蓄電元電源：@{{this.get_chargepriority(selectedHybridInverter.inverter_charger_priority)}}</div>
                             </div>
