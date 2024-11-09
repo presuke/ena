@@ -23,15 +23,31 @@ class Regist extends BaseController
             try {
                 $user = $params['user']['id'];
                 $no = $params['user']['no'];
+                if ($params['report'] == 0) {
 
-                $regist = DB::table('regist')->where(
-                    [
-                        'user' => $user,
-                        'no' => $no,
-                    ]
-                )->whereNull('done_at')->orderBy('create_at', 'asc')->first();
-                $ret['code'] = 0;
-                $ret['regist'] = $regist;
+                    $regist = DB::table('regist')->where(
+                        [
+                            'user' => $user,
+                            'no' => $no,
+                        ]
+                    )->whereNull('done_at')->orderBy('create_at', 'asc')->first();
+                    $ret['code'] = 0;
+                    $ret['regist'] = $regist;
+                } else if ($params['report'] == 1) {
+                    $mode = $params['mode'];
+                    $result = $params['result'];
+                    $done_at = $params['done_at'];
+                    $regist = DB::table('regist')->where(
+                        [
+                            'user' => $user,
+                            'no' => $no,
+                            'mode' => $mode
+                        ]
+                    );
+                    if ($regist->count() > 0) {
+                        $regist->update(['result' => $result, 'done_at' => $done_at]);
+                    }
+                }
             } catch (\Exception $ex) {
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();
