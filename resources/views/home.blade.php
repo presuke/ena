@@ -946,8 +946,8 @@
                             no: this.selectedHybridInverter.no,
                             mode: 0,
                             regist: {
-                                inverter_output_priority_write: this.setting.once.outputPriority,
-                                inverter_charger_priority_write: this.setting.once.chargerPriority,
+                                inverter_output_priority: this.setting.once.outputPriority,
+                                inverter_charger_priority: this.setting.once.chargerPriority,
                             },
                         })
                         .then((response) => {

@@ -35,6 +35,7 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/regist')->group(function () {
         Route::get('getGridPrice', [RegistV1::Class, 'getGridPrice']);
         Route::post('readRegistSetting', [RegistV1::Class, 'readRegistSetting']);
+        Route::post('reportRegistSetting', [RegistV1::Class, 'reportRegistSetting']);
         Route::post('recordGridPrice', [RegistV1::Class, 'recordGridPrice']);
         Route::post('recordSettingHybridInverter', [RegistV1::Class, 'recordSettingHybridInverter']);
     });

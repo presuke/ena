@@ -48,36 +48,28 @@ class Regist extends BaseController
      *
      * @return void
      */
-    public function report(Request $request)
+    public function reportRegistSetting(Request $request)
     {
         try {
             $ret = [];
             $params = $request->all();
             try {
-                $param = $params['regist'];
                 $user = $param['user'];
                 $no = $param['no'];
-                $create_at = $param['create_at'];
-                $done_at = $params['done_at'];
-                $val_request = $params['request'];
-                $val_result = $params['result'];
-                if ($val_request == $val_result) {
-                    $result = 'success';
-                } else {
-                    $result = 'failed(request:' . $val_request . ', result:' . $val_result . ')';
-                }
+                $mode = $param['mode'];
+                $result = $param['result'];
+                $done_at = $param['done_at'];
                 $regist = DB::table('regist')->where(
                     [
                         'user' => $user,
                         'no' => $no,
-                        'create_at' => $create_at
+                        'mode' => $mode
                     ]
                 );
                 if ($regist->count() > 0) {
-                    $regist->update(['done_at' => date('Y-m-d H:i:s', $done_at), 'result' => $result]);
+                    $regist->update(['result' => $result, 'done_at' => $done_at]);
                 }
                 $ret['code'] = 0;
-                $ret['regist'] = $regist;
             } catch (\Exception $ex) {
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();
