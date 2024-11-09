@@ -72,6 +72,15 @@ class RegisterController extends Controller
 
     protected function redirectTo()
     {
-        return '/home?aaa';
+        $user = Auth::user();
+        if (!$user) {
+            return '/';
+        }
+        $id = $user->email;
+        $time = date('Y-m-d H:i:s');
+        $token = md5($id . $time);
+        $data = ['name' => $id, 'tokenable_type' => '', 'tokenable_id' => 0, 'created_at' => $time, 'token' => $token];
+        DB::table('personal_access_tokens')->insert($data);
+        return '/authed?' . $token;
     }
 }
