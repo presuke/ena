@@ -198,22 +198,15 @@
                             <h4>現在の設定</h4>
                             <fieldset>
                                 <legend>Choose your favorite monster</legend>
-                                <input id="inputBat0" class="radio-inline__input" type="radio" name="accessible-radio" value="0 />
-                                <label class=" radio-inline__label" for="inputBat0">
-                                PV優先
-                                </label>
-                                <input id="inputBat1" class="radio-inline__input" type="radio" name="accessible-radio" value="1" />
-                                <label class="radio-inline__label" for="inputBat1">
-                                    Grid優先
-                                </label>
-                                <input id="inputBat2" class="radio-inline__input" type="radio" name="accessible-radio" value="2" />
-                                <label class="radio-inline__label" for="inputBat2">
-                                    ハイブリッド
-                                </label>
-                                <input id="inputBat3" class="radio-inline__input" type="radio" name="accessible-radio" value="3" />
-                                <label class="radio-inline__label" for="inputBat3">
-                                    PVのみ
-                                </label>
+
+                                <input type="radio" id="kraken" name="monster" value="K" />
+                                <label for="kraken">Kraken</label><br />
+
+                                <input type="radio" id="sasquatch" name="monster" value="S" />
+                                <label for="sasquatch">Sasquatch</label><br />
+
+                                <input type="radio" id="mothman" name="monster" value="M" />
+                                <label for="mothman">Mothman</label>
                             </fieldset>
                             <div
                                 @click="modeChange(0)"
