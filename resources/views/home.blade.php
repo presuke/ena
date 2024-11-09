@@ -946,16 +946,16 @@
                             no: this.selectedHybridInverter.no,
                             mode: 0,
                             regist: {
-                                inverter_output_priority_write: setting.once.outputPriority,
-                                inverter_charger_priority_write: setting.once.chargerPriority,
+                                inverter_output_priority_write: this.setting.once.outputPriority,
+                                inverter_charger_priority_write: this.setting.once.chargerPriority,
                             },
                         })
                         .then((response) => {
                             try {
                                 if (response.data.code == 0) {
-                                    setting.once.message = response.data.message;
+                                    this.setting.once.message = response.data.message;
                                 } else {
-                                    setting.once.message = 'error[' + response.data.code + ']:' + response.data.message;
+                                    this.setting.once.message = 'error[' + response.data.code + ']:' + response.data.error;
                                     console.log(response.data);
                                 }
                             } catch (err) {
