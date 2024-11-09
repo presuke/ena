@@ -54,11 +54,11 @@ class Regist extends BaseController
             $ret = [];
             $params = $request->all();
             try {
-                $user = $param['user'];
-                $no = $param['no'];
-                $mode = $param['mode'];
-                $result = $param['result'];
-                $done_at = $param['done_at'];
+                $user = $params['user']['id'];
+                $no = $params['user']['no'];
+                $mode = $params['mode'];
+                $result = $params['result'];
+                $done_at = $params['done_at'];
                 $regist = DB::table('regist')->where(
                     [
                         'user' => $user,
