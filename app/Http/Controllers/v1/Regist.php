@@ -34,6 +34,7 @@ class Regist extends BaseController
                     $ret['code'] = 0;
                     $ret['regist'] = $regist;
                 } else if ($params['report'] == 1) {
+                    $ret['params'] = $params;
                     $mode = $params['mode'];
                     $result = $params['result'];
                     $now = Carbon::now('Asia/Tokyo');
