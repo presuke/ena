@@ -196,20 +196,12 @@
                         <h3>リモート設定</h3>
                         <div>
                             <fieldset>
-                                <ul class="radios">
-                                    <li>
-                                        <input type="radio" name="group" id="facebook" value="facebook" checked>
-                                        <label for="facebook"><i class="fa fa-facebook"></i></label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="group" id="twitter" value="twitter">
-                                        <label for="twitter"><i class="fa fa-twitter"></i></label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="group" id="linkedin" value="linkedin">
-                                        <label for="linkedin"><i class="fa fa-linkedin"></i></label>
-                                    </li>
-                                </ul>
+                                <div class="cp_ipradio02">
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" checked />ネコ</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" />イヌ</label>
+                                    <label><input type="radio" class="option-input radio" name="cpipr02" />ウサギ</label>
+                                    <label class="disabled"><input type="radio" class="option-input radio" name="cpipr02" disabled />トリ</label>
+                                </div>
                             </fieldset>
                             <div
                                 @click="modeChange(0)"
