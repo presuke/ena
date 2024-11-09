@@ -908,14 +908,14 @@
                     }
                     return values;
                 },
-                modeChange(mode) {
+                modeChange(value) {
                     axios
                         .post('api/v1/regist/recordSettingHybridInverter', {
                             token: this.token,
                             no: this.selectedHybridInverter.no,
-                            regist: 0,
-                            value: {
-                                mode: mode
+                            mode: 0,
+                            regist: {
+                                value: value
                             },
                         })
                         .then((response) => {

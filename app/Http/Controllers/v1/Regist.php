@@ -185,14 +185,14 @@ class Regist extends BaseController
                 $rec = [];
                 $rec['user'] = $token->name;
                 $rec['no'] = $params['no'];
-                $rec['regist'] = $params['regist'];
-                $rec['value'] = json_encode($params['value']);
-                $rec['result'] = '1';
+                $rec['mode'] = $params['mode'];
+                $rec['regist'] = json_encode($params['regist']);
+                $rec['result'] = '';
                 $rec['create_at'] = $now;
-                $rec['done_at'] = $now;
                 $where = [
                     'user' => $rec['user'],
                     'no' => $rec['no'],
+                    'mode' => $rec['mode'],
                 ];
                 $record = DB::table('regist')->where($where);
                 if ($record->count() == 0) {
