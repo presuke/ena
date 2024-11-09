@@ -195,6 +195,7 @@
                         </div>
                         <h3>リモート設定</h3>
                         <div>
+                            {{this.setting.once}}
                             <fieldset>
                                 <div style="border-bottom: solid thin gray;">蓄電のための電源</div>
                                 <div class="cp_ipradio02">
@@ -899,8 +900,8 @@
                 },
                 openSetting(hybridInverter) {
                     this.selectedHybridInverter = hybridInverter;
-                    this.setting.chargerPriority = this.selectedHybridInverter.inverter_charger_priority;
-                    this.setting.outputPriority = this.selectedHybridInverter.inverter_output_priority;
+                    this.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority;
+                    this.setting.once.outputPriority = this.selectedHybridInverter.inverter_output_priority;
                     $("#dialogSetting").dialog({
                         title: '設定',
                         modal: true,
