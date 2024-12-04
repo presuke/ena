@@ -298,7 +298,7 @@
                 <div class="col-md-12">
                     <div class="card" style="height:600px;">
                         <div class="card-header">デイリーデータ</div>
-                        <p style="border-bottom: solid thin gray;width:240px;">日付: <input type="button" id="datepicker" class="datepicker"></p>
+                        <p style="border-bottom: solid thin gray;width:240px;">日付: <input type="text" readonly="readonly" id="datepicker" class="datepicker"></p>
                         <div id="tabs">
                             <ul>
                                 <li><a href="#tabs-1">推移</a></li>
