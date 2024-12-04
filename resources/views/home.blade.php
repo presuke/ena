@@ -127,7 +127,7 @@
                 </div>
                 <div id="dialogSetting" style="display:none;">
                     <div class="accordion">
-                        <h3>リモート設定</h3>
+                        <h3>手動設定</h3>
                         <div>
                             @{{this.setting.once}}
                             <fieldset>
@@ -205,18 +205,26 @@
                             <div>@{{this.setting.once.message}}</div>
                             <v-btn @click="settingOnce()">設定</v-btn>
                         </div>
-                        <h3>安く使う設定</h3>
+                        <h3>自動設定</h3>
                         <div>
-                            <div>
-                                エリア：<select id="area1">
-                                    <option value="1">東京</option>
-                                    <option value="2">東北</option>
-                                    <option value="3">中部</option>
-                                    <option value="4">東海</option>
-                                    <option value="5">関西</option>
-                                </select>
-                                　<a href="javascript:openPriceList('area1');">料金表</a>
-                            </div>
+                            @{{this.setting.once}}
+                            <fieldset>
+                                <input type="text" class="timepicker" />
+                                <div class="cp_ipradio02">
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="0" />PV優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="1" />Grid優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="2" />ハイブリッド</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="3" />PVのみ</label>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div style="border-bottom: solid thin gray;">消費のための電源</div>
+                                <div class="cp_ipradio02">
+                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="0" />PV優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="1" />Grid優先</label>
+                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="2" />バッテリー優先</label>
+                                </div>
+                            </fieldset>
                             <div>
                                 料金：
                                 <select>
@@ -335,6 +343,8 @@
                     vueObj.getInverterData();
                 }
             });
+
+            $('.timepicker').timepicker();
 
             $("#datepicker").val(new Date().toLocaleDateString("ja-JP", {
                 year: "numeric",
@@ -575,8 +585,9 @@
                             totals[key2].push(num);
 
                             key2 = keyTotal.PowerGridUseTotal;
-                            num = row['grid_input_current'] * row['grid_voltage'] * intervalPerHour / kw;
+                            num = row['grid_input_current'] * row['grid_voltage'] / kw;
                             totals[keyTotal.PowerGridUse].push(num);
+                            num *= intervalPerHour;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
                             }
