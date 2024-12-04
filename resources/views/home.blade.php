@@ -116,7 +116,7 @@
                                         <div style="clear:left; background-color:black;">@{{hybridInverter.create_at}}</div>
                                     </div>
                                 </div>
-                                <textarea style="width:60vw; height:300px;">
+                                <textarea style="width:60vw; height:300px; display:none;">
                                             @{{hybridInverter}}
                                             </textarea>
 
