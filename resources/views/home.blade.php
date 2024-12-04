@@ -344,7 +344,7 @@
                 }
             });
 
-            $('.timepicker').timepicker();
+            //$('.timepicker').timepicker();
 
             $("#datepicker").val(new Date().toLocaleDateString("ja-JP", {
                 year: "numeric",
@@ -585,8 +585,9 @@
                             totals[key2].push(num);
 
                             key2 = keyTotal.PowerGridUseTotal;
-                            num = row['grid_input_current'] * row['grid_voltage'] * intervalPerHour / kw;
+                            num = row['grid_input_current'] * row['grid_voltage'] / kw;
                             totals[keyTotal.PowerGridUse].push(num);
+                            num *= intervalPerHour;
                             if (totals[key2].length > 0) {
                                 num += totals[key2][totals[key2].length - 1];
                             }
