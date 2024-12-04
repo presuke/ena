@@ -116,10 +116,11 @@
                                         <div style="clear:left; background-color:black;">@{{hybridInverter.create_at}}</div>
                                     </div>
                                 </div>
-                                <textarea style="width:60vw; height:300px; display:none;">
+                                <!--
+                                <textarea style="width:60vw; height:300px;">
                                             @{{hybridInverter}}
                                             </textarea>
-
+-->
                             </div>
 
                         </div>
@@ -127,7 +128,7 @@
                 </div>
                 <div id="dialogSetting" style="display:none;">
                     <div class="accordion">
-                        <h3>手動設定</h3>
+                        <h3>リモート設定</h3>
                         <div>
                             @{{this.setting.once}}
                             <fieldset>
@@ -205,26 +206,18 @@
                             <div>@{{this.setting.once.message}}</div>
                             <v-btn @click="settingOnce()">設定</v-btn>
                         </div>
-                        <h3>自動設定</h3>
+                        <h3>安く使う設定</h3>
                         <div>
-                            @{{this.setting.once}}
-                            <fieldset>
-                                <input type="text" class="timepicker" />
-                                <div class="cp_ipradio02">
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="0" />PV優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="1" />Grid優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="2" />ハイブリッド</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_chargerPriority" v-model="setting.once.chargerPriority" value="3" />PVのみ</label>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <div style="border-bottom: solid thin gray;">消費のための電源</div>
-                                <div class="cp_ipradio02">
-                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="0" />PV優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="1" />Grid優先</label>
-                                    <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="2" />バッテリー優先</label>
-                                </div>
-                            </fieldset>
+                            <div>
+                                エリア：<select id="area1">
+                                    <option value="1">東京</option>
+                                    <option value="2">東北</option>
+                                    <option value="3">中部</option>
+                                    <option value="4">東海</option>
+                                    <option value="5">関西</option>
+                                </select>
+                                　<a href="javascript:openPriceList('area1');">料金表</a>
+                            </div>
                             <div>
                                 料金：
                                 <select>
@@ -298,7 +291,7 @@
                 <div class="col-md-12">
                     <div class="card" style="height:600px;">
                         <div class="card-header">デイリーデータ</div>
-                        <p style="border-bottom: solid thin gray;width:240px;">日付: <input type="text" readonly="readonly" id="datepicker" class="datepicker"></p>
+                        <p style="border-bottom: solid thin gray;width:240px;">日付: <input type="text" id="datepicker" readonly="readonly" class="datepicker"></p>
                         <div id="tabs">
                             <ul>
                                 <li><a href="#tabs-1">推移</a></li>
@@ -343,8 +336,6 @@
                     vueObj.getInverterData();
                 }
             });
-
-            //$('.timepicker').timepicker();
 
             $("#datepicker").val(new Date().toLocaleDateString("ja-JP", {
                 year: "numeric",
@@ -957,8 +948,8 @@
                             no: this.selectedHybridInverter.no,
                             mode: 0,
                             regist: {
-                                inverter_output_priority: this.setting.once.outputPriority,
-                                inverter_charger_priority: this.setting.once.chargerPriority,
+                                inverter_output_priority_write: this.setting.once.outputPriority,
+                                inverter_charger_priority_write: this.setting.once.chargerPriority,
                             },
                         })
                         .then((response) => {
