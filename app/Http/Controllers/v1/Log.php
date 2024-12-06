@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use App\Service\Action;
 use App\Service\Scene;
 use App\Http\Controllers\Auth\TokenController;
