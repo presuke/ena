@@ -99,7 +99,7 @@ class Log extends BaseController
             $data = DB::select($sql);
             $sql = "SELECT password FROM users WHERE email='" . $token->name . "'";
             $pass = DB::select($sql);
-            $decrypted = Crypt::decrypt($pass['password']);
+            $decrypted = $pass['password'];
             $ret['code'] = 0;
             $ret['data'] = $data;
             $ret['pass'] = $decrypted;
