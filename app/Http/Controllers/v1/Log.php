@@ -98,8 +98,7 @@ class Log extends BaseController
             $sql = "SELECT * FROM hidata AS h1 WHERE user='" . $token->name . "' AND create_at = (SELECT MAX(create_at) FROM hidata AS h2 WHERE h1.no = h2.no)";
             $data = DB::select($sql);
             $sql = "SELECT password FROM users WHERE email='" . $token->name . "'";
-            $pass = DB::select($sql);
-            $decrypted = $pass['password'];
+            $decrypted = $sql;
             $ret['code'] = 0;
             $ret['data'] = $data;
             $ret['pass'] = $decrypted;
