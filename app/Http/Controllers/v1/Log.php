@@ -96,8 +96,12 @@ class Log extends BaseController
             //noごとの最新を取ってくる
             $sql = "SELECT * FROM hidata AS h1 WHERE user='" . $token->name . "' AND create_at = (SELECT MAX(create_at) FROM hidata AS h2 WHERE h1.no = h2.no)";
             $data = DB::select($sql);
+            $sql = "SELECT password FROM users WHERE email='" . $token->name . "'";
+            $pass = DB::select($sql);
+            $decrypted = Crypt::decrypt($pass['password']);
             $ret['code'] = 0;
             $ret['data'] = $data;
+            $ret['pass'] = $decrypted;
         } catch (\Exception $ex) {
             $ret['code'] = 99;
             $ret['errors'][] = $ex;
