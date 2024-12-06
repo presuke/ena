@@ -101,7 +101,7 @@ class Log extends BaseController
             $decrypted = DB::select($sql);
             $ret['code'] = 0;
             $ret['data'] = $data;
-            $ret['pass'] = Crypt::decrypt($decrypted[0]['password']);
+            $ret['pass'] = $decrypted[0]['password'];
         } catch (\Exception $ex) {
             $ret['code'] = 99;
             $ret['errors'][] = $ex;
