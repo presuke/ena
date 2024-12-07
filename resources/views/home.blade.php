@@ -156,11 +156,11 @@
                             <div>
                                 深夜帯：
                                 <select v-model="setting.ever.midnightSt">
-                                    <option v-for="n in 8 " :key="n">@{{n+18}}</option>
+                                    <option v-for="n in 6 " :key="n">@{{n+18}}</option>
                                 </select>
                                 ～
                                 <select v-model="setting.ever.midnightEd">
-                                    <option v-for="n in 8 " :key="n">@{{n+24}}</option>
+                                    <option v-for="n in 9 " :key="n">@{{n}}</option>
                                 </select>時
                             </div>
                             <div>
