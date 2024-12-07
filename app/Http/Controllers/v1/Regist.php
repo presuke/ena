@@ -30,6 +30,7 @@ class Regist extends BaseController
                     $no = $params['user']['no'];
                 }
 
+                $now = Carbon::now('Asia/Tokyo');
                 switch ($params['report']) {
                         //設定の読み込み
                     case '0': {
@@ -41,6 +42,7 @@ class Regist extends BaseController
                             )->orderBy('create_at', 'asc')->get();
                             $ret['code'] = 0;
                             $ret['regists'] = $regists;
+                            $ret['now'] = $now;
                             break;
                         }
                         //設定完了の報告
@@ -48,7 +50,6 @@ class Regist extends BaseController
                             $ret['params'] = $params;
                             $mode = $params['mode'];
                             $result = $params['result'];
-                            $now = Carbon::now('Asia/Tokyo');
                             $regist = DB::table('regist')->where(
                                 [
                                     'user' => $user,
