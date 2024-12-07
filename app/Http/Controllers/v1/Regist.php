@@ -42,7 +42,7 @@ class Regist extends BaseController
                             )->orderBy('create_at', 'asc')->get();
                             $ret['code'] = 0;
                             $ret['regists'] = $regists;
-                            $ret['now'] = $now;
+                            $ret['now'] = $now->format('Y-m-d H:i:s');
                             break;
                         }
                         //設定完了の報告
