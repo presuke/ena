@@ -176,8 +176,8 @@
                                 </select>V以上
                             </div>
                             <div>@{{this.setting.ever}}</div>
-                            <v-btn @click="settingEver(1)">設定</v-btn>
-                            <v-btn @click="settingEver(0)">設定取消</v-btn>
+                            <v-btn @click="settingEver(0)">設定</v-btn>
+                            <v-btn @click="settingEver(1)">設定取消</v-btn>
                         </div>
 
                         <h3>安く使う設定</h3>
