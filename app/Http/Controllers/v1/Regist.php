@@ -38,7 +38,7 @@ class Regist extends BaseController
                                     'user' => $user,
                                     'no' => $no,
                                 ]
-                            )->orderBy('create_at', 'asc');
+                            )->orderBy('create_at', 'asc')->get();
                             $ret['code'] = 0;
                             $ret['regists'] = $regists;
                             break;
