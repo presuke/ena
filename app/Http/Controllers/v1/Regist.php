@@ -33,14 +33,10 @@ class Regist extends BaseController
                 switch ($params['report']) {
                         //設定の読み込み
                     case '0': {
-                            $regists = DB::table('regist')->where(
-                                [
-                                    'user' => $user,
-                                    'no' => $no,
-                                ]
-                            )->orderBy('create_at', 'asc');
+                            $sql = "SELECT * FROM regist WHERE user='" . $user . "' AND no='" . $no . "' ORDER BY create_at ASC";
+                            $data = DB::select($sql);
                             $ret['code'] = 0;
-                            $ret['regists'] = $regists;
+                            $ret['regists'] = $data;
                         }
                         //設定完了の報告
                     case '1': {
