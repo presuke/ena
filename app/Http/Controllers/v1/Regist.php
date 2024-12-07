@@ -179,13 +179,18 @@ class Regist extends BaseController
                     'mode' => $rec['mode'],
                 ];
                 $record = DB::table('regist')->where($where);
-                if ($record->count() == 0) {
-                    DB::table('regist')->insert($rec);
-                } else {
-                    $record->update($rec);
+                if ($params['flgDel'] == 0) {
+                    if ($record->count() == 0) {
+                        DB::table('regist')->insert($rec);
+                    } else {
+                        $record->update($rec);
+                    }
+                    $ret['message'] = '設定完了しました。';
+                } else if ($params['flgDel'] == 1) {
+                    DB::table('regist')->delete($rec);
+                    $ret['message'] = '設定削除完了しました。';
                 }
                 $ret['code'] = 0;
-                $ret['message'] = '設定予約完了しました。';
             } catch (\Exception $ex) {
                 $ret['code'] = 9;
                 $ret['error'] = $ex->getMessage();

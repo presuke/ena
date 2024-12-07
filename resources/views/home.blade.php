@@ -897,6 +897,7 @@
                             token: this.token,
                             no: this.selectedHybridInverter.no,
                             mode: 0,
+                            flgDel: 0,
                             regist: {
                                 inverter_output_priority_write: this.setting.once.outputPriority,
                                 inverter_charger_priority_write: this.setting.once.chargerPriority,
@@ -920,13 +921,13 @@
                             console.log(err);
                         });
                 },
-                settingEver(flg) {
+                settingEver(flgDel) {
                     axios
                         .post('api/v1/regist/recordSettingHybridInverter', {
                             token: this.token,
                             no: this.selectedHybridInverter.no,
                             mode: 1,
-                            flg: flg,
+                            flgDel: flgDel,
                             regist: {
                                 midnightSt: this.setting.ever.midnightSt,
                                 midnightEd: this.setting.ever.midnightEd,
