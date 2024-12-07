@@ -33,10 +33,15 @@ class Regist extends BaseController
                 switch ($params['report']) {
                         //設定の読み込み
                     case '0': {
-                            $sql = "SELECT * FROM regist WHERE user='" . $user . "' AND no='" . $no . "' ORDER BY create_at ASC";
-                            $data = DB::select($sql);
+                            $regists = DB::table('regist')->where(
+                                [
+                                    'user' => $user,
+                                    'no' => $no,
+                                ]
+                            )->orderBy('create_at', 'asc');
                             $ret['code'] = 0;
-                            $ret['regists'] = $data;
+                            $ret['regists'] = $regists;
+                            break;
                         }
                         //設定完了の報告
                     case '1': {
@@ -54,6 +59,7 @@ class Regist extends BaseController
                             if ($regist->count() > 0) {
                                 $regist->update(['result' => $result, 'done_at' => $now]);
                             }
+                            break;
                         }
                 }
             } catch (\Exception $ex) {
