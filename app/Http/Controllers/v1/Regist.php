@@ -39,8 +39,21 @@ class Regist extends BaseController
                                     'no' => $no,
                                 ]
                             )->orderBy('create_at', 'asc');
+
+                            $retRegist = null;
+                            foreach ($regists as $regist) {
+                                //1個のみ命令を聞く
+                                if ($retRegist == null) {
+                                    if (
+                                        $regist->mode == 0 &&
+                                        $regist->done_at == null
+                                    ) {
+                                        $retRegist = $regist;
+                                    }
+                                }
+                            }
                             $ret['code'] = 0;
-                            $ret['regists'] = $regists;
+                            $ret['regist'] = $retRegist;
                             break;
                         }
                         //設定完了の報告
