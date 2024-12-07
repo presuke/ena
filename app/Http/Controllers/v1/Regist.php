@@ -29,31 +29,36 @@ class Regist extends BaseController
                     $user = $params['user']['id'];
                     $no = $params['user']['no'];
                 }
-                if ($params['report'] == 0) {
 
-                    $regist = DB::table('regist')->where(
-                        [
-                            'user' => $user,
-                            'no' => $no,
-                        ]
-                    )->whereNull('done_at')->orderBy('create_at', 'asc')->first();
-                    $ret['code'] = 0;
-                    $ret['regist'] = $regist;
-                } else if ($params['report'] == 1) {
-                    $ret['params'] = $params;
-                    $mode = $params['mode'];
-                    $result = $params['result'];
-                    $now = Carbon::now('Asia/Tokyo');
-                    $regist = DB::table('regist')->where(
-                        [
-                            'user' => $user,
-                            'no' => $no,
-                            'mode' => $mode
-                        ]
-                    );
-                    if ($regist->count() > 0) {
-                        $regist->update(['result' => $result, 'done_at' => $now]);
-                    }
+                switch ($params['report']) {
+                        //設定の読み込み
+                    case '0': {
+                            $regists = DB::table('regist')->where(
+                                [
+                                    'user' => $user,
+                                    'no' => $no,
+                                ]
+                            )->orderBy('create_at', 'asc');
+                            $ret['code'] = 0;
+                            $ret['regists'] = $regists;
+                        }
+                        //設定完了の報告
+                    case '1': {
+                            $ret['params'] = $params;
+                            $mode = $params['mode'];
+                            $result = $params['result'];
+                            $now = Carbon::now('Asia/Tokyo');
+                            $regist = DB::table('regist')->where(
+                                [
+                                    'user' => $user,
+                                    'no' => $no,
+                                    'mode' => $mode
+                                ]
+                            );
+                            if ($regist->count() > 0) {
+                                $regist->update(['result' => $result, 'done_at' => $now]);
+                            }
+                        }
                 }
             } catch (\Exception $ex) {
                 $ret['code'] = 9;
