@@ -21,8 +21,14 @@ class Regist extends BaseController
             $ret = [];
             $params = $request->all();
             try {
-                $user = $params['user']['id'];
-                $no = $params['user']['no'];
+                if (isset($params['token'])) {
+                    $token = TokenController::getTokenInfo($params['token']);
+                    $user = $token->name;
+                    $no = $params['no'];
+                } else if (isset($params['user'])) {
+                    $user = $params['user']['id'];
+                    $no = $params['user']['no'];
+                }
                 if ($params['report'] == 0) {
 
                     $regist = DB::table('regist')->where(

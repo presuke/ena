@@ -148,64 +148,38 @@
                                     <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="2" />バッテリー優先</label>
                                 </div>
                             </fieldset>
-                            <!--
-                            <div
-                                @click="modeChange(0)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PV優先</div>
-                            </div>
-                            <div
-                                @click="modeChange(1)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">1st</div>
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">2nd</div>
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">Grid優先</div>
-                            </div>
-                            <div
-                                @click="modeChange(2)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">ハイブリッド</div>
-                            </div>
-                            <div
-                                @click="modeChange(3)"
-                                style="float:left; margin: 5px; border-radius: 10px; padding:10px; background-color: black; cursor: pointer;">
-                                <div style="float:left; width:30px; height:30px; text-align: center;">
-                                    <img src="/image/icon_solor.png" class="iconModule" style="width:100%; height:100%;">
-                                    <div class="fontMain" style="font-size:min(2vw, 12px); color:white;">only</div>
-                                </div>
-                                <div style="float:left; width:30px; height:30px; text-align: center; filter:brightness(50%);">
-                                    <img src="/image/icon_grid.png" class="iconModule" style="width:100%; height:100%;">
-                                </div>
-                                <div class="fontMain" style="clear:left; font-size:min(2.5vw, 14px); color:white;">PVのみ</div>
-                            </div>
-                            <div style="clear:left;">
-                                <div>消費電力源：@{{this.get_outputpriority(this.selectedHybridInverter.inverter_output_priority)}}</div>
-                                <div>蓄電元電源：@{{this.get_chargepriority(selectedHybridInverter.inverter_charger_priority)}}</div>
-                            </div>
--->
                             <div>@{{this.setting.once.message}}</div>
                             <v-btn @click="settingOnce()">設定</v-btn>
                         </div>
+                        <h3>深夜電力設定</h3>
+                        <div>
+                            <div>
+                                深夜帯：
+                                <select v-model="setting.ever.midnightSt">
+                                    <option v-for="n in 8 " :key="n">@{{n+18}}</option>
+                                </select>
+                                ～
+                                <select v-model="setting.ever.midnightEd">
+                                    <option v-for="n in 8 " :key="n">@{{n+24}}</option>
+                                </select>時
+                            </div>
+                            <div>
+                                Grid充電開始：
+                                <select v-model="setting.ever.voltageGridingSt">
+                                    <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
+                                </select>V以下
+                            </div>
+                            <div>
+                                Grid充電終了：
+                                <select v-model="setting.ever.voltageGridingEd">
+                                    <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
+                                </select>V以上
+                            </div>
+                            <div>@{{this.setting.ever}}</div>
+                            <v-btn @click="settingEver(1)">設定</v-btn>
+                            <v-btn @click="settingEver(0)">設定取消</v-btn>
+                        </div>
+
                         <h3>安く使う設定</h3>
                         <div>
                             <div>
@@ -238,39 +212,6 @@
                                 ％以下
                             </div>
                             <v-btn>商用電力を使う</v-btn>
-                        </div>
-                        <h3>安く溜める設定</h3>
-                        <div>
-                            <div>
-                                エリア：<select id="area2">
-                                    <option value="1">東京</option>
-                                    <option value="2">東北</option>
-                                    <option value="3">中部</option>
-                                    <option value="4">東海</option>
-                                    <option value="5">関西</option>
-                                </select>
-                                　<a href="javascript:openPriceList('area2');">料金表</a>
-                            </div>
-                            <div>
-                                料金：
-                                <select>
-                                    <option v-for="value in form.select.prices" :key="value" :value="value">
-                                        @{{ value }}
-                                    </option>
-                                </select>
-                                円/kwh以下
-                            </div>
-                            <div>
-                                バッテリー充電度：
-                                <select>
-                                    <option v-for="value in form.select.socs" :key="value" :value="value">
-                                        @{{ value }}
-                                    </option>
-                                </select>
-
-                                ％以下
-                            </div>
-                            <v-btn>商用電力で溜める</v-btn>
                         </div>
                     </div>
                 </div>
@@ -342,6 +283,7 @@
                 month: "2-digit",
                 day: "2-digit"
             }));
+
             $("#tabs").tabs();
         });
 
@@ -423,7 +365,14 @@
                         outputPriority: -1,
                         chargerPriority: -1,
                         message: '',
-                    }
+                    },
+                    ever: {
+                        midnightSt: 22,
+                        midnightEd: 32,
+                        voltageGridingSt: 52.5,
+                        voltageGridingEd: 56.5,
+                        message: '',
+                    },
                 },
             }),
             setup() {},
@@ -931,6 +880,7 @@
                             });
 
                             vueObj.getGridPriceData();
+                            vueObj.getEverSetting();
                         },
                     });
                 },
@@ -959,6 +909,62 @@
                                 } else {
                                     this.setting.once.message = 'error[' + response.data.code + ']:' + response.data.error;
                                     console.log(response.data);
+                                }
+                            } catch (err) {
+                                this.error = err;
+                                console.log(err);
+                            }
+                        })
+                        .catch((err) => {
+                            this.error = err;
+                            console.log(err);
+                        });
+                },
+                settingEver(flg) {
+                    axios
+                        .post('api/v1/regist/recordSettingHybridInverter', {
+                            token: this.token,
+                            no: this.selectedHybridInverter.no,
+                            mode: 1,
+                            flg: flg,
+                            regist: {
+                                midnightSt: this.setting.ever.midnightSt,
+                                midnightEd: this.setting.ever.midnightEd,
+                                voltageGridingSt: this.setting.ever.voltageGridingSt,
+                                voltageGridingEd: this.setting.ever.voltageGridingEd,
+                            },
+                        })
+                        .then((response) => {
+                            try {
+                                if (response.data.code == 0) {
+                                    this.setting.ever.message = response.data.message;
+                                } else {
+                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                    console.log(response.data);
+                                }
+                            } catch (err) {
+                                this.error = err;
+                                console.log(err);
+                            }
+                        })
+                        .catch((err) => {
+                            this.error = err;
+                            console.log(err);
+                        });
+                },
+                getEverSetting() {
+                    axios
+                        .post('api/v1/regist/readRegistSetting', {
+                            token: this.token,
+                            no: this.selectedHybridInverter.no,
+                            report: 0,
+                        })
+                        .then((response) => {
+                            try {
+                                if (response.data.code == 0) {
+                                    this.setting.ever.message = response.data.message;
+                                } else {
+                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
                                 }
                             } catch (err) {
                                 this.error = err;
