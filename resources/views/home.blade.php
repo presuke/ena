@@ -189,9 +189,9 @@
                                 </label>
                             </div>
                             <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px; margin-top:10px;">
-                                <div>現在の設定</div>
-                                <div>@{{this.setting.ever.message.midnightSt}}時～@{{this.setting.ever.message.midnightEd}}時の間に</div>
-                                <div>バッテリー電圧が@{{this.setting.ever.message.voltageGridingSt}}V未満になったら🔌に接続し、@{{this.setting.ever.message.voltageGridingEd}}V以上になったら🔌から切断</div>
+                                <v-html>
+                                    @{{this.setting.ever.message}}
+                                </v-html>
                             </div>
 
                             <v-btn @click="settingEver(0)">設定</v-btn>
@@ -892,11 +892,9 @@
                                                 this.setting.once.message = '設定中です。' + JSON.stringify(regist);
                                             }
                                         } else if (item.mode == 1) {
-                                            this.setting.ever.midnightSt = regist.midnightSt;
-                                            this.setting.ever.midnightEd = regist.midnightEd;
-                                            this.setting.ever.voltageGridingSt = regist.voltageGridingSt;
-                                            this.setting.ever.voltageGridingEd = regist.voltageGridingEd;
-                                            this.setting.ever.message = regist;
+                                            this.setting.ever.message = '以下の通り設定済みです。<div style='
+                                            color: red;
+                                            '>red</div>';
                                         }
                                     }
                                 } else {
