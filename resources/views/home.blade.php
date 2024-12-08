@@ -869,9 +869,15 @@
                                         let item = response.data.regists[idx];
                                         let regist = JSON.parse(item.regist);
                                         if (item.mode == 0) {
-
+                                            if (item.result == '') {
+                                                this.settingOnce.message = '設定中です。' + JSON.stringify(regist);
+                                            }
                                         } else if (item.mode == 1) {
-
+                                            this.settingEver.midnightSt = regist.midnightSt;
+                                            this.settingEver.midnightEd = regist.midnightEd;
+                                            this.settingEver.voltageGridingSt = regist.voltageGridingSt;
+                                            this.settingEver.voltageGridingEd = regist.voltageGridingEd;
+                                            this.settingEver.message = '現在の設定は、' + item.regist;
                                         }
                                     }
                                 } else {
