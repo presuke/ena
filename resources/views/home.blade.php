@@ -194,9 +194,9 @@
                                             <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                         </select>V以上
                                     </div>
-                                    <div>
-                                        <v-switch label="深夜時間終了時充電OFF"></v-switch>
-                                    </div>
+                                    <label class="toggle-button">
+                                        <input type="checkbox" />
+                                    </label>
                                 </div>
                             </div>
                             <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px; margin-top:10px;">
