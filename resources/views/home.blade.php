@@ -162,6 +162,11 @@
                                     <option v-for="n in 9 " :key="n">@{{n}}</option>
                                 </select>時
                             </div>
+                            <fieldset>
+                                <legend>Do you agree?</legend>
+                                <input type="checkbox" id="chbx" name="agree" value="Yes!" />
+                                <label for="chbx">I agree</label>
+                            </fieldset>
                             <div>
                                 🔌充電開始：
                                 <select v-model="setting.ever.voltageGridingSt">
