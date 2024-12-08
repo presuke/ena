@@ -904,6 +904,7 @@
                                                 this.setting.once.message = '設定予約済です。1分以内に切替設定処理をします。';
                                             }
                                         } else if (item.mode == 1) {
+                                            this.setting.ever = regist;
                                             this.setting.ever.message = '設定済です。変更する場合は改めて設定してください。';
                                         }
                                     }
