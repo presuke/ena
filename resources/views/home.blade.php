@@ -180,6 +180,7 @@
                             <v-btn @click="settingEver(1)">設定取消</v-btn>
                         </div>
 
+                        <!--
                         <h3>安く使う設定</h3>
                         <div>
                             <div>
@@ -213,6 +214,7 @@
                             </div>
                             <v-btn>商用電力を使う</v-btn>
                         </div>
+                        -->
                     </div>
                 </div>
                 <div id="dialogPriceList" style="display: none;">
@@ -870,14 +872,14 @@
                                         let regist = JSON.parse(item.regist);
                                         if (item.mode == 0) {
                                             if (item.result == '') {
-                                                this.settingOnce.message = '設定中です。' + JSON.stringify(regist);
+                                                this.setting.once.message = '設定中です。' + JSON.stringify(regist);
                                             }
                                         } else if (item.mode == 1) {
-                                            this.settingEver.midnightSt = regist.midnightSt;
-                                            this.settingEver.midnightEd = regist.midnightEd;
-                                            this.settingEver.voltageGridingSt = regist.voltageGridingSt;
-                                            this.settingEver.voltageGridingEd = regist.voltageGridingEd;
-                                            this.settingEver.message = '現在の設定は、' + item.regist;
+                                            this.setting.ever.midnightSt = regist.midnightSt;
+                                            this.setting.ever.midnightEd = regist.midnightEd;
+                                            this.setting.ever.voltageGridingSt = regist.voltageGridingSt;
+                                            this.setting.ever.voltageGridingEd = regist.voltageGridingEd;
+                                            this.setting.ever.message = '現在の設定は、' + item.regist;
                                         }
                                     }
                                 } else {
