@@ -415,7 +415,7 @@
                                     }
                                     if (this.hybridInverters.length > 0 &&
                                         this.selectedHybridInverter.no == undefined) {
-                                        tihs.selectInverter(this.hybridInverters[0]);
+                                        this.selectInverter(this.hybridInverters[0]);
                                     }
                                 } else {
                                     this.error = '特定できないエラー';
