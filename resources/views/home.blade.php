@@ -170,8 +170,8 @@
                             <div style="border-bottom:solid thin gray;">
                                 充電条件
                             </div>
-                            <div style="margin:5 0 10 10;">
-                                <div>
+                            <div style="margin:5px 0px 10px 10px;">
+                                <div style="background-color:#eee;">
                                     🔌充電開始
                                 </div>
                                 <div style="margin:5 0 5 10;">
@@ -186,10 +186,10 @@
                                         <input class="toggle-input" type='checkbox' v-model="setting.ever.forceSt" />
                                     </div>
                                 </div>
-                                <div>
+                                <div style="background-color:#eee;">
                                     🚫充電終了
                                 </div>
-                                <div style="margin:5 0 5 10;">
+                                <div style="margin:5px 0px 5px 10px;">
                                     <div>
                                         バッテリ電圧が
                                         <select v-model="setting.ever.voltageGridingEd">
