@@ -19,6 +19,8 @@ handler_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 handler.setFormatter(handler_formatter)
 logger.addHandler(handler)
 
+
+
 READ_FUNCTION_CODE = 3
 WRITE_FUNCTION_CODE = 6
 
@@ -66,6 +68,7 @@ INVERTER_COMMANDS_WRITE = {
     'inverter_charger_priority': (0xe20f, 0, WRITE_FUNCTION_CODE, False),
     #endregion
     #register: int, value: [int, float], decimals: int = 0, functioncode: int = 6, signed: bool = False
+
 }
 
 INVERTER_COMMANDS_WRITE_VALUE = {
@@ -212,6 +215,7 @@ def saveValues(values):
 def readValues(timestamp):
     ret = []
     try:
+
         table = DB.get('table').get('data')
         fields = []
         for field in table.get('fields').keys():
@@ -311,11 +315,11 @@ def main():
                         if res_json['code'] == 0:
                             if res_json['regists'] != None:
                                 for item in res_json['regists']:
-                                    mode = item['mode']
+                                    mode = int(item['mode'])
                                     regist = json.loads(item['regist'])
                                     result = []
                                     if mode == 0:
-                                        if item['result'] == '[]':
+                                        if item['result'] == '':
                                             for key in regist.keys():
                                                 val = int(regist[key])
                                                 key2 = key.replace("_write","")
@@ -324,14 +328,17 @@ def main():
                                                 result.append({key2 : instr.read_register(*INVERTER_COMMANDS_READ.get(key2))})
                                                 time.sleep(0.1)
                                     elif mode == 1:
-                                        print(regist)
                                         dt = datetime.datetime.fromisoformat(res_json['now'])
                                         h = dt.hour
-                                        voltage = instr.read_register(*INVERTER_COMMANDS_READ.get('battery_voltage'))
-                                        output = instr.read_register(*INVERTER_COMMANDS_READ.get('inverter_output_priority'))
+                                        hSt = int(regist['midnightSt'])
+                                        hEd = int(regist['midnightEd'])
 
-                                        if((h >= regist['midnightSt'] and h < 24) or
-                                           (h >= 0 and h < regist['midnightSt'])):
+                                        voltage = instr.read_register(*INVERTER_COMMANDS_READ.get('battery_voltage'))
+                                        time.sleep(0.1)
+                                        output = instr.read_register(*INVERTER_COMMANDS_READ.get('inverter_output_priority'))
+                                        time.sleep(0.1)
+
+                                        if((h >= hSt and h < 24) or (h >= 0 and h < hEd)):
                                             #power output source
                                             key = 'inverter_output_priority'
                                             if(output != 1 and voltage < regist['voltageGridingSt']):
@@ -381,7 +388,7 @@ def main():
                     contents = res.content
                     json_contents = json.loads(contents)
                     url = setting_json['api']['host'] + '/api/v1/regist/recordGridPrice'
-#                    url = setting_json['api']['host_debug'] + '/api/v1/regist/recordGridPrice'
+                    #url = setting_json['api']['host_debug'] + '/api/v1/regist/recordGridPrice'
                     post_data = {'contents':json_contents, 'time':ut, 'area':GRID_AREA[area]}
                     res = requests.post(url, json = post_data)
                     print(res)
