@@ -167,38 +167,36 @@
                             <div style="border-bottom:solid thin gray;">
                                 充電条件
                             </div>
-                            <div style="margin:10px;">
+                            <div style="margin-left:10px;">
                                 <div style="border-bottom:solid thin gray;">
                                     充電開始
                                 </div>
-                                <div style="margin:10px;">
+                                <div style="margin-left:10px;">
                                     <div>
+                                        バッテリー電圧が
                                         <select v-model="setting.ever.voltageGridingSt">
                                             <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
-                                        </select>V未満で充電開始
+                                        </select>V未満
                                     </div>
                                     <div>
-                                        <div class="toggle-switch">
-                                            <input id="toggle" class="toggle-input" type='checkbox' />
-                                            <label for="toggle" class="toggle-label">
-                                                深夜時間開始時充電ON
-                                            </label>
-                                        </div>
+                                        または深夜時間開始時
+                                        <input class="toggle-input" type='checkbox' v-model="setting.ever.forceSt" />
                                     </div>
                                 </div>
                                 <div style="border-bottom:solid thin gray;">
-                                    充電開始
+                                    充電終了
                                 </div>
-                                <div style="margin:10px;">
-
+                                <div style="margin-left:10px;">
                                     <div>
+                                        バッテリー電圧が
                                         <select v-model="setting.ever.voltageGridingEd">
                                             <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                         </select>V以上
                                     </div>
-                                    <label class="toggle-button">
-                                        <input type="checkbox" />
-                                    </label>
+                                    <div>
+                                        または深夜時間終了時
+                                        <input class="toggle-input" type='checkbox' v-model="setting.ever.forceEd" />
+                                    </div>
                                 </div>
                             </div>
                             <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px; margin-top:10px;">
@@ -403,6 +401,8 @@
                         midnightEd: 8,
                         voltageGridingSt: 52.5,
                         voltageGridingEd: 56.5,
+                        forceSt: false,
+                        forceEd: false,
                         message: '',
                     },
                 },
