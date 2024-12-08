@@ -130,7 +130,6 @@
                     <div class="accordion">
                         <h3>リモート設定</h3>
                         <div>
-                            @{{this.setting.once}}
                             <fieldset>
                                 <div style="border-bottom: solid thin gray;">蓄電のための電源</div>
                                 <div class="cp_ipradio02">
@@ -175,12 +174,17 @@
                                     <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                 </select>V以上
                             </div>
-                            <div>@{{this.setting.ever}}</div>
-                            <v-btn @click="settingEver(0)">設定</v-btn>
-                            <v-btn @click="settingEver(1)">設定取消</v-btn>
-                        </div>
+                            <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;">
+                                <div>現在の設定<div>
+                                        <div>深夜時間帯：@{{this.setting.ever.message.midnightSt}}時～@{{this.setting.ever.message.midnightEd}}時<div>
+                                                <div>商用電力適用開始バッテリー電圧：@{{this.setting.ever.message.voltageGridingSt}}V<div>
+                                                        <div>商用電力適用終了バッテリー電圧：@{{this.setting.ever.message.voltageGridingEd}}V<div>
+                                                            </div>
+                                                            <v-btn @click="settingEver(0)">設定</v-btn>
+                                                            <v-btn @click="settingEver(1)">設定取消</v-btn>
+                                                        </div>
 
-                        <!--
+                                                        <!--
                         <h3>安く使う設定</h3>
                         <div>
                             <div>
@@ -215,789 +219,789 @@
                             <v-btn>商用電力を使う</v-btn>
                         </div>
                         -->
-                    </div>
-                </div>
-                <div id="dialogPriceList" style="display: none;">
-                    <div style="border-bottom: solid thin gray;width:180px;"> <input type="text" id="datepickerGridPrice" class="datepicker" onSlelect="vueObj.getGridPriceData();"></div>
-                    <div v-if="gridPrices.length == 0" style="padding:10px;">
-                        <v-progress-circular color="primary" indeterminate></v-progress-circular>loading...
-                    </div>
-                    <div v-else>
-                        <div style="height:300px; overflow:scroll;">
-                            <div v-for="gridPrice in gridPrices" :key="gridPrice.idx">
-                                <div style="width: 100px; clear: left; float: left;" :style="gridPrice.idx % 2 === 1 ? { backgroundColor: '#eeeeff' } : {}">@{{ gridPrice.label }}</div>
-                                <div style="float: left;" :style="gridPrice.idx % 2 === 1 ? { backgroundColor: '#eeeeff' } : {}">@{{ gridPrice.price }}円/kwh</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card" style="height:600px;">
-                        <div class="card-header">デイリーデータ</div>
-                        <p style="border-bottom: solid thin gray;width:240px;">日付: <input type="text" id="datepicker" readonly="readonly" class="datepicker"></p>
-                        <div id="tabs">
-                            <ul>
-                                <li><a href="#tabs-1">推移</a></li>
-                                <li><a href="#tabs-2">累積</a></li>
-                                <li><a href="#tabs-3">バッテリー</a></li>
-                            </ul>
-                            <div id="tabs-1">
-                                <div style="height:250px">
-                                    <canvas id="chartA" width="100"></canvas>
-                                </div>
-                                <div class="chartGudance">日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
-                            </div>
-                            <div id="tabs-2">
-                                <div style="height:250px">
-                                    <canvas id="chartB"></canvas>
-                                </div>
-                                <div class="chartGudance">日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
-                            </div>
-                            <div id="tabs-3">
-                                <div style="height:250px">
-                                    <canvas id="chartC"></canvas>
-                                </div>
-                                <div class="chartGudance">日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        var vueObj;
-        var chartA = null;
-        var chartB = null;
-        var chartC = null;
+                                                    </div>
+                                                </div>
+                                                <div id="dialogPriceList" style="display: none;">
+                                                    <div style="border-bottom: solid thin gray;width:180px;"> <input type="text" id="datepickerGridPrice" class="datepicker" onSlelect="vueObj.getGridPriceData();"></div>
+                                                    <div v-if="gridPrices.length == 0" style="padding:10px;">
+                                                        <v-progress-circular color="primary" indeterminate></v-progress-circular>loading...
+                                                    </div>
+                                                    <div v-else>
+                                                        <div style="height:300px; overflow:scroll;">
+                                                            <div v-for="gridPrice in gridPrices" :key="gridPrice.idx">
+                                                                <div style="width: 100px; clear: left; float: left;" :style="gridPrice.idx % 2 === 1 ? { backgroundColor: '#eeeeff' } : {}">@{{ gridPrice.label }}</div>
+                                                                <div style="float: left;" :style="gridPrice.idx % 2 === 1 ? { backgroundColor: '#eeeeff' } : {}">@{{ gridPrice.price }}円/kwh</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="card" style="height:600px;">
+                                                        <div class="card-header">デイリーデータ</div>
+                                                        <p style="border-bottom: solid thin gray;width:240px;">日付: <input type="text" id="datepicker" readonly="readonly" class="datepicker"></p>
+                                                        <div id="tabs">
+                                                            <ul>
+                                                                <li><a href="#tabs-1">推移</a></li>
+                                                                <li><a href="#tabs-2">累積</a></li>
+                                                                <li><a href="#tabs-3">バッテリー</a></li>
+                                                            </ul>
+                                                            <div id="tabs-1">
+                                                                <div style="height:250px">
+                                                                    <canvas id="chartA" width="100"></canvas>
+                                                                </div>
+                                                                <div class="chartGudance">日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
+                                                            </div>
+                                                            <div id="tabs-2">
+                                                                <div style="height:250px">
+                                                                    <canvas id="chartB"></canvas>
+                                                                </div>
+                                                                <div class="chartGudance">日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
+                                                            </div>
+                                                            <div id="tabs-3">
+                                                                <div style="height:250px">
+                                                                    <canvas id="chartC"></canvas>
+                                                                </div>
+                                                                <div class="chartGudance">日付とハイブリッドインバータを選択すると運用状況がグラフで表示されます。</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                    <script>
+                                        var vueObj;
+                                        var chartA = null;
+                                        var chartB = null;
+                                        var chartC = null;
 
-        $(function() {
-            $("#datepicker").datepicker({
-                dateFormat: 'yy/mm/dd',
-                onSelect: function(dateText, inst) {
-                    vueObj.getInverterData();
-                }
-            });
-
-            $("#datepicker").val(new Date().toLocaleDateString("ja-JP", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit"
-            }));
-
-            $("#tabs").tabs();
-        });
-
-        function openPriceList(areaId) {
-            var selectedArea = $("#" + areaId).find('option:selected').text();
-            $("#dialogPriceList").dialog({
-                title: selectedArea + 'の料金表',
-                modal: true,
-                height: 500,
-                buttons: [{
-                    text: "閉じる",
-                    click: function() {
-                        $(this).dialog("close");
-                    }
-                }],
-                open: function() {
-                    $("#datepickerGridPrice").datepicker({
-                        dateFormat: 'yy/mm/dd',
-                        onSelect: function(dateText, inst) {
-                            vueObj.getGridPriceData(areaId);
-                        }
-                    });
-
-                    $("#datepickerGridPrice").val(new Date().toLocaleDateString("ja-JP", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit"
-                    }));
-                    vueObj.getGridPriceData(areaId);
-                },
-            });
-        }
-
-        const {
-            createApp,
-            ref
-        } = Vue
-
-        vuetify = Vuetify.createVuetify({
-            theme: {
-                defaultTheme: 'light'
-            }
-        });
-
-        const objVue = {
-            data: () => ({
-                token: '',
-                rootPath: '',
-                form: {
-                    name: '',
-                    select: {
-                        prices: [],
-                        socs: [],
-                    },
-                },
-                serverTime: 'xxx',
-                screen: {
-                    width: 0,
-                    height: 0,
-                },
-                gridPrices: [],
-                hybridInverters: -1,
-                selectedHybridInverter: {},
-                showControllBox: false,
-                hybridInverterData: [],
-                outputPriority: {
-                    0: 'PV優先',
-                    1: 'Grid優先',
-                    2: 'Batt優先',
-                },
-                chargerPriority: {
-                    0: 'CSO?',
-                    1: 'Grid',
-                    2: 'PV',
-                    3: 'OSO?',
-                },
-                setting: {
-                    once: {
-                        outputPriority: -1,
-                        chargerPriority: -1,
-                        message: '',
-                    },
-                    ever: {
-                        midnightSt: 22,
-                        midnightEd: 32,
-                        voltageGridingSt: 52.5,
-                        voltageGridingEd: 56.5,
-                        message: '',
-                    },
-                },
-            }),
-            setup() {},
-            created() {},
-            mounted() {
-                vueObj = this;
-                window.onload = () => {
-                    this.screen.height = document.body.clientHeight;
-                    this.screen.width = document.body.clientWidth;
-                    this.token = window.localStorage.getItem('token');
-                    this.form.select.prices = this.generateValues(8, 16, 0.2);
-                    this.form.select.socs = this.generateValues(30, 80, 1);
-                    this.getMyHybridInverters()
-                    setInterval(this.getMyHybridInverters, 60000);
-                };
-            },
-            methods: {
-                get_outputpriority(priority) {
-                    return this.outputPriority[priority];
-                },
-                get_chargepriority(priority) {
-                    return this.chargerPriority[priority];
-                },
-                getMyHybridInverters() {
-                    const accessToken = this.token;
-                    axios
-                        .get('/api/v1/log/getMyHybridInverters?token=' + accessToken, {})
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    this.hybridInverters = response.data.data;
-                                    if (!$('.slider').hasClass('slick-initialized')) {
-                                        setTimeout(function() {
-                                            $('.slider').slick({
-                                                autoplay: true, // 自動再生
-                                                autoplaySpeed: 4000, // 再生速度（ミリ秒設定） 1000ミリ秒=1秒
-                                                infinite: true, // 無限スライド
+                                        $(function() {
+                                            $("#datepicker").datepicker({
+                                                dateFormat: 'yy/mm/dd',
+                                                onSelect: function(dateText, inst) {
+                                                    vueObj.getInverterData();
+                                                }
                                             });
-                                        }, 500);
-                                    }
-                                    if (this.hybridInverters.length > 0 &&
-                                        this.selectedHybridInverter.no == undefined) {
-                                        this.selectInverter(this.hybridInverters[0]);
-                                    }
-                                } else {
-                                    this.error = '特定できないエラー';
-                                    console.log(response.data);
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                },
-                selectInverter(inverter) {
-                    this.selectedHybridInverter = inverter;
-                    this.getInverterData();
-                },
-                getInverterData() {
-                    const date = $("#datepicker").val();
-                    axios
-                        .get('/api/v1/log/getHybridInverterDatas?token=' + this.token + '&no=' + this.selectedHybridInverter.no + '&date=' + date, {})
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    this.hybridInverterData = response.data.data;
-                                    this.makeChartDaily(response.data.data);
-                                } else {
-                                    this.error = '特定できないエラー';
-                                    console.log(response.data);
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                },
-                makeChartDaily(dataOrgn) {
-                    try {
-                        const kw = 1000;
-                        console.log("makechart3");
-                        const ctxA = $('#chartA');
-                        const ctxB = $('#chartB');
-                        const ctxC = $('#chartC');
 
-                        const keyTotal = {
-                            PowerPV: 'pvPower',
-                            PowerInverter: 'inverterPower',
-                            PowerBatt: 'batteryPower',
-                            PowerGridCharge: 'gridPowerCharge',
-                            PowerGridUse: 'gridPowerUse',
-                            PowerGridUseTotal: 'gridPowerUseTotal',
-                            PoolBatt: 'batteryPoolPower',
-                        };
+                                            $("#datepicker").val(new Date().toLocaleDateString("ja-JP", {
+                                                year: "numeric",
+                                                month: "2-digit",
+                                                day: "2-digit"
+                                            }));
 
-                        const intervalPerHour = dataOrgn.interval / 60;
-                        let labels = [];
-                        let labelsExistsData = [];
-                        let datas = [];
-                        let datasExistsData = [];
-                        let totals = [];
-                        Object.keys(keyTotal).forEach((key) => {
-                            totals[keyTotal[key]] = [];
-                        });
-
-                        Object.keys(dataOrgn.datas).forEach((key) => {
-                            let row = dataOrgn.datas[key];
-                            Object.keys(row).forEach((clm) => {
-                                if (datas[clm] == undefined) {
-                                    datas[clm] = [];
-                                }
-                                datas[clm].push(row[clm]);
-                            });
-                            var key2 = ''
-                            var num = 0;
-
-                            key2 = keyTotal.PowerPV;
-                            num = row['pv_power'] * intervalPerHour;
-                            if (totals[key2].length > 0) {
-                                num += totals[key2][totals[key2].length - 1];
-                            }
-                            totals[key2].push(num);
-
-                            key2 = keyTotal.PowerInverter;
-                            num = row['inverter_power'] * intervalPerHour;
-                            if (totals[key2].length > 0) {
-                                num += totals[key2][totals[key2].length - 1];
-                            }
-                            totals[key2].push(num);
-
-                            key2 = keyTotal.PowerBatt;
-                            num = row['battery_charge_power'] * intervalPerHour / kw;
-                            if (totals[key2].length > 0) {
-                                num += totals[key2][totals[key2].length - 1];
-                            }
-                            totals[key2].push(num);
-
-                            key2 = keyTotal.PowerGridCharge;
-                            num = row['grid_battery_charge_current'] * row['grid_voltage'] * intervalPerHour / kw;
-                            if (totals[key2].length > 0) {
-                                num += totals[key2][totals[key2].length - 1];
-                            }
-                            totals[key2].push(num);
-
-                            key2 = keyTotal.PowerGridUseTotal;
-                            num = row['grid_input_current'] * row['grid_voltage'] / kw;
-                            totals[keyTotal.PowerGridUse].push(num);
-                            num *= intervalPerHour;
-                            if (totals[key2].length > 0) {
-                                num += totals[key2][totals[key2].length - 1];
-                            }
-                            totals[key2].push(num);
-
-                            key2 = keyTotal.PoolBatt;
-                            num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1 / kw;
-                            totals[key2].push(num);
-
-                            //データが有るときだけプッシュ
-                            if (row['battery_voltage'] > 0) {
-                                labelsExistsData.push(key);
-                                Object.keys(row).forEach(function(key2) {
-                                    if (datasExistsData[key2] == undefined) {
-                                        datasExistsData[key2] = [];
-                                    }
-                                    datasExistsData[key2].push(row[key2]);
-                                });
-                            }
-
-                            labels.push(key);
-                        });
-
-
-                        // JSONデータ
-                        var jsonDataCommonBAT = {
-                            "label": "バッテリ電圧",
-                            "data": datas['battery_voltage'],
-                            "borderColor": "rgba(235, 235, 102, 0.5)",
-                            "backgroundColor": "rgba(235, 235, 102, 0.2)",
-                            fill: true, // 塗りつぶしを有効にする
-                            pointRadius: 0, // 点を非表示にする
-                            yAxisID: 'y2'
-                        }
-                        var jsonDataA = {
-                            "labels": labels,
-                            "datasets": [{
-                                    "label": "発電量",
-                                    "data": datas['pv_power'],
-                                    "borderColor": "rgba(99, 255, 132, 1)",
-                                    "backgroundColor": "rgba(54, 162, 235, 0.2)",
-                                    yAxisID: 'y1'
-                                },
-                                {
-                                    "label": "消費量",
-                                    "data": datas['inverter_power'],
-                                    "borderColor": "rgba(75, 192, 192, 1)",
-                                    "backgroundColor": "rgba(75, 192, 192, 0.2)",
-                                    yAxisID: 'y1'
-                                },
-                                {
-                                    "label": "買電量",
-                                    "data": totals[keyTotal.PowerGridUse],
-                                    "borderColor": "rgba(255, 132, 99, 1)",
-                                    "backgroundColor": "rgba(255, 132, 99, 0.2)",
-                                    yAxisID: 'y1'
-                                },
-                                jsonDataCommonBAT,
-                            ]
-                        };
-
-                        var jsonDataB = {
-                            "labels": labels,
-                            "datasets": [{
-                                    "label": "発電量",
-                                    "data": totals[keyTotal.PowerPV],
-                                    "borderColor": "rgba(99, 255, 132, 1)",
-                                    "backgroundColor": "rgba(99, 255, 132, 0.2)",
-                                    yAxisID: 'y1'
-                                },
-                                {
-                                    "label": "商用蓄電量",
-                                    "data": totals[keyTotal.PowerGridCharge],
-                                    "borderColor": "rgb(153, 102, 255, 1)",
-                                    "backgroundColor": "rgba(99, 132, 255, 0.2)",
-                                    yAxisID: 'y1'
-                                },
-                                {
-                                    "label": "消費量",
-                                    "data": totals[keyTotal.PowerInverter],
-                                    "borderColor": "rgba(75, 192, 192, 1)",
-                                    "backgroundColor": "rgba(99, 132, 255, 0.2)",
-                                    yAxisID: 'y1'
-                                },
-                                {
-                                    "label": "買電量",
-                                    "data": totals[keyTotal.PowerGridUseTotal],
-                                    "borderColor": "rgba(255, 132, 99, 1)",
-                                    "backgroundColor": "rgba(255, 132, 99, 0.2)",
-                                    yAxisID: 'y1'
-                                },
-                                jsonDataCommonBAT,
-                            ]
-                        };
-
-                        var jsonDataC = {
-                            "labels": labelsExistsData,
-                            "datasets": [{
-                                    "label": "バッテリ電圧",
-                                    "data": datasExistsData['battery_voltage'],
-                                    "borderColor": jsonDataCommonBAT.borderColor,
-                                    "backgroundColor": jsonDataCommonBAT.backgroundColor,
-                                    yAxisID: 'y1'
-                                },
-                                {
-                                    "label": "バッテリ残量（SOC）",
-                                    "data": datasExistsData['battery_soc'],
-                                    "borderColor": "rgba(168, 255, 168, 0.5)",
-                                    "backgroundColor": "rgba(168, 255, 168, 0.2)",
-                                    fill: true, // 塗りつぶしを有効にする
-                                    pointRadius: 0, // 点を非表示にする
-                                    yAxisID: 'y2'
-                                }
-                            ]
-                        };
-
-                        $(".chartGudance").slideUp();
-
-                        //共通
-                        const ICON_PV_CHARGE = '🌞';
-                        const ICON_GRID_CHARGE = '🔌';
-                        const common_x = {
-                            ticks: {
-                                callback: function(value, index, values) {
-                                    var label = jsonDataB.labels[index];
-                                    var buf = dataOrgn.datas[label];
-                                    try {
-                                        if (buf['grid_battery_charge_current'] > 0) {
-                                            return ICON_GRID_CHARGE + label;
-                                        } else if (buf['pv_battery_charge_current'] > 0) {
-                                            return ICON_PV_CHARGE + label;
-                                        }
-                                        return label;
-                                    } catch (err) {
-                                        console.log(err);
-                                    }
-                                },
-                                color: function(context) {
-                                    var label = context.tick.label;
-                                    try {
-                                        if (label.indexOf(ICON_GRID_CHARGE) != -1) {
-                                            return 'rgba(128, 0, 0, 1)';
-                                        } else if (label.indexOf(ICON_PV_CHARGE) != -1) {
-                                            return 'rgba(0, 168, 1)';
-                                        }
-                                        return 'rgba(0, 0, 0, 1)';
-                                    } catch (err) {
-                                        console.log(err);
-                                    }
-                                },
-                            }
-                        }
-                        const common_y_battery_voltage = {
-                            type: 'linear',
-                            position: 'right',
-                            min: 46,
-                            max: 60,
-                            ticks: {
-                                beginAtZero: true,
-                                callback: function(value, index, values) {
-                                    return value + ' v'; // Y軸のラベルに単位を追加
-                                }
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: '(v)' // Y軸全体のラベルに単位を追加
-                            },
-                            grid: {
-                                drawOnChartArea: false
-                            }
-                        }
-
-                        //chartA
-                        if (chartA != null) {
-                            chartA.destroy();
-                        }
-                        chartA = new Chart(ctxA, {
-                            type: 'line',
-                            data: jsonDataA,
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                scales: {
-                                    x: common_x,
-                                    y1: {
-                                        type: 'linear',
-                                        position: 'left',
-                                        ticks: {
-                                            beginAtZero: true,
-                                            callback: function(value, index, values) {
-                                                return value + ' kW'; // Y軸のラベルに単位を追加
-                                            }
-                                        },
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: '(kW)' // Y軸全体のラベルに単位を追加
-                                        }
-                                    },
-                                    y2: common_y_battery_voltage,
-                                }
-                            }
-                        });
-
-                        //chartB
-                        if (chartB != null) {
-                            chartB.destroy();
-                        }
-                        chartB = new Chart(ctxB, {
-                            type: 'line',
-                            data: jsonDataB,
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                scales: {
-                                    x: common_x,
-                                    y1: {
-                                        type: 'linear',
-                                        position: 'left',
-                                        ticks: {
-                                            beginAtZero: true,
-                                            callback: function(value, index, values) {
-                                                return value + ' kWh'; // Y軸のラベルに単位を追加
-                                            }
-                                        },
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: '(kWh)' // Y軸全体のラベルに単位を追加
-                                        }
-                                    },
-                                    y2: common_y_battery_voltage,
-                                }
-                            },
-                        });
-
-                        //chartC
-                        if (chartC != null) {
-                            chartC.destroy();
-                        }
-                        chartC = new Chart(ctxC, {
-                            type: 'line',
-                            data: jsonDataC,
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                scales: {
-                                    x: common_x,
-                                    y1: {
-                                        type: 'linear',
-                                        position: 'left',
-                                        ticks: {
-                                            beginAtZero: true,
-                                            callback: function(value, index, values) {
-                                                return value + ' v'; // Y軸のラベルに単位を追加
-                                            }
-                                        },
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: '(v)' // Y軸全体のラベルに単位を追加
-                                        }
-                                    },
-                                    y2: {
-                                        type: 'linear',
-                                        position: 'right',
-                                        min: 0,
-                                        max: 100,
-                                        ticks: {
-                                            beginAtZero: true,
-                                            callback: function(value, index, values) {
-                                                return value + ' %'; // Y軸のラベルに単位を追加
-                                            }
-                                        },
-                                        scaleLabel: {
-                                            display: true,
-                                            labelString: '(%)' // Y軸全体のラベルに単位を追加
-                                        },
-                                        grid: {
-                                            drawOnChartArea: false
-                                        }
-                                    },
-                                }
-                            },
-                        });
-                    } catch (err) {
-                        this.error = err;
-                        console.log(err);
-                    }
-                },
-                getGridPriceData(areaId) {
-                    this.gridPrices = [];
-                    axios
-                        .get('/api/v1/regist/getGridPrice?token=' + this.token + '&date=' + $("#datepickerGridPrice").val() + '&area=' + $("#" + areaId).val(), {})
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    this.gridPrices = [];
-                                    let idx = 0;
-                                    let startTime = new Date();
-                                    startTime.setHours(0, 0, 0, 0);
-                                    response.data.data.forEach(row => {
-                                        let hFrom = String(startTime.getHours()).padStart(2, '0');
-                                        let mFrom = String(startTime.getMinutes()).padStart(2, '0');
-                                        startTime.setMinutes(startTime.getMinutes() + 30);
-                                        let hTo = String(startTime.getHours()).padStart(2, '0');
-                                        let mTo = String(startTime.getMinutes()).padStart(2, '0');
-                                        this.gridPrices.push({
-                                            idx: idx,
-                                            label: `${hFrom}:${mFrom}～${hTo}:${mTo}`,
-                                            price: row.price,
+                                            $("#tabs").tabs();
                                         });
-                                        idx++;
-                                    });
 
-                                } else {
-                                    this.error = '特定できないエラー';
-                                    console.log(response.data);
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                },
-                getRegistSetting() {
-                    axios
-                        .post('api/v1/regist/readRegistSetting', {
-                            token: this.token,
-                            no: this.selectedHybridInverter.no,
-                            report: 0,
-                        })
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    for (let idx = 0; idx < response.data.regists.length; idx++) {
-                                        let item = response.data.regists[idx];
-                                        let regist = JSON.parse(item.regist);
-                                        if (item.mode == 0) {
-                                            if (item.result == '') {
-                                                this.setting.once.message = '設定中です。' + JSON.stringify(regist);
-                                            }
-                                        } else if (item.mode == 1) {
-                                            this.setting.ever.midnightSt = regist.midnightSt;
-                                            this.setting.ever.midnightEd = regist.midnightEd;
-                                            this.setting.ever.voltageGridingSt = regist.voltageGridingSt;
-                                            this.setting.ever.voltageGridingEd = regist.voltageGridingEd;
-                                            this.setting.ever.message = '現在の設定は、' + item.regist;
+                                        function openPriceList(areaId) {
+                                            var selectedArea = $("#" + areaId).find('option:selected').text();
+                                            $("#dialogPriceList").dialog({
+                                                title: selectedArea + 'の料金表',
+                                                modal: true,
+                                                height: 500,
+                                                buttons: [{
+                                                    text: "閉じる",
+                                                    click: function() {
+                                                        $(this).dialog("close");
+                                                    }
+                                                }],
+                                                open: function() {
+                                                    $("#datepickerGridPrice").datepicker({
+                                                        dateFormat: 'yy/mm/dd',
+                                                        onSelect: function(dateText, inst) {
+                                                            vueObj.getGridPriceData(areaId);
+                                                        }
+                                                    });
+
+                                                    $("#datepickerGridPrice").val(new Date().toLocaleDateString("ja-JP", {
+                                                        year: "numeric",
+                                                        month: "2-digit",
+                                                        day: "2-digit"
+                                                    }));
+                                                    vueObj.getGridPriceData(areaId);
+                                                },
+                                            });
                                         }
-                                    }
-                                } else {
-                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                },
-                openSetting(hybridInverter) {
-                    this.selectedHybridInverter = hybridInverter;
-                    this.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority;
-                    this.setting.once.outputPriority = this.selectedHybridInverter.inverter_output_priority;
-                    this.setting.once.message = '';
-                    $("#dialogSetting").dialog({
-                        title: '設定',
-                        modal: true,
-                        height: 500,
-                        buttons: [{
-                            text: "閉じる",
-                            click: function() {
-                                $(this).dialog("close");
-                            }
-                        }],
-                        open: function() {
-                            $(".accordion").accordion();
-                            $("#priceList").accordion({
-                                collapsible: true
-                            });
 
-                            $("#area").change(function() {
-                                vueObj.getGridPriceData()
-                            });
+                                        const {
+                                            createApp,
+                                            ref
+                                        } = Vue
 
-                            vueObj.getGridPriceData();
-                            vueObj.getRegistSetting();
-                        },
-                    });
-                },
-                generateValues(start, end, step) {
-                    const values = [];
-                    for (let i = start; i <= end; i = parseFloat((i + step).toFixed(2))) {
-                        values.push(i);
-                    }
-                    return values;
-                },
-                settingOnce() {
-                    axios
-                        .post('api/v1/regist/recordSettingHybridInverter', {
-                            token: this.token,
-                            no: this.selectedHybridInverter.no,
-                            mode: 0,
-                            flgDel: 0,
-                            regist: {
-                                inverter_output_priority_write: this.setting.once.outputPriority,
-                                inverter_charger_priority_write: this.setting.once.chargerPriority,
-                            },
-                        })
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    this.setting.once.message = response.data.message;
-                                } else {
-                                    this.setting.once.message = 'error[' + response.data.code + ']:' + response.data.error;
-                                    console.log(response.data);
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                },
-                settingEver(flgDel) {
-                    axios
-                        .post('api/v1/regist/recordSettingHybridInverter', {
-                            token: this.token,
-                            no: this.selectedHybridInverter.no,
-                            mode: 1,
-                            flgDel: flgDel,
-                            regist: {
-                                midnightSt: this.setting.ever.midnightSt,
-                                midnightEd: this.setting.ever.midnightEd,
-                                voltageGridingSt: this.setting.ever.voltageGridingSt,
-                                voltageGridingEd: this.setting.ever.voltageGridingEd,
-                            },
-                        })
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    this.setting.ever.message = response.data.message;
-                                } else {
-                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
-                                    console.log(response.data);
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                },
-            }
-        }
-        const objApp = Vue.createApp(objVue);
-        objApp.use(vuetify);
-        objApp.mount('#app');
-    </script>
-    @endsection
+                                        vuetify = Vuetify.createVuetify({
+                                            theme: {
+                                                defaultTheme: 'light'
+                                            }
+                                        });
+
+                                        const objVue = {
+                                            data: () => ({
+                                                token: '',
+                                                rootPath: '',
+                                                form: {
+                                                    name: '',
+                                                    select: {
+                                                        prices: [],
+                                                        socs: [],
+                                                    },
+                                                },
+                                                serverTime: 'xxx',
+                                                screen: {
+                                                    width: 0,
+                                                    height: 0,
+                                                },
+                                                gridPrices: [],
+                                                hybridInverters: -1,
+                                                selectedHybridInverter: {},
+                                                showControllBox: false,
+                                                hybridInverterData: [],
+                                                outputPriority: {
+                                                    0: 'PV優先',
+                                                    1: 'Grid優先',
+                                                    2: 'Batt優先',
+                                                },
+                                                chargerPriority: {
+                                                    0: 'CSO?',
+                                                    1: 'Grid',
+                                                    2: 'PV',
+                                                    3: 'OSO?',
+                                                },
+                                                setting: {
+                                                    once: {
+                                                        outputPriority: -1,
+                                                        chargerPriority: -1,
+                                                        message: '',
+                                                    },
+                                                    ever: {
+                                                        midnightSt: 22,
+                                                        midnightEd: 32,
+                                                        voltageGridingSt: 52.5,
+                                                        voltageGridingEd: 56.5,
+                                                        message: '',
+                                                    },
+                                                },
+                                            }),
+                                            setup() {},
+                                            created() {},
+                                            mounted() {
+                                                vueObj = this;
+                                                window.onload = () => {
+                                                    this.screen.height = document.body.clientHeight;
+                                                    this.screen.width = document.body.clientWidth;
+                                                    this.token = window.localStorage.getItem('token');
+                                                    this.form.select.prices = this.generateValues(8, 16, 0.2);
+                                                    this.form.select.socs = this.generateValues(30, 80, 1);
+                                                    this.getMyHybridInverters()
+                                                    setInterval(this.getMyHybridInverters, 60000);
+                                                };
+                                            },
+                                            methods: {
+                                                get_outputpriority(priority) {
+                                                    return this.outputPriority[priority];
+                                                },
+                                                get_chargepriority(priority) {
+                                                    return this.chargerPriority[priority];
+                                                },
+                                                getMyHybridInverters() {
+                                                    const accessToken = this.token;
+                                                    axios
+                                                        .get('/api/v1/log/getMyHybridInverters?token=' + accessToken, {})
+                                                        .then((response) => {
+                                                            try {
+                                                                if (response.data.code == 0) {
+                                                                    this.hybridInverters = response.data.data;
+                                                                    if (!$('.slider').hasClass('slick-initialized')) {
+                                                                        setTimeout(function() {
+                                                                            $('.slider').slick({
+                                                                                autoplay: true, // 自動再生
+                                                                                autoplaySpeed: 4000, // 再生速度（ミリ秒設定） 1000ミリ秒=1秒
+                                                                                infinite: true, // 無限スライド
+                                                                            });
+                                                                        }, 500);
+                                                                    }
+                                                                    if (this.hybridInverters.length > 0 &&
+                                                                        this.selectedHybridInverter.no == undefined) {
+                                                                        this.selectInverter(this.hybridInverters[0]);
+                                                                    }
+                                                                } else {
+                                                                    this.error = '特定できないエラー';
+                                                                    console.log(response.data);
+                                                                }
+                                                            } catch (err) {
+                                                                this.error = err;
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                        .catch((err) => {
+                                                            this.error = err;
+                                                            console.log(err);
+                                                        });
+                                                },
+                                                selectInverter(inverter) {
+                                                    this.selectedHybridInverter = inverter;
+                                                    this.getInverterData();
+                                                },
+                                                getInverterData() {
+                                                    const date = $("#datepicker").val();
+                                                    axios
+                                                        .get('/api/v1/log/getHybridInverterDatas?token=' + this.token + '&no=' + this.selectedHybridInverter.no + '&date=' + date, {})
+                                                        .then((response) => {
+                                                            try {
+                                                                if (response.data.code == 0) {
+                                                                    this.hybridInverterData = response.data.data;
+                                                                    this.makeChartDaily(response.data.data);
+                                                                } else {
+                                                                    this.error = '特定できないエラー';
+                                                                    console.log(response.data);
+                                                                }
+                                                            } catch (err) {
+                                                                this.error = err;
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                        .catch((err) => {
+                                                            this.error = err;
+                                                            console.log(err);
+                                                        });
+                                                },
+                                                makeChartDaily(dataOrgn) {
+                                                    try {
+                                                        const kw = 1000;
+                                                        console.log("makechart3");
+                                                        const ctxA = $('#chartA');
+                                                        const ctxB = $('#chartB');
+                                                        const ctxC = $('#chartC');
+
+                                                        const keyTotal = {
+                                                            PowerPV: 'pvPower',
+                                                            PowerInverter: 'inverterPower',
+                                                            PowerBatt: 'batteryPower',
+                                                            PowerGridCharge: 'gridPowerCharge',
+                                                            PowerGridUse: 'gridPowerUse',
+                                                            PowerGridUseTotal: 'gridPowerUseTotal',
+                                                            PoolBatt: 'batteryPoolPower',
+                                                        };
+
+                                                        const intervalPerHour = dataOrgn.interval / 60;
+                                                        let labels = [];
+                                                        let labelsExistsData = [];
+                                                        let datas = [];
+                                                        let datasExistsData = [];
+                                                        let totals = [];
+                                                        Object.keys(keyTotal).forEach((key) => {
+                                                            totals[keyTotal[key]] = [];
+                                                        });
+
+                                                        Object.keys(dataOrgn.datas).forEach((key) => {
+                                                            let row = dataOrgn.datas[key];
+                                                            Object.keys(row).forEach((clm) => {
+                                                                if (datas[clm] == undefined) {
+                                                                    datas[clm] = [];
+                                                                }
+                                                                datas[clm].push(row[clm]);
+                                                            });
+                                                            var key2 = ''
+                                                            var num = 0;
+
+                                                            key2 = keyTotal.PowerPV;
+                                                            num = row['pv_power'] * intervalPerHour;
+                                                            if (totals[key2].length > 0) {
+                                                                num += totals[key2][totals[key2].length - 1];
+                                                            }
+                                                            totals[key2].push(num);
+
+                                                            key2 = keyTotal.PowerInverter;
+                                                            num = row['inverter_power'] * intervalPerHour;
+                                                            if (totals[key2].length > 0) {
+                                                                num += totals[key2][totals[key2].length - 1];
+                                                            }
+                                                            totals[key2].push(num);
+
+                                                            key2 = keyTotal.PowerBatt;
+                                                            num = row['battery_charge_power'] * intervalPerHour / kw;
+                                                            if (totals[key2].length > 0) {
+                                                                num += totals[key2][totals[key2].length - 1];
+                                                            }
+                                                            totals[key2].push(num);
+
+                                                            key2 = keyTotal.PowerGridCharge;
+                                                            num = row['grid_battery_charge_current'] * row['grid_voltage'] * intervalPerHour / kw;
+                                                            if (totals[key2].length > 0) {
+                                                                num += totals[key2][totals[key2].length - 1];
+                                                            }
+                                                            totals[key2].push(num);
+
+                                                            key2 = keyTotal.PowerGridUseTotal;
+                                                            num = row['grid_input_current'] * row['grid_voltage'] / kw;
+                                                            totals[keyTotal.PowerGridUse].push(num);
+                                                            num *= intervalPerHour;
+                                                            if (totals[key2].length > 0) {
+                                                                num += totals[key2][totals[key2].length - 1];
+                                                            }
+                                                            totals[key2].push(num);
+
+                                                            key2 = keyTotal.PoolBatt;
+                                                            num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1 / kw;
+                                                            totals[key2].push(num);
+
+                                                            //データが有るときだけプッシュ
+                                                            if (row['battery_voltage'] > 0) {
+                                                                labelsExistsData.push(key);
+                                                                Object.keys(row).forEach(function(key2) {
+                                                                    if (datasExistsData[key2] == undefined) {
+                                                                        datasExistsData[key2] = [];
+                                                                    }
+                                                                    datasExistsData[key2].push(row[key2]);
+                                                                });
+                                                            }
+
+                                                            labels.push(key);
+                                                        });
+
+
+                                                        // JSONデータ
+                                                        var jsonDataCommonBAT = {
+                                                            "label": "バッテリ電圧",
+                                                            "data": datas['battery_voltage'],
+                                                            "borderColor": "rgba(235, 235, 102, 0.5)",
+                                                            "backgroundColor": "rgba(235, 235, 102, 0.2)",
+                                                            fill: true, // 塗りつぶしを有効にする
+                                                            pointRadius: 0, // 点を非表示にする
+                                                            yAxisID: 'y2'
+                                                        }
+                                                        var jsonDataA = {
+                                                            "labels": labels,
+                                                            "datasets": [{
+                                                                    "label": "発電量",
+                                                                    "data": datas['pv_power'],
+                                                                    "borderColor": "rgba(99, 255, 132, 1)",
+                                                                    "backgroundColor": "rgba(54, 162, 235, 0.2)",
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                {
+                                                                    "label": "消費量",
+                                                                    "data": datas['inverter_power'],
+                                                                    "borderColor": "rgba(75, 192, 192, 1)",
+                                                                    "backgroundColor": "rgba(75, 192, 192, 0.2)",
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                {
+                                                                    "label": "買電量",
+                                                                    "data": totals[keyTotal.PowerGridUse],
+                                                                    "borderColor": "rgba(255, 132, 99, 1)",
+                                                                    "backgroundColor": "rgba(255, 132, 99, 0.2)",
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                jsonDataCommonBAT,
+                                                            ]
+                                                        };
+
+                                                        var jsonDataB = {
+                                                            "labels": labels,
+                                                            "datasets": [{
+                                                                    "label": "発電量",
+                                                                    "data": totals[keyTotal.PowerPV],
+                                                                    "borderColor": "rgba(99, 255, 132, 1)",
+                                                                    "backgroundColor": "rgba(99, 255, 132, 0.2)",
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                {
+                                                                    "label": "商用蓄電量",
+                                                                    "data": totals[keyTotal.PowerGridCharge],
+                                                                    "borderColor": "rgb(153, 102, 255, 1)",
+                                                                    "backgroundColor": "rgba(99, 132, 255, 0.2)",
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                {
+                                                                    "label": "消費量",
+                                                                    "data": totals[keyTotal.PowerInverter],
+                                                                    "borderColor": "rgba(75, 192, 192, 1)",
+                                                                    "backgroundColor": "rgba(99, 132, 255, 0.2)",
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                {
+                                                                    "label": "買電量",
+                                                                    "data": totals[keyTotal.PowerGridUseTotal],
+                                                                    "borderColor": "rgba(255, 132, 99, 1)",
+                                                                    "backgroundColor": "rgba(255, 132, 99, 0.2)",
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                jsonDataCommonBAT,
+                                                            ]
+                                                        };
+
+                                                        var jsonDataC = {
+                                                            "labels": labelsExistsData,
+                                                            "datasets": [{
+                                                                    "label": "バッテリ電圧",
+                                                                    "data": datasExistsData['battery_voltage'],
+                                                                    "borderColor": jsonDataCommonBAT.borderColor,
+                                                                    "backgroundColor": jsonDataCommonBAT.backgroundColor,
+                                                                    yAxisID: 'y1'
+                                                                },
+                                                                {
+                                                                    "label": "バッテリ残量（SOC）",
+                                                                    "data": datasExistsData['battery_soc'],
+                                                                    "borderColor": "rgba(168, 255, 168, 0.5)",
+                                                                    "backgroundColor": "rgba(168, 255, 168, 0.2)",
+                                                                    fill: true, // 塗りつぶしを有効にする
+                                                                    pointRadius: 0, // 点を非表示にする
+                                                                    yAxisID: 'y2'
+                                                                }
+                                                            ]
+                                                        };
+
+                                                        $(".chartGudance").slideUp();
+
+                                                        //共通
+                                                        const ICON_PV_CHARGE = '🌞';
+                                                        const ICON_GRID_CHARGE = '🔌';
+                                                        const common_x = {
+                                                            ticks: {
+                                                                callback: function(value, index, values) {
+                                                                    var label = jsonDataB.labels[index];
+                                                                    var buf = dataOrgn.datas[label];
+                                                                    try {
+                                                                        if (buf['grid_battery_charge_current'] > 0) {
+                                                                            return ICON_GRID_CHARGE + label;
+                                                                        } else if (buf['pv_battery_charge_current'] > 0) {
+                                                                            return ICON_PV_CHARGE + label;
+                                                                        }
+                                                                        return label;
+                                                                    } catch (err) {
+                                                                        console.log(err);
+                                                                    }
+                                                                },
+                                                                color: function(context) {
+                                                                    var label = context.tick.label;
+                                                                    try {
+                                                                        if (label.indexOf(ICON_GRID_CHARGE) != -1) {
+                                                                            return 'rgba(128, 0, 0, 1)';
+                                                                        } else if (label.indexOf(ICON_PV_CHARGE) != -1) {
+                                                                            return 'rgba(0, 168, 1)';
+                                                                        }
+                                                                        return 'rgba(0, 0, 0, 1)';
+                                                                    } catch (err) {
+                                                                        console.log(err);
+                                                                    }
+                                                                },
+                                                            }
+                                                        }
+                                                        const common_y_battery_voltage = {
+                                                            type: 'linear',
+                                                            position: 'right',
+                                                            min: 46,
+                                                            max: 60,
+                                                            ticks: {
+                                                                beginAtZero: true,
+                                                                callback: function(value, index, values) {
+                                                                    return value + ' v'; // Y軸のラベルに単位を追加
+                                                                }
+                                                            },
+                                                            scaleLabel: {
+                                                                display: true,
+                                                                labelString: '(v)' // Y軸全体のラベルに単位を追加
+                                                            },
+                                                            grid: {
+                                                                drawOnChartArea: false
+                                                            }
+                                                        }
+
+                                                        //chartA
+                                                        if (chartA != null) {
+                                                            chartA.destroy();
+                                                        }
+                                                        chartA = new Chart(ctxA, {
+                                                            type: 'line',
+                                                            data: jsonDataA,
+                                                            options: {
+                                                                responsive: true,
+                                                                maintainAspectRatio: false,
+                                                                scales: {
+                                                                    x: common_x,
+                                                                    y1: {
+                                                                        type: 'linear',
+                                                                        position: 'left',
+                                                                        ticks: {
+                                                                            beginAtZero: true,
+                                                                            callback: function(value, index, values) {
+                                                                                return value + ' kW'; // Y軸のラベルに単位を追加
+                                                                            }
+                                                                        },
+                                                                        scaleLabel: {
+                                                                            display: true,
+                                                                            labelString: '(kW)' // Y軸全体のラベルに単位を追加
+                                                                        }
+                                                                    },
+                                                                    y2: common_y_battery_voltage,
+                                                                }
+                                                            }
+                                                        });
+
+                                                        //chartB
+                                                        if (chartB != null) {
+                                                            chartB.destroy();
+                                                        }
+                                                        chartB = new Chart(ctxB, {
+                                                            type: 'line',
+                                                            data: jsonDataB,
+                                                            options: {
+                                                                responsive: true,
+                                                                maintainAspectRatio: false,
+                                                                scales: {
+                                                                    x: common_x,
+                                                                    y1: {
+                                                                        type: 'linear',
+                                                                        position: 'left',
+                                                                        ticks: {
+                                                                            beginAtZero: true,
+                                                                            callback: function(value, index, values) {
+                                                                                return value + ' kWh'; // Y軸のラベルに単位を追加
+                                                                            }
+                                                                        },
+                                                                        scaleLabel: {
+                                                                            display: true,
+                                                                            labelString: '(kWh)' // Y軸全体のラベルに単位を追加
+                                                                        }
+                                                                    },
+                                                                    y2: common_y_battery_voltage,
+                                                                }
+                                                            },
+                                                        });
+
+                                                        //chartC
+                                                        if (chartC != null) {
+                                                            chartC.destroy();
+                                                        }
+                                                        chartC = new Chart(ctxC, {
+                                                            type: 'line',
+                                                            data: jsonDataC,
+                                                            options: {
+                                                                responsive: true,
+                                                                maintainAspectRatio: false,
+                                                                scales: {
+                                                                    x: common_x,
+                                                                    y1: {
+                                                                        type: 'linear',
+                                                                        position: 'left',
+                                                                        ticks: {
+                                                                            beginAtZero: true,
+                                                                            callback: function(value, index, values) {
+                                                                                return value + ' v'; // Y軸のラベルに単位を追加
+                                                                            }
+                                                                        },
+                                                                        scaleLabel: {
+                                                                            display: true,
+                                                                            labelString: '(v)' // Y軸全体のラベルに単位を追加
+                                                                        }
+                                                                    },
+                                                                    y2: {
+                                                                        type: 'linear',
+                                                                        position: 'right',
+                                                                        min: 0,
+                                                                        max: 100,
+                                                                        ticks: {
+                                                                            beginAtZero: true,
+                                                                            callback: function(value, index, values) {
+                                                                                return value + ' %'; // Y軸のラベルに単位を追加
+                                                                            }
+                                                                        },
+                                                                        scaleLabel: {
+                                                                            display: true,
+                                                                            labelString: '(%)' // Y軸全体のラベルに単位を追加
+                                                                        },
+                                                                        grid: {
+                                                                            drawOnChartArea: false
+                                                                        }
+                                                                    },
+                                                                }
+                                                            },
+                                                        });
+                                                    } catch (err) {
+                                                        this.error = err;
+                                                        console.log(err);
+                                                    }
+                                                },
+                                                getGridPriceData(areaId) {
+                                                    this.gridPrices = [];
+                                                    axios
+                                                        .get('/api/v1/regist/getGridPrice?token=' + this.token + '&date=' + $("#datepickerGridPrice").val() + '&area=' + $("#" + areaId).val(), {})
+                                                        .then((response) => {
+                                                            try {
+                                                                if (response.data.code == 0) {
+                                                                    this.gridPrices = [];
+                                                                    let idx = 0;
+                                                                    let startTime = new Date();
+                                                                    startTime.setHours(0, 0, 0, 0);
+                                                                    response.data.data.forEach(row => {
+                                                                        let hFrom = String(startTime.getHours()).padStart(2, '0');
+                                                                        let mFrom = String(startTime.getMinutes()).padStart(2, '0');
+                                                                        startTime.setMinutes(startTime.getMinutes() + 30);
+                                                                        let hTo = String(startTime.getHours()).padStart(2, '0');
+                                                                        let mTo = String(startTime.getMinutes()).padStart(2, '0');
+                                                                        this.gridPrices.push({
+                                                                            idx: idx,
+                                                                            label: `${hFrom}:${mFrom}～${hTo}:${mTo}`,
+                                                                            price: row.price,
+                                                                        });
+                                                                        idx++;
+                                                                    });
+
+                                                                } else {
+                                                                    this.error = '特定できないエラー';
+                                                                    console.log(response.data);
+                                                                }
+                                                            } catch (err) {
+                                                                this.error = err;
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                        .catch((err) => {
+                                                            this.error = err;
+                                                            console.log(err);
+                                                        });
+                                                },
+                                                getRegistSetting() {
+                                                    axios
+                                                        .post('api/v1/regist/readRegistSetting', {
+                                                            token: this.token,
+                                                            no: this.selectedHybridInverter.no,
+                                                            report: 0,
+                                                        })
+                                                        .then((response) => {
+                                                            try {
+                                                                if (response.data.code == 0) {
+                                                                    for (let idx = 0; idx < response.data.regists.length; idx++) {
+                                                                        let item = response.data.regists[idx];
+                                                                        let regist = JSON.parse(item.regist);
+                                                                        if (item.mode == 0) {
+                                                                            if (item.result == '') {
+                                                                                this.setting.once.message = '設定中です。' + JSON.stringify(regist);
+                                                                            }
+                                                                        } else if (item.mode == 1) {
+                                                                            this.setting.ever.midnightSt = regist.midnightSt;
+                                                                            this.setting.ever.midnightEd = regist.midnightEd;
+                                                                            this.setting.ever.voltageGridingSt = regist.voltageGridingSt;
+                                                                            this.setting.ever.voltageGridingEd = regist.voltageGridingEd;
+                                                                            this.setting.ever.message = regist;
+                                                                        }
+                                                                    }
+                                                                } else {
+                                                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                                                }
+                                                            } catch (err) {
+                                                                this.error = err;
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                        .catch((err) => {
+                                                            this.error = err;
+                                                            console.log(err);
+                                                        });
+                                                },
+                                                openSetting(hybridInverter) {
+                                                    this.selectedHybridInverter = hybridInverter;
+                                                    this.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority;
+                                                    this.setting.once.outputPriority = this.selectedHybridInverter.inverter_output_priority;
+                                                    this.setting.once.message = '';
+                                                    $("#dialogSetting").dialog({
+                                                        title: '設定',
+                                                        modal: true,
+                                                        height: 500,
+                                                        buttons: [{
+                                                            text: "閉じる",
+                                                            click: function() {
+                                                                $(this).dialog("close");
+                                                            }
+                                                        }],
+                                                        open: function() {
+                                                            $(".accordion").accordion();
+                                                            $("#priceList").accordion({
+                                                                collapsible: true
+                                                            });
+
+                                                            $("#area").change(function() {
+                                                                vueObj.getGridPriceData()
+                                                            });
+
+                                                            vueObj.getGridPriceData();
+                                                            vueObj.getRegistSetting();
+                                                        },
+                                                    });
+                                                },
+                                                generateValues(start, end, step) {
+                                                    const values = [];
+                                                    for (let i = start; i <= end; i = parseFloat((i + step).toFixed(2))) {
+                                                        values.push(i);
+                                                    }
+                                                    return values;
+                                                },
+                                                settingOnce() {
+                                                    axios
+                                                        .post('api/v1/regist/recordSettingHybridInverter', {
+                                                            token: this.token,
+                                                            no: this.selectedHybridInverter.no,
+                                                            mode: 0,
+                                                            flgDel: 0,
+                                                            regist: {
+                                                                inverter_output_priority_write: this.setting.once.outputPriority,
+                                                                inverter_charger_priority_write: this.setting.once.chargerPriority,
+                                                            },
+                                                        })
+                                                        .then((response) => {
+                                                            try {
+                                                                if (response.data.code == 0) {
+                                                                    this.setting.once.message = response.data.message;
+                                                                } else {
+                                                                    this.setting.once.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                                                    console.log(response.data);
+                                                                }
+                                                            } catch (err) {
+                                                                this.error = err;
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                        .catch((err) => {
+                                                            this.error = err;
+                                                            console.log(err);
+                                                        });
+                                                },
+                                                settingEver(flgDel) {
+                                                    axios
+                                                        .post('api/v1/regist/recordSettingHybridInverter', {
+                                                            token: this.token,
+                                                            no: this.selectedHybridInverter.no,
+                                                            mode: 1,
+                                                            flgDel: flgDel,
+                                                            regist: {
+                                                                midnightSt: this.setting.ever.midnightSt,
+                                                                midnightEd: this.setting.ever.midnightEd,
+                                                                voltageGridingSt: this.setting.ever.voltageGridingSt,
+                                                                voltageGridingEd: this.setting.ever.voltageGridingEd,
+                                                            },
+                                                        })
+                                                        .then((response) => {
+                                                            try {
+                                                                if (response.data.code == 0) {
+                                                                    this.setting.ever.message = response.data.message;
+                                                                } else {
+                                                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                                                    console.log(response.data);
+                                                                }
+                                                            } catch (err) {
+                                                                this.error = err;
+                                                                console.log(err);
+                                                            }
+                                                        })
+                                                        .catch((err) => {
+                                                            this.error = err;
+                                                            console.log(err);
+                                                        });
+                                                },
+                                            }
+                                        }
+                                        const objApp = Vue.createApp(objVue);
+                                        objApp.use(vuetify);
+                                        objApp.mount('#app');
+                                    </script>
+                                    @endsection
