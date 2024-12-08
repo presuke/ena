@@ -150,10 +150,12 @@
                             <div>@{{this.setting.once.message}}</div>
                             <v-btn @click="settingOnce()">設定</v-btn>
                         </div>
-                        <h3>深夜電力設定</h3>
+                        <h3>深夜電力利用設定</h3>
                         <div>
-                            <div>
-                                深夜帯：
+                            <div style="border:solid thin gray;">
+                                深夜電力
+                            </div>
+                            <div style="margin:10px;">
                                 <select v-model="setting.ever.midnightSt">
                                     <option v-for="n in 6 " :key="n">@{{n+18}}</option>
                                 </select>
@@ -162,36 +164,32 @@
                                     <option v-for="n in 9 " :key="n">@{{n}}</option>
                                 </select>時
                             </div>
-                            <fieldset>
-                                <legend>Do you agree?</legend>
-                                <input type="checkbox" id="chbx" name="agree" value="Yes!" />
-                                <label for="chbx">I agree</label>
-                            </fieldset>
-                            <div>
-                                🔌充電開始：
-                                <select v-model="setting.ever.voltageGridingSt">
-                                    <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
-                                </select>V以下
-
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
-
-                                <!-- dribbble -->
-                                <a class="dribbble" href="https://dribbble.com/shots/5449131-Switch-animation" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
-
+                            <div style="border:solid thin gray;">
+                                充電条件
                             </div>
-                            <div>
-                                🔌充電終了：
-                                <select v-model="setting.ever.voltageGridingEd">
-                                    <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
-                                </select>V以上
-
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span></span>
-                                </label>
+                            <div style="margin:10px;">
+                                <div>
+                                    <select v-model="setting.ever.voltageGridingSt">
+                                        <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
+                                    </select>V未満で充電開始
+                                </div>
+                                <div>
+                                    <label class="toggle-button">
+                                        <input type="checkbox" />
+                                    </label>
+                                    無条件に充電ON
+                                </div>
+                                <div>
+                                    <select v-model="setting.ever.voltageGridingEd">
+                                        <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
+                                    </select>V以上
+                                </div>
+                                <div>
+                                    <label class="toggle-button">
+                                        <input type="checkbox" />
+                                    </label>
+                                    無条件に充電OFF
+                                </div>
                             </div>
                             <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px; margin-top:10px;">
                                 <v-html>
