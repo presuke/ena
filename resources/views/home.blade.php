@@ -855,6 +855,30 @@
                             console.log(err);
                         });
                 },
+                getRegistSetting() {
+                    axios
+                        .post('api/v1/regist/readRegistSetting', {
+                            token: this.token,
+                            no: this.selectedHybridInverter.no,
+                            report: 0,
+                        })
+                        .then((response) => {
+                            try {
+                                if (response.data.code == 0) {
+                                    this.setting.ever.message = response.data.message;
+                                } else {
+                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                }
+                            } catch (err) {
+                                this.error = err;
+                                console.log(err);
+                            }
+                        })
+                        .catch((err) => {
+                            this.error = err;
+                            console.log(err);
+                        });
+                },
                 openSetting(hybridInverter) {
                     this.selectedHybridInverter = hybridInverter;
                     this.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority;
@@ -881,7 +905,7 @@
                             });
 
                             vueObj.getGridPriceData();
-                            vueObj.getEverSetting();
+                            vueObj.getRegistSetting();
                         },
                     });
                 },
@@ -954,30 +978,6 @@
                             console.log(err);
                         });
                 },
-                getEverSetting() {
-                    axios
-                        .post('api/v1/regist/readRegistSetting', {
-                            token: this.token,
-                            no: this.selectedHybridInverter.no,
-                            report: 0,
-                        })
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    this.setting.ever.message = response.data.message;
-                                } else {
-                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                }
             }
         }
         const objApp = Vue.createApp(objVue);
