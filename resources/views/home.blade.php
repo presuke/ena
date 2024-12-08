@@ -195,9 +195,11 @@
                                         </select>V以上
                                     </div>
                                     <div>
-                                        <label class="toggle-button-4">
-                                            <input type="checkbox" />
-                                        </label>
+                                        <div class="switchArea">
+                                            <input type="checkbox" id="switch1">
+                                            <label for="switch1"><span></span></label>
+                                            <div id="swImg"></div>
+                                        </div>
                                         深夜時間終了時充電OFF
                                     </div>
                                 </div>
