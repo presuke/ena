@@ -387,7 +387,7 @@
                     },
                     ever: {
                         midnightSt: 22,
-                        midnightEd: 32,
+                        midnightEd: 8,
                         voltageGridingSt: 52.5,
                         voltageGridingEd: 56.5,
                         message: '',
