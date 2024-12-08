@@ -404,6 +404,10 @@
                             try {
                                 if (response.data.code == 0) {
                                     this.hybridInverters = response.data.data;
+                                    //1つ以上あれば1つ目を選択
+                                    if (this.hybridInverters.length >= 1) {
+                                        this.selectInverter(this.hybridInverters[0]);
+                                    }
                                     if (!$('.slider').hasClass('slick-initialized')) {
                                         setTimeout(function() {
                                             $('.slider').slick({
@@ -412,9 +416,6 @@
                                                 infinite: true, // 無限スライド
                                             });
                                         }, 500);
-                                    }
-                                    if (response.data.length == 0) {
-                                        this.hybridInverters = response.data;
                                     }
                                 } else {
                                     this.error = '特定できないエラー';
@@ -854,10 +855,33 @@
                             console.log(err);
                         });
                 },
+                getRegistSettings(hybridInverter) {
+                    axios
+                        .post('api/v1/regist/readRegistSetting', {
+                            token: this.token,
+                            no: hybridInverter.no,
+                            report: 0,
+                        })
+                        .then((response) => {
+                            try {
+                                if (response.data.code == 0) {
+                                    this.setting.ever.message = response.data.message;
+                                } else {
+                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                }
+                            } catch (err) {
+                                this.error = err;
+                                console.log(err);
+                            }
+                        })
+                        .catch((err) => {
+                            this.error = err;
+                            console.log(err);
+                        });
+                },
                 openSetting(hybridInverter) {
-                    this.selectedHybridInverter = hybridInverter;
-                    this.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority;
-                    this.setting.once.outputPriority = this.selectedHybridInverter.inverter_output_priority;
+                    this.setting.once.chargerPriority = hybridInverter.inverter_charger_priority;
+                    this.setting.once.outputPriority = hybridInverter.inverter_output_priority;
                     this.setting.once.message = '';
                     $("#dialogSetting").dialog({
                         title: '設定',
@@ -880,7 +904,7 @@
                             });
 
                             vueObj.getGridPriceData();
-                            vueObj.getEverSetting();
+                            vueObj.getRegistSettings(hybridInverter);
                         },
                     });
                 },
@@ -953,30 +977,6 @@
                             console.log(err);
                         });
                 },
-                getEverSetting() {
-                    axios
-                        .post('api/v1/regist/readRegistSetting', {
-                            token: this.token,
-                            no: this.selectedHybridInverter.no,
-                            report: 0,
-                        })
-                        .then((response) => {
-                            try {
-                                if (response.data.code == 0) {
-                                    this.setting.ever.message = response.data.message;
-                                } else {
-                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
-                                }
-                            } catch (err) {
-                                this.error = err;
-                                console.log(err);
-                            }
-                        })
-                        .catch((err) => {
-                            this.error = err;
-                            console.log(err);
-                        });
-                }
             }
         }
         const objApp = Vue.createApp(objVue);
