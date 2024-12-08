@@ -866,7 +866,7 @@
                             try {
                                 if (response.data.code == 0) {
                                     for (let idx = 0; idx < response.data.regists.length; idx++) {
-                                        let item = response.data.regist[idx];
+                                        let item = response.data.regists[idx];
                                         let regist = JSON.parse(item.regist);
                                     }
                                 } else {
