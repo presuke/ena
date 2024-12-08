@@ -174,7 +174,7 @@
                                 <div style="background-color:#eee;">
                                     🔌充電開始
                                 </div>
-                                <div style="margin:5 0 5 10;">
+                                <div style="margin: 5px 0px 5px 10px;">
                                     <div>
                                         バッテリ電圧が
                                         <select v-model="setting.ever.voltageGridingSt">
