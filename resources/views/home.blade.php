@@ -413,7 +413,7 @@
                                             });
                                         }, 500);
                                     }
-                                    if (response.data.length > 0) {
+                                    if (this.hybridInverters.length > 0) {
                                         tihs.selectInverter(this.hybridInverters[0]);
                                     }
                                 } else {
