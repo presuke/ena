@@ -865,7 +865,10 @@
                         .then((response) => {
                             try {
                                 if (response.data.code == 0) {
-                                    this.setting.ever.message = response.data.message;
+                                    for (let idx = 0; idx < reponse.data.regists.length; idx++) {
+                                        let item = response.data.regist[idx];
+                                        let regist = JSON.parse(item.regist);
+                                    }
                                 } else {
                                     this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
                                 }
