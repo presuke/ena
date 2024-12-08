@@ -404,7 +404,6 @@
                                 try {
                                     if (response.data.code == 0) {
                                         this.hybridInverters = response.data.data;
-                                        /*
                                         //1つ以上あれば1つ目を選択
                                         if (this.hybridInverters.length >= 1) {
                                             this.selectInverter(this.hybridInverters[0]);
@@ -418,7 +417,6 @@
                                                 });
                                             }, 500);
                                         }
-                                        */
                                     } else {
                                         this.error = '特定できないエラー';
                                         console.log(response.data);
