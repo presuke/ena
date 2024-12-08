@@ -190,7 +190,7 @@ class Regist extends BaseController
                     }
                     $ret['message'] = '設定完了しました。';
                 } else if ($params['flgDel'] == 1) {
-                    DB::table('regist')->delete($rec);
+                    $record->delete();
                     $ret['message'] = '設定削除完了しました。';
                 }
                 $ret['code'] = 0;
