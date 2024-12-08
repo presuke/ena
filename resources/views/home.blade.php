@@ -163,20 +163,34 @@
                                 </select>時
                             </div>
                             <div>
-                                Grid充電開始：
+                                🔌充電開始：
                                 <select v-model="setting.ever.voltageGridingSt">
                                     <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                 </select>V以下
+
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span></span>
+                                </label>
+
+                                <!-- dribbble -->
+                                <a class="dribbble" href="https://dribbble.com/shots/5449131-Switch-animation" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
+
                             </div>
                             <div>
-                                Grid充電終了：
+                                🔌充電終了：
                                 <select v-model="setting.ever.voltageGridingEd">
                                     <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                 </select>V以上
+
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span></span>
+                                </label>
                             </div>
-                            <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px;">
+                            <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px; margin-top:10px;">
                                 <div>現在の設定</div>
-                                <div>@{{this.setting.ever.message.midnightSt}}時～@{{this.setting.ever.message.midnightEd}}時に</div>
+                                <div>@{{this.setting.ever.message.midnightSt}}時～@{{this.setting.ever.message.midnightEd}}時の間に</div>
                                 <div>バッテリー電圧が@{{this.setting.ever.message.voltageGridingSt}}V未満になったら🔌に接続し、@{{this.setting.ever.message.voltageGridingEd}}V以上になったら🔌から切断</div>
                             </div>
 
