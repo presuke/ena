@@ -174,11 +174,10 @@
                                     <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                 </select>V以上
                             </div>
-                            <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;">
+                            <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px;">
                                 <div>現在の設定</div>
-                                <div>深夜時間帯：@{{this.setting.ever.message.midnightSt}}時～@{{this.setting.ever.message.midnightEd}}時</div>
-                                <div>商用電力適用開始バッテリー電圧：@{{this.setting.ever.message.voltageGridingSt}}V</div>
-                                <div>商用電力適用終了バッテリー電圧：@{{this.setting.ever.message.voltageGridingEd}}V</div>
+                                <div>@{{this.setting.ever.message.midnightSt}}時～@{{this.setting.ever.message.midnightEd}}時に</div>
+                                <div>バッテリー電圧が@{{this.setting.ever.message.voltageGridingSt}}V未満になったら🔌に接続し、@{{this.setting.ever.message.voltageGridingEd}}V以上になったら🔌から切断</div>
                             </div>
 
                             <v-btn @click="settingEver(0)">設定</v-btn>
