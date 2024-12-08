@@ -147,7 +147,9 @@
                                     <label><input type="radio" class="option-input radio" name="setting_once_outputPriority" v-model="setting.once.outputPriority" value="2" />バッテリー優先</label>
                                 </div>
                             </fieldset>
-                            <div>@{{this.setting.once.message}}</div>
+                            <div v-if="this.setting.once.message != ''" style="margin-top:10px; font-size:smaller; color:gray;">
+                                @{{this.setting.once.message}}
+                            </div>
                             <v-btn @click="settingOnce(0)">設定</v-btn>
                             <v-btn @click="settingOnce(1)">設定取消</v-btn>
                         </div>
@@ -168,11 +170,11 @@
                             <div style="border-bottom:solid thin gray;">
                                 充電条件
                             </div>
-                            <div style="margin-left:10px;">
-                                <div style="border-bottom:solid thin gray;">
-                                    充電開始
+                            <div style="margin:5 0 10 10;">
+                                <div>
+                                    🔌充電開始
                                 </div>
-                                <div style="margin-left:10px;">
+                                <div style="margin:5 0 5 10;">
                                     <div>
                                         バッテリ電圧が
                                         <select v-model="setting.ever.voltageGridingSt">
@@ -184,10 +186,10 @@
                                         <input class="toggle-input" type='checkbox' v-model="setting.ever.forceSt" />
                                     </div>
                                 </div>
-                                <div style="border-bottom:solid thin gray;">
-                                    充電終了
+                                <div>
+                                    🚫充電終了
                                 </div>
-                                <div style="margin-left:10px;">
+                                <div style="margin:5 0 5 10;">
                                     <div>
                                         バッテリ電圧が
                                         <select v-model="setting.ever.voltageGridingEd">
@@ -200,7 +202,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="this.setting.ever.message != ''" style="margin-top:10px;">
+                            <div v-if="this.setting.ever.message != ''" style="margin-top:10px; font-size:smaller; color:gray;">
                                 @{{this.setting.ever.message}}
                             </div>
 
@@ -975,7 +977,7 @@
                                 if (response.data.code == 0) {
                                     this.setting.once.message = response.data.message;
                                 } else {
-                                    this.setting.once.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                    this.setting.once.message = '⚠️error[' + response.data.code + ']:' + response.data.error;
                                     console.log(response.data);
                                 }
                             } catch (err) {
@@ -1002,7 +1004,7 @@
                                 if (response.data.code == 0) {
                                     this.setting.ever.message = response.data.message;
                                 } else {
-                                    this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
+                                    this.setting.ever.message = '⚠️error[' + response.data.code + ']:' + response.data.error;
                                     console.log(response.data);
                                 }
                             } catch (err) {
