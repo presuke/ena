@@ -991,6 +991,7 @@
                         });
                 },
                 settingEver(flgDel) {
+                    this.setting.ever.message = '';
                     axios
                         .post('api/v1/regist/recordSettingHybridInverter', {
                             token: this.token,
