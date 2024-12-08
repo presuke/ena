@@ -868,6 +868,11 @@
                                     for (let idx = 0; idx < response.data.regists.length; idx++) {
                                         let item = response.data.regists[idx];
                                         let regist = JSON.parse(item.regist);
+                                        if (item.mode == 0) {
+
+                                        } else if (item.mode == 1) {
+
+                                        }
                                     }
                                 } else {
                                     this.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
