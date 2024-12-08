@@ -152,7 +152,7 @@
                         </div>
                         <h3>深夜電力利用設定</h3>
                         <div>
-                            <div style="border:solid thin gray;">
+                            <div style="border-bottom:solid thin gray;">
                                 深夜電力
                             </div>
                             <div style="margin:10px;">
@@ -164,31 +164,42 @@
                                     <option v-for="n in 9 " :key="n">@{{n}}</option>
                                 </select>時
                             </div>
-                            <div style="border:solid thin gray;">
+                            <div style="border-bottom:solid thin gray;">
                                 充電条件
                             </div>
                             <div style="margin:10px;">
-                                <div>
-                                    <select v-model="setting.ever.voltageGridingSt">
-                                        <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
-                                    </select>V未満で充電開始
+                                <div style="border-bottom:solid thin gray;">
+                                    充電開始
                                 </div>
-                                <div>
-                                    <label class="toggle-button">
-                                        <input type="checkbox" />
-                                    </label>
-                                    無条件に充電ON
+                                <div style="margin:10px;">
+                                    <div>
+                                        <select v-model="setting.ever.voltageGridingSt">
+                                            <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
+                                        </select>V未満で充電開始
+                                    </div>
+                                    <div>
+                                        <label class="toggle-button-4">
+                                            <input type="checkbox" />
+                                        </label>
+                                        深夜時間開始時充電ON
+                                    </div>
                                 </div>
-                                <div>
-                                    <select v-model="setting.ever.voltageGridingEd">
-                                        <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
-                                    </select>V以上
+                                <div style="border-bottom:solid thin gray;">
+                                    充電開始
                                 </div>
-                                <div>
-                                    <label class="toggle-button">
-                                        <input type="checkbox" />
-                                    </label>
-                                    無条件に充電OFF
+                                <div style="margin:10px;">
+
+                                    <div>
+                                        <select v-model="setting.ever.voltageGridingEd">
+                                            <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
+                                        </select>V以上
+                                    </div>
+                                    <div>
+                                        <label class="toggle-button-4">
+                                            <input type="checkbox" />
+                                        </label>
+                                        深夜時間終了時充電OFF
+                                    </div>
                                 </div>
                             </div>
                             <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px; margin-top:10px;">
