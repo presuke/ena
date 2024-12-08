@@ -148,7 +148,8 @@
                                 </div>
                             </fieldset>
                             <div>@{{this.setting.once.message}}</div>
-                            <v-btn @click="settingOnce()">設定</v-btn>
+                            <v-btn @click="settingOnce(0)">設定</v-btn>
+                            <v-btn @click="settingOnce(1)">設定取消</v-btn>
                         </div>
                         <h3>深夜電力利用設定</h3>
                         <div>
@@ -173,7 +174,7 @@
                                 </div>
                                 <div style="margin-left:10px;">
                                     <div>
-                                        バッテリー電圧が
+                                        バッテリ電圧が
                                         <select v-model="setting.ever.voltageGridingSt">
                                             <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                         </select>V未満
@@ -188,7 +189,7 @@
                                 </div>
                                 <div style="margin-left:10px;">
                                     <div>
-                                        バッテリー電圧が
+                                        バッテリ電圧が
                                         <select v-model="setting.ever.voltageGridingEd">
                                             <option v-for="n in 100 " :key="n">@{{(n/10)+48}}</option>
                                         </select>V以上
@@ -199,10 +200,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="this.setting.ever.message != ''" style="border:solid thin #0c0; border-radius:5px; background-color:#cfe;padding:5px; margin-top:10px;">
-                                <v-html>
-                                    @{{this.setting.ever.message}}
-                                </v-html>
+                            <div v-if="this.setting.ever.message != ''" style="margin-top:10px;">
+                                @{{this.setting.ever.message}}
                             </div>
 
                             <v-btn @click="settingEver(0)">設定</v-btn>
@@ -902,12 +901,10 @@
                                         let regist = JSON.parse(item.regist);
                                         if (item.mode == 0) {
                                             if (item.result == '') {
-                                                this.setting.once.message = '設定中です。' + JSON.stringify(regist);
+                                                this.setting.once.message = '設定予約済です。1分以内に切替設定処理をします。';
                                             }
                                         } else if (item.mode == 1) {
-                                            this.setting.ever.message = '以下の通り設定済みです。<div style='
-                                            color: red;
-                                            '>red</div>';
+                                            this.setting.ever.message = '設定済です。変更する場合は改めて設定してください。';
                                         }
                                     }
                                 } else {
@@ -960,13 +957,13 @@
                     }
                     return values;
                 },
-                settingOnce() {
+                settingOnce(flgDel) {
                     axios
                         .post('api/v1/regist/recordSettingHybridInverter', {
                             token: this.token,
                             no: this.selectedHybridInverter.no,
                             mode: 0,
-                            flgDel: 0,
+                            flgDel: flgDel,
                             regist: {
                                 inverter_output_priority_write: this.setting.once.outputPriority,
                                 inverter_charger_priority_write: this.setting.once.chargerPriority,
@@ -997,12 +994,7 @@
                             no: this.selectedHybridInverter.no,
                             mode: 1,
                             flgDel: flgDel,
-                            regist: {
-                                midnightSt: this.setting.ever.midnightSt,
-                                midnightEd: this.setting.ever.midnightEd,
-                                voltageGridingSt: this.setting.ever.voltageGridingSt,
-                                voltageGridingEd: this.setting.ever.voltageGridingEd,
-                            },
+                            regist: this.setting.ever,
                         })
                         .then((response) => {
                             try {
