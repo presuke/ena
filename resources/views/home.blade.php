@@ -178,10 +178,12 @@
                                         </select>V未満で充電開始
                                     </div>
                                     <div>
-                                        <label class="toggle-button-4">
-                                            <input type="checkbox" />
-                                        </label>
-                                        深夜時間開始時充電ON
+                                        <div class="toggle-switch">
+                                            <input id="toggle" class="toggle-input" type='checkbox' />
+                                            <label for="toggle" class="toggle-label">
+                                                深夜時間開始時充電ON
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div style="border-bottom:solid thin gray;">
