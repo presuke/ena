@@ -402,6 +402,7 @@
                             .get('/api/v1/log/getMyHybridInverters?token=' + accessToken, {})
                             .then((response) => {
                                 try {
+                                    console.log('start');
                                     if (response.data.code == 0) {
                                         this.hybridInverters = response.data.data;
                                         //1つ以上あれば1つ目を選択
