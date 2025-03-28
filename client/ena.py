@@ -5,9 +5,16 @@ import datetime
 import requests
 import minimalmodbus
 import math
+import pygame
 import sqlite3
 import logging
+import subprocess
+from decimal import *
 from logging.handlers import TimedRotatingFileHandler
+
+pygame.mixer.init(frequency=44100)
+pygame.mixer.music.load('sheep02Passage.mp3')
+pygame.mixer.music.play(100)
 
 logger = logging.getLogger('hi')
 logger.setLevel(logging.DEBUG)
@@ -19,6 +26,7 @@ handler_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 handler.setFormatter(handler_formatter)
 logger.addHandler(handler)
 
+logger.info("start ena.py")
 
 
 READ_FUNCTION_CODE = 3
@@ -126,10 +134,10 @@ GRID_AREA = ['01','02','03','04','05','06','07','08','09','10']
 
 #SEC
 PROCCESS_TIMING = {
-    'interval': 10,
-    'get_hibridinverter_parameter': 60,
+    'interval': 5,
+    'get_hibridinverter_parameter': 30,
     'server_regist': 60,
-    'report_server': 120,
+    'report_server': 60,
     'report_gridprice': 1800,
 }
 
@@ -139,7 +147,7 @@ def loadSetting():
         stream_reader = open('setting.json', 'r', encoding='UTF-8')
         ret = json.load(stream_reader)
     except Exception as e:
-        log.exception(e)
+        logger.exception(e)
         print("error:", e)
     return ret
 
@@ -151,9 +159,9 @@ def getComInstance(setting_json):
         instr.serial.timeout = setting_json['com']['timeout']
         instr.debug = setting_json['com']['debug']
     except Exception as e:
-        log.exception(e)
+        logger.exception(e)
         print("error:", e)
-    return instr
+    return instr    
 
 def openDBConnection():
     ret = {}
@@ -161,7 +169,7 @@ def openDBConnection():
         sqlite_file = setting_json['db']['file']
         ret = sqlite3.connect(sqlite_file)
     except Exception as e:
-        log.exception(e)
+        logger.exception(e)
         print("error:", e)
     return ret
 
@@ -175,7 +183,7 @@ def createTable():
         sql = 'CREATE TABLE IF NOT EXISTS ' + str(table.get('name')) + ' (' + ','.join(fields) + ')'
         ret = executeSql(sql)
     except Exception as e:
-        log.exception(e)
+        logger.exception(e)
         print("error:", e)
     return ret
 
@@ -187,14 +195,14 @@ def executeSql(sql):
         ret = cur.execute(sql)
         con.commit()
     except Exception as e:
-        log.exception(e)
+        logger.exception(e)
         print("error:", e)
         con.rollback()
     finally:
         cur.close()
         con.close()
     return ret
-
+        
 def saveValues(values):
     ret = {}
     try:
@@ -204,15 +212,15 @@ def saveValues(values):
         for field in table.get('fields').keys():
             fields.append(field)
             datas.append(str(values[field]))
-
+        
         sql = 'INSERT INTO ' + str(table.get('name')) + ' (' + ','.join(fields) + ')VALUES(' +  ','.join(datas) + ')'
         ret = executeSql(sql)
     except Exception as e:
-        log.exception(e)
+        logger.exception(e)
         print("error:", e)
     return ret
 
-def readValues(timestamp):
+def readValues(dtFrom, dtTo):
     ret = []
     try:
 
@@ -220,12 +228,12 @@ def readValues(timestamp):
         fields = []
         for field in table.get('fields').keys():
             fields.append(field)
-        sql = 'SELECT ' + ','.join(fields) + ' FROM ' + str(table.get('name')) + ' WHERE create_at >=' + str(timestamp) + ' ORDER BY create_at ASC'
+        sql = 'SELECT ' + ','.join(fields) + ' FROM ' + str(table.get('name')) + ' WHERE create_at >=' + str(dtFrom) + ' AND create_at <=' + str(dtTo) + ' ORDER BY create_at ASC'
 
         con = openDBConnection()
         cur = con.cursor()
         rec = cur.execute(sql)
-
+    
         for row in rec:
             idx = 0
             dat = {}
@@ -236,10 +244,10 @@ def readValues(timestamp):
                 idx += 1
                 if(key == 'create_at'):
                     a = datetime.datetime.fromtimestamp(val)
-
+                
             ret.append(dat)
     except Exception as e:
-        log.exception(e)
+        logger.exception(e)
         print("error:", e)
     finally:
         cur.close()
@@ -267,28 +275,54 @@ def write_register(instr, value: [int, float], register: int, decimals: int = 0,
     return ret
 
 def main():
-    global setting_json
-    setting_json = loadSetting()
-    instr = getComInstance(setting_json)
-    createTable()
+    try:
+        logger.info("get setting st")
+        global setting_json
+        setting_json = loadSetting()
+        logger.info("get ComInstance st")
+        instr = getComInstance(setting_json)
+        logger.info("create table st")
+        createTable()
 
-    servertime_gap = 0
-    url = setting_json['api']['host'] + '/api/v1/log/serverTime'
-    res = requests.get(url, json = {})
-    res_json = json.loads(res.text)
-    if(res_json['code'] == 0):
-        servertime = res_json['time']
-        ut = math.floor(time.time())
-        servertime_gap = servertime - ut
-        logger.info("ServerTime:" + str(servertime))
-        logger.info("ClientTime:" + str(servertime))
-        logger.info("Gap:" + str(servertime_gap))
+        servertime_gap = 0
+        logger.info("get server time")
+        url = setting_json['api']['host'] + '/api/v1/log/serverTime'
+        res = requests.get(url, json = {})
+        res_json = json.loads(res.text)
+        logger.info("server time:" + res.text)
+        if(res_json['code'] == 0):
+            servertime = res_json['time']
+            ut = math.floor(time.time())
+            servertime_gap = servertime - ut
+            logger.info("ServerTime:" + str(servertime))
+            logger.info("ClientTime:" + str(ut))
+            logger.info("Gap:" + str(servertime_gap))
 
+    except Exception as e:
+        logger.info("reboot main exception")
+        log.exception(e)
+        reboot()
+        
     area = 0
     cnt = 0
     while True:
         try:
             ut = math.floor(time.time()) + servertime_gap
+
+            # UTCのdatetimeオブジェクトに変換
+            utc_time = datetime.datetime.fromtimestamp(ut, tz=datetime.timezone.utc)
+            # 日本時間のタイムゾーンオブジェクトを作成
+            jst_timezone = datetime.timezone(datetime.timedelta(hours=9))
+            # タイムゾーンを日本時間に設定
+            jst_time = utc_time.astimezone(jst_timezone)
+            # フォーマットされた文字列に変換
+            formatted_time = jst_time.strftime('%Y-%m-%d %H:%M:%S')
+
+            #reboot
+            if(setting_json['reboot'] in formatted_time):
+                logger.info("reboot schedule:" + setting_json['reboot'] + " in " + formatted_time)
+                reboot()
+            
             #get inverter values
             if ut % PROCCESS_TIMING.get('get_hibridinverter_parameter') <= PROCCESS_TIMING.get('interval'):
                 cnt += 1
@@ -332,27 +366,41 @@ def main():
                                         h = dt.hour
                                         hSt = int(regist['midnightSt'])
                                         hEd = int(regist['midnightEd'])
-
+                                        dVoltageSt = Decimal(regist['voltageGridingSt'])
+                                        dVoltageEd = Decimal(regist['voltageGridingEd'])
+                                        
                                         voltage = instr.read_register(*INVERTER_COMMANDS_READ.get('battery_voltage'))
                                         time.sleep(0.1)
                                         output = instr.read_register(*INVERTER_COMMANDS_READ.get('inverter_output_priority'))
                                         time.sleep(0.1)
-
+                                        
+                                        #power output source
+                                        key = 'inverter_output_priority'
                                         if((h >= hSt and h < 24) or (h >= 0 and h < hEd)):
-                                            #power output source
-                                            key = 'inverter_output_priority'
-                                            if(output != 1 and voltage < regist['voltageGridingSt']):
-                                                logger.info('auto grid on:{voltage:' + str(valtage) + ',output:' + str(output) + '}')
+                                            if(output != 1 and (voltage < dVoltageSt or regist['forceSt'])):
+                                                logger.info('auto grid on:{voltage:' + str(voltage) + ',output:' + str(output) + '}')
                                                 write_register(instr, 1, *INVERTER_COMMANDS_WRITE.get(key))
                                                 time.sleep(0.1)
                                                 result.append({key : instr.read_register(*INVERTER_COMMANDS_READ.get(key))})
-                                                time.sleep(0.1)
-                                            elif(output == 1 and voltage > regist['voltageGridingEd']):
-                                                logger.info('auto grid off:{voltage:' + str(valtage) + ',output:' + str(output) + '}')
+                                                time.sleep(0.1)                                                
+                                            elif(output == 1 and voltage >= dVoltageEd):
                                                 write_register(instr, 2, *INVERTER_COMMANDS_WRITE.get(key))
                                                 time.sleep(0.1)
                                                 result.append({key : instr.read_register(*INVERTER_COMMANDS_READ.get(key))})
                                                 time.sleep(0.1)
+                                                logger.info('auto grid off(voltage):{voltage:' + str(voltage) + ',output:' + str(output) + '}')
+                                                
+                                        elif(h == hEd and regist['forceEd'] and output == 1):
+                                           done = item['done_at']
+                                           done = datetime.datetime.fromisoformat(done)
+                                           done = done.strftime('%Y/%m/%d %H')
+                                           dtH = dt.strftime('%Y/%m/%d %H')
+                                           if(done != dtH):
+                                                write_register(instr, 2, *INVERTER_COMMANDS_WRITE.get(key))
+                                                time.sleep(0.1)
+                                                result.append({key : instr.read_register(*INVERTER_COMMANDS_READ.get(key))})
+                                                time.sleep(0.1)
+                                                logger.info('auto grid off(timelimit):{h:' + str(h) + ',hEd:' + str(hEd) + ',forceEd:' + str(regist['forceEd']) + ',output:' + str(output) + '}')
 
                                     if result != []:
                                         post_data = {'report':1, 'user':setting_json['user'], 'mode':mode, 'result': json.dumps(result)}
@@ -360,13 +408,14 @@ def main():
                                         res = requests.post(url, json = post_data)
                                         print(res.text)
                                         logger.info("Regist: req:" + json.dumps(res_json) + "/res:" + res.text)
+                                        
                     except Exception as e:
                         logger.exception(e)
                         print("error:", e)
-
+                        
                 #report_server inverter values
                 if(ut % PROCCESS_TIMING.get('report_server') <= PROCCESS_TIMING.get('interval')):
-                    data = readValues(ut - 3600)
+                    data = readValues(ut - 3600, ut)
                     url = setting_json['api']['host'] + '/api/v1/log/write'
                     post_data = {'user':setting_json['user'], 'datas': data}
                     res = requests.post(url, json = post_data)
@@ -377,7 +426,7 @@ def main():
                         deleteValues(ut - (6 * 3600))
                     else:
                         logger.info("FaildLog:" + res.text)
-                        print('error:' + res.text)
+                        print('error:' + res.text) 
 
                 #report_server inverter values
                 if(ut % PROCCESS_TIMING.get('report_gridprice') <= PROCCESS_TIMING.get('interval')):
@@ -388,20 +437,22 @@ def main():
                     contents = res.content
                     json_contents = json.loads(contents)
                     url = setting_json['api']['host'] + '/api/v1/regist/recordGridPrice'
-                    #url = setting_json['api']['host_debug'] + '/api/v1/regist/recordGridPrice'
+#                    url = setting_json['api']['host_debug'] + '/api/v1/regist/recordGridPrice'
                     post_data = {'contents':json_contents, 'time':ut, 'area':GRID_AREA[area]}
                     res = requests.post(url, json = post_data)
                     print(res)
-
+                    
                 time.sleep(PROCCESS_TIMING.get('interval'))
             else:
                 print(ut % 3600)
                 time.sleep(1)
-
+                
         except Exception as e:
             logger.exception(e)
             print("error:", e)
             time.sleep(PROCCESS_TIMING.get('interval'))
 
+def reboot():
+    subprocess.run(["sudo", "reboot"]);
 #run main
 main()

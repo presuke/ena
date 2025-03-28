@@ -1,6 +1,6 @@
 {
     "user":{
-        "id":"test", 
+        "id":"reno.neve@gmail.com", 
         "no":1
     },
     "com":{
@@ -14,6 +14,8 @@
         "file":"ena.sqlite"
     },
     "api":{
-        "host":"http://192.168.10.200:8001"
-    }
+        "host":"https://enasave.presuke.com",
+        "host_debug":"http://192.168.10.200:8001"
+    },
+    "reboot":"18:00:0"
 }
