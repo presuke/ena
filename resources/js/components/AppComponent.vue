@@ -160,15 +160,15 @@
                                         </div>
                                         <div style="width:min(15vw, 150px); float:left;">
                                             <img src="/image/icon_battery.png" class="iconModule">
+                                            <div class="fontMain" style="margin-top:min(7.5vw, 75px); z-index:1;">{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
                                             <div style="width:min(10vw, 100px); margin-top:max(-15vw, -150px); margin-left:min(7.5vw, 75px);">
                                                 <v-progress-circular
                                                     :model-value="hybridInverter.battery_soc"
                                                     :color="[hybridInverter.battery_soc<30?'#f33':hybridInverter.battery_soc<50?'#f93':hybridInverter.battery_soc<70?'#cf3':'#6f6']"
-                                                    style="clear:left; width:min(5vw, 50px); height:min(5vw, 50px);">
+                                                    style="margin-left:-10px; margin-top:-10px; clear:left; width:min(5vw, 50px); height:min(5vw, 50px);">
                                                     <div style="color:white; z-index:1; text-shadow:0 0 4px #fff, 0 0 8px #ccc, 0 0 12px #999;">{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
                                                 </v-progress-circular>
                                             </div>
-                                            <div class="fontMain" style="margin-top:min(7.5vw, 75px); z-index:1;">{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
                                         </div>
                                     </div>
                                 </div>
@@ -188,8 +188,7 @@
                                     <div class="fontSub">{{hybridInverter.inverter_current.toLocaleString()}}A</div>
                                     <div class="fontSub">({{hybridInverter.inverter_frequency}}Hz)</div>
                                 </div>
-
-                                <div style="clear:left; text-align:right; background-color:#f6f6f6; color:#333;">{{hybridInverter.create_at}}</div>
+                                <div style="color:#666; position: absolute; right: 60; bottom: 0;">{{hybridInverter.create_at}}</div>
                             </v-card-item>
                             <!--
                             <textarea style="width:60vw; height:300px;">
@@ -200,7 +199,9 @@
                     </div>
                     <!--chart data-->
                     <v-card 
-                    id="chart">
+                    id="chart"
+                    variant="outlined"
+                    >
                         <v-card-item>
                             <v-row align="center">
                                 <v-col cols="auto">
