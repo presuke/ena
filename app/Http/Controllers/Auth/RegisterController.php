@@ -7,8 +7,6 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Auth;
-use DB;
 
 class RegisterController extends Controller
 {
@@ -30,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/authed';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -70,19 +68,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    protected function redirectTo()
-    {
-        $user = Auth::user();
-        if (!$user) {
-            return '/';
-        }
-        $id = $user->email;
-        $time = date('Y-m-d H:i:s');
-        $token = md5($id . $time);
-        $data = ['name' => $id, 'tokenable_type' => '', 'tokenable_id' => 0, 'created_at' => $time, 'token' => $token];
-        DB::table('personal_access_tokens')->insert($data);
-        return '/authed?' . $token;
     }
 }

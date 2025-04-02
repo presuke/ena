@@ -4,12 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use App\Service\Action;
-use App\Service\Scene;
-use App\Http\Controllers\Auth\TokenController;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class Log extends BaseController
@@ -93,9 +88,9 @@ class Log extends BaseController
     {
         try {
             $params = $request->query();
-            $token = TokenController::getTokenInfo($params['token']);
+            $user = auth()->user();
             //noごとの最新を取ってくる
-            $sql = "SELECT * FROM hidata AS h1 WHERE user='" . $token->name . "' AND create_at = (SELECT MAX(create_at) FROM hidata AS h2 WHERE h1.no = h2.no)";
+            $sql = "SELECT * FROM hidata AS h1 WHERE user='" . $user->email . "' AND create_at = (SELECT MAX(create_at) FROM hidata AS h2 WHERE h1.no = h2.no)";
             $data = DB::select($sql);
             $ret['code'] = 0;
             $ret['data'] = $data;
@@ -116,7 +111,7 @@ class Log extends BaseController
     {
         try {
             $params = $request->query();
-            $token = TokenController::getTokenInfo($params['token']);
+            $user = auth()->user();
             //15分単位時刻
             $interval = 15;
 
@@ -145,7 +140,7 @@ class Log extends BaseController
             $sql .= "temp_dc, temp_ac, temp_tr, create_at,";
             $sql .= "DATE_FORMAT(FROM_UNIXTIME(FLOOR(UNIX_TIMESTAMP(create_at) / 900) * 900) ,'%H:%i') AS timestamp";
             $sql .= " FROM hidata ";
-            $sql .= " WHERE user='" . $token->name . "' ";
+            $sql .= " WHERE user='" . $user->email . "' ";
             $sql .= " AND no ='" . $params['no'] . "' ";
             $sql .= " AND create_at BETWEEN '" . $params['date'] . " 00:00:00' AND '" . $params['date'] . " 23:59:59' ";
             $sql .= " ORDER BY create_at ASC";

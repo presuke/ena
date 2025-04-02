@@ -4,8 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Auth\TokenController;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class Regist extends BaseController
@@ -21,9 +20,8 @@ class Regist extends BaseController
             $ret = [];
             $params = $request->all();
             try {
+                $user = auth()->user();
                 if (isset($params['token'])) {
-                    $token = TokenController::getTokenInfo($params['token']);
-                    $user = $token->name;
                     $no = $params['no'];
                 } else if (isset($params['user'])) {
                     $user = $params['user']['id'];
@@ -165,11 +163,11 @@ class Regist extends BaseController
             $ret = [];
             $params = $request->all();
             $ret['params'] = $params;
-            $token = TokenController::getTokenInfo($params['token']);
+            $user = auth()->user();
             $now = Carbon::now('Asia/Tokyo');
             try {
                 $rec = [];
-                $rec['user'] = $token->name;
+                $rec['user'] = $user->name;
                 $rec['no'] = $params['no'];
                 $rec['mode'] = $params['mode'];
                 $rec['regist'] = json_encode($params['regist']);

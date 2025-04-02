@@ -1,26 +1,58 @@
+@media (min-width: 1400px) {
+    #contents{
+        max-width:1400px; 
+        padding: 20px 10px; 
+        margin:10px auto; 
+        text-align:center;
+    }
+    #current{
+        min-width:670px; 
+        max-width:670px;
+        height:70vh;
+        float:left;
+    }
+    #chart{
+        min-width:670px; 
+        max-width:670px; 
+        height:70vh;
+        float:left;
+    }
+}
+
+@media (max-width: 1399px) {
+    #contents{
+        max-width:820px; 
+        text-align:center;
+    }
+    #current{
+        width:100vw;
+        max-width:800px;
+        padding-left:5vw;
+    }
+    #chart{
+        width:100vw;
+        max-width:800px;
+    }
+ }
+
+
     .slider-background {
         border-radius: 10px;
         height: 240px;
         padding:10px;
         background-color: rgba(255, 255, 255, 0.7);
     }
-    .iconBtn{
-        filter: hue-rotate(240deg);
-        height:40px;
-        width:40px;
-        border-radius: 50%;
-    }
     .iconModule{
         filter: hue-rotate(240deg);
-        width:min(15vw, 150px);
-        height:min(15vw, 150px);
+        width:min(12vw, 120px);
+        height:min(12vw, 120px);
         border-radius: 50%;
     }
     .fontMain{
         margin-top:-3vw;
         position: relative;
         z-index:1;
-        font-size:min(3vw, 36px);
+        font-size:min(2.6vw, 30px);
         font-weight: bold;
         text-shadow:
         0 0 7px #fff,
@@ -33,6 +65,10 @@
         z-index:1;
         font-size:min(2vw, 24px);
         margin-top:max(-1vw, -12px);
+        text-shadow:
+        0 0 7px #fff,
+        0 0 10px #ccf,
+        0 0 21px #99f;
     }
 
     .box {
@@ -45,7 +81,7 @@
     .box__line {
         position: absolute;
         box-shadow:
-        0 0 7px #ccf,
+        0 0 7px #33f,
     }
 
     .box__line:nth-child(1) {
@@ -61,7 +97,7 @@
     .box__line:nth-child(1) {
         top: 0;
         left: 0;
-        background: linear-gradient(to right, transparent, #CCF);
+        background: linear-gradient(to right, transparent, #33F);
         animation: animate1 2s linear infinite;
     }
 
@@ -196,20 +232,20 @@
         right: 0;
         animation: animate2 2s linear infinite;
         animation-delay: 1s;
-        background: linear-gradient(to bottom, transparent, #CCF);
+        background: linear-gradient(to bottom, transparent, #33F);
     }
 
     .box__line:nth-child(3) {
         bottom: 0;
         left: 0;
-        background: linear-gradient(to left, transparent, #CCF);
+        background: linear-gradient(to left, transparent, #33F);
         animation: animate3 2s linear infinite;
     }
 
     .box__line:nth-child(4) {
         top: 0;
         left: 0;
-        background: linear-gradient(to top, transparent, #CCF);
+        background: linear-gradient(to top, transparent, #33F);
         animation: animate4 2s linear infinite;
         animation-delay: 1s;
     }
@@ -252,7 +288,6 @@
         100% {
             transform: translateY(-100%);
         }
-
     }
 
     

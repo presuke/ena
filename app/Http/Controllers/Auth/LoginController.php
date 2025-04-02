@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
-use DB;
 
 class LoginController extends Controller
 {
@@ -27,21 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/authed';
-
-    protected function redirectTo()
-    {
-        $user = Auth::user();
-        if (!$user) {
-            return '/';
-        }
-        $id = $user->email;
-        $time = date('Y-m-d H:i:s');
-        $token = md5($id . $time);
-        $data = ['name' => $id, 'tokenable_type' => '', 'tokenable_id' => 0, 'created_at' => $time, 'token' => $token];
-        DB::table('personal_access_tokens')->insert($data);
-        return '/authed?' . $token;
-    }
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.

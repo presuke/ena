@@ -2,10 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\v1\Log as LogV1;
 use App\Http\Controllers\v1\Regist as RegistV1;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,26 +16,42 @@ use App\Http\Controllers\v1\Regist as RegistV1;
 |
 */
 
-Route::prefix('/auth')->group(function () {
-    Route::post('regist', [RegisterController::Class, 'store']);
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+//認証系
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');          // 登入 API
+    Route::post('register', 'register');    // 註冊 (取得 JWT)
+    Route::post('logout', 'logout');        // 登出
+    Route::post('refresh', 'refresh');      // 重新生成 JWT
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// 認証不要なルーティング
+Route::prefix('/v1/log')->group(function () {
+    Route::get('serverTime', [LogV1::class, 'getServerTime']);
+    Route::post('write', [LogV1::class, 'write']);
 });
 
-Route::prefix('/v1')->group(function () {
-    Route::prefix('/log')->group(function () {
-        Route::get('serverTime', [LogV1::Class, 'getServerTime']);
-        Route::post('write', [LogV1::Class, 'write']);
-        Route::get('getMyHybridInverters', [LogV1::Class, 'getMyHybridInverters']);
-        Route::get('getHybridInverterDatas', [LogV1::Class, 'getHybridInverterDatas']);
+Route::prefix('/v1/regist')->group(function () {
+    Route::get('getGridPrice', [RegistV1::class, 'getGridPrice']);
+    Route::post('readRegistSetting', [RegistV1::class, 'readRegistSetting']);
+    Route::post('reportRegistSetting', [RegistV1::class, 'reportRegistSetting']);
+    Route::post('recordGridPrice', [RegistV1::class, 'recordGridPrice']);
+});
+
+
+// 認証が必要なルーティング
+Route::middleware('auth:api')->group(function () {
+    Route::prefix('/v1/log')->group(function () {
+        Route::get('getMyHybridInverters', [LogV1::class, 'getMyHybridInverters']);
+        Route::get('getHybridInverterDatas', [LogV1::class, 'getHybridInverterDatas']);
     });
-    Route::prefix('/regist')->group(function () {
-        Route::get('getGridPrice', [RegistV1::Class, 'getGridPrice']);
-        Route::post('readRegistSetting', [RegistV1::Class, 'readRegistSetting']);
-        Route::post('reportRegistSetting', [RegistV1::Class, 'reportRegistSetting']);
-        Route::post('recordGridPrice', [RegistV1::Class, 'recordGridPrice']);
-        Route::post('recordSettingHybridInverter', [RegistV1::Class, 'recordSettingHybridInverter']);
+
+    Route::prefix('/v1/regist')->group(function () {
+        Route::post('recordSettingHybridInverter', [RegistV1::class, 'recordSettingHybridInverter']);
     });
+
+    Route::get('/auth/confirm', [AuthController::class, 'confirm']);
 });

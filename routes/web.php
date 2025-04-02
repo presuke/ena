@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,24 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [LoginController::class, 'destroy'])->middleware('auth');
-Route::post('regist', [Logoutcontroller::class, 'destroy'])->middleware('auth');
-
-Route::get('/register', [RegisterController::class, 'create']);
-Route::get('/logout', [Logoutcontroller::class, 'destroy'])->middleware('auth');
-
-Route::get('/authed', function () {
-    return view('authed');
-});
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('view');
 });
-
-Route::get('/index', function () {
-    return view('index');
-});
-
 
 Auth::routes();
 

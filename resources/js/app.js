@@ -6,7 +6,8 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-window.Vue = require('vue').default;
+import vuetify from "./vuetify";
+import axios from 'axios';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -15,9 +16,11 @@ window.Vue = require('vue').default;
  */
 
 const app = createApp({});
+app.use(vuetify);
+app.use(axios);
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+import AppComponent from './components/AppComponent.vue';
+app.component('app-component', AppComponent);
 
 /**
  * The following block of code may be used to automatically register your
