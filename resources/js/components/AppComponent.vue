@@ -32,8 +32,8 @@
           <v-list-item-group>
             <v-list-item>
               <v-btn 
-              depressed
               color="primary" 
+              variant="outlined"
               block 
               @click="openSetting()"
               >
@@ -46,8 +46,8 @@
             v-for="hybridInverter in hybridInverters" :key="hybridInverter.no"
             >
               <v-btn 
-              depressed
               color="primary" 
+              variant="outlined"
               block 
               @click="selectInverter(hybridInverter)"
               >
@@ -58,7 +58,7 @@
           <v-list-item-group>
             <v-list-item>
                 <v-btn 
-                depressed
+                variant="outlined"
                 color="primary" 
                 block 
                 @click="logout()"
@@ -158,17 +158,24 @@
                                         <div class="fontMain" style="width:min(15vw, 150px);" v-if="hybridInverter.battery_current > 0">
                                             {{(hybridInverter.battery_voltage * hybridInverter.battery_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA
                                         </div>
-                                        <div style="width:min(15vw, 150px); float:left;">
+                                        <div style="margin-top:min(3vw, 30px); width:min(15vw, 150px); float:left;">
                                             <img src="/image/icon_battery.png" class="iconModule">
-                                            <div class="fontMain" style="margin-top:min(7.5vw, 75px); z-index:1;">{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
-                                            <div style="width:min(10vw, 100px); margin-top:max(-15vw, -150px); margin-left:min(7.5vw, 75px);">
-                                                <v-progress-circular
-                                                    :model-value="hybridInverter.battery_soc"
-                                                    :color="[hybridInverter.battery_soc<30?'#f33':hybridInverter.battery_soc<50?'#f93':hybridInverter.battery_soc<70?'#cf3':'#6f6']"
-                                                    style="margin-left:-10px; margin-top:-10px; clear:left; width:min(5vw, 50px); height:min(5vw, 50px);">
-                                                    <div style="color:white; z-index:1; text-shadow:0 0 4px #fff, 0 0 8px #ccc, 0 0 12px #999;">{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
-                                                </v-progress-circular>
-                                            </div>
+                                            <div class="fontMain" style="z-index:10;">{{hybridInverter.battery_voltage.toLocaleString()}}V</div>
+                                            <v-progress-linear
+                                            v-model="hybridInverter.battery_soc"
+                                            :color="getColorBattSoc(hybridInverter.battery_soc)"
+                                            height="20"
+                                            >
+                                                <strong >{{ hybridInverter.battery_soc }}%</strong>
+                                            </v-progress-linear>
+                                            <!--
+                                            <v-progress-circular
+                                                :model-value="hybridInverter.battery_soc"
+                                                :color="[hybridInverter.battery_soc<30?'#f33':hybridInverter.battery_soc<50?'#f93':hybridInverter.battery_soc<70?'#cf3':'#6f6']"
+                                                style="margin-left:-10px; margin-top:-10px; clear:left; width:min(5vw, 50px); height:min(5vw, 50px);">
+                                                <div style="color:white; z-index:1; text-shadow:0 0 4px #fff, 0 0 8px #ccc, 0 0 12px #999;">{{ Math.ceil(hybridInverter.battery_soc)}}%</div>
+                                            </v-progress-circular>
+                                            -->
                                         </div>
                                     </div>
                                 </div>
@@ -234,24 +241,24 @@
                                 <v-tab value="1" @click="viewChart()">累積</v-tab>
                                 <v-tab value="2" @click="viewChart()">バッテリー</v-tab>
                             </v-tabs>
-                            <v-card style="height:500px; overflow-y: hidden;">
+                            <v-card class="chartArea" style="overflow-y: hidden;">
                                 <div id="chart0">
-                                    <div style="height:500px">
+                                    <div class="chartArea">
                                         <canvas id="chartA"></canvas>
                                     </div>
                                 </div>
                                 <div id="chart1">
-                                    <div style="height:500px">
+                                    <div class="chartArea">
                                         <canvas id="chartB"></canvas>
                                     </div>
                                 </div>
                                 <div id="chart2">
-                                    <div style="height:500px">
+                                    <div class="chartArea">
                                         <canvas id="chartC"></canvas>
                                     </div>
                                 </div>
                                 <div id="chart3">
-                                    <div style="height:500px">
+                                    <div class="chartArea">
                                         Loading...
                                     </div>
                                 </div>
@@ -424,8 +431,11 @@
       </v-main>  
       <!-- 下段ナビゲーション -->
       <v-bottom-navigation>
-        <v-btn depressed>
-          presented by presuke.
+        <v-btn 
+        href="https://github.com/presuke/ena/" 
+        target="_blank"
+        >
+            presented by presuke.
         </v-btn>
       </v-bottom-navigation>
     </v-app>
@@ -435,29 +445,13 @@
   
 
 <script>
-    var vueObj;
-    var chartA = null;
-    var chartB = null;
-    var chartC = null;
+    var chartA = null
+    var chartB = null
+    var chartC = null
 
     $(function() {
-        /*
-        $("#datepicker").datepicker({
-            dateFormat: 'yy/mm/dd',
-            onSelect: function(dateText, inst) {
-                vueObj.getInverterData();
-            }
-        });
 
-        $("#datepicker").val(new Date().toLocaleDateString("ja-JP", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit"
-        }));
-        */
-
-        //$("#tabs").tabs();
-    });
+    })
 
     export default {
       data() {
@@ -568,7 +562,7 @@
             const day = ('0' + date.getDate()).slice(-2)
             this.dialog.datepicker.dateFormatted = `${year}/${month}/${day}`
             this.getInverterData()
-            return true;
+            return true
           }
 
           this.dialog.datepicker.show = false
@@ -611,7 +605,7 @@
             .catch((error) => {
               this.dialog.login.message = ''
               this.dialog.login.show = true
-            });
+            })
 
           }else{
             this.dialog.login.message = ''
@@ -621,24 +615,27 @@
         login(){
           this.dialog.login.message = 'loading...'
           axios
-        .post('/api/login', { 
-          email: this.dialog.login.email, 
-          password: this.dialog.login.password, 
-        })
-        .then((response) => {
-          this.dialog.login.accessToken = response.data.authorisation.token
-          localStorage.setItem(this.dialog.login.localStorageKey, this.dialog.login.accessToken)
-          this.confirmAuth()
-        })
-        .catch((error) => {
-          this.dialog.login.message = error.response.data.message
-        });
+            .post('/api/login', { 
+            email: this.dialog.login.email, 
+            password: this.dialog.login.password, 
+            })
+            .then((response) => {
+                this.setAccessToken(response.data.authorisation.token)
+                this.confirmAuth()
+            })
+            .catch((error) => {
+            this.dialog.login.message = error.response.data.message
+          })
+        },
+        setAccessToken(token){
+            this.dialog.login.accessToken = token
+            localStorage.setItem(this.dialog.login.localStorageKey, this.dialog.login.accessToken)
         },
         logout(){
             this.drawer = false
             this.dialog.login.accessToken = ''
-          localStorage.setItem(this.dialog.login.localStorageKey, '')
-          this.confirmAuth()
+            localStorage.setItem(this.dialog.login.localStorageKey, '')
+            this.confirmAuth()
         },
         get_outputpriority(priority) {
             return this.outputPriority[priority]
@@ -658,19 +655,18 @@
             .then((response) => {
                 try {
                     if (response.data.code == 0) {
-                        this.hybridInverters = response.data.data;
-
+                        this.hybridInverters = response.data.data
                         if (this.hybridInverters.length > 0 &&
                             this.selectedHybridInverter.no == undefined) {
-                            this.selectInverter(this.hybridInverters[0]);
+                            this.selectInverter(this.hybridInverters[0])
                         }
                     } else {
-                        this.error = '特定できないエラー';
-                        console.log(response.data);
+                        this.error = '特定できないエラー'
+                        console.log(response.data)
                     }
                 } catch (err) {
-                    this.error = err;
-                    console.log(err);
+                    this.error = err
+                    console.log(err)
                 }
             })
             .catch((err) => {
@@ -678,9 +674,9 @@
                     this.dialog.login.accessToken = ''
                     this.confirmAuth()
                 }
-                this.error = err;
-                console.log(err);
-            });
+                this.error = err
+                console.log(err)
+            })
         },
         selectInverter(inverter) {
             this.drawer = false
@@ -704,29 +700,29 @@
                         this.chart.tabIndex = 0
                         this.viewChart()
                         this.chart.hybridInverterData = response.data.data;
-                        this.makeChartDaily();
+                        this.makeChartDaily()
                     } else {
-                        this.error = '特定できないエラー';
-                        console.log(response.data);
+                        this.error = '特定できないエラー'
+                        console.log(response.data)
                     }
                 } catch (err) {
-                    this.error = err;
-                    console.log(err);
+                    this.error = err
+                    console.log(err)
                 }
             })
             .catch((err) => {
-                this.error = err;
-                console.log(err);
-            });
+                this.error = err
+                console.log(err)
+            })
         },
         makeChartDaily() {
         this.$nextTick(() => {
             try {
-                const dataOrgn = this.chart.hybridInverterData;
-                const kw = 1000;
-                const ctxA = $('#chartA');
-                const ctxB = $('#chartB');
-                const ctxC = $('#chartC');
+                const dataOrgn = this.chart.hybridInverterData
+                const kw = 1000
+                const ctxA = $('#chartA')
+                const ctxB = $('#chartB')
+                const ctxC = $('#chartC')
 
                 const keyTotal = {
                     PowerPV: 'pvPower',
@@ -736,83 +732,83 @@
                     PowerGridUse: 'gridPowerUse',
                     PowerGridUseTotal: 'gridPowerUseTotal',
                     PoolBatt: 'batteryPoolPower',
-                };
+                }
 
-                const intervalPerHour = dataOrgn.interval / 60;
-                let labels = [];
-                let labelsExistsData = [];
-                let datas = [];
-                let datasExistsData = [];
-                let totals = [];
+                const intervalPerHour = dataOrgn.interval / 60
+                let labels = []
+                let labelsExistsData = []
+                let datas = []
+                let datasExistsData = []
+                let totals = []
                 Object.keys(keyTotal).forEach((key) => {
-                    totals[keyTotal[key]] = [];
-                });
+                    totals[keyTotal[key]] = []
+                })
 
                 Object.keys(dataOrgn.datas).forEach((key) => {
-                    let row = dataOrgn.datas[key];
+                    let row = dataOrgn.datas[key]
                     Object.keys(row).forEach((clm) => {
                         if (datas[clm] == undefined) {
-                            datas[clm] = [];
+                            datas[clm] = []
                         }
-                        datas[clm].push(row[clm]);
-                    });
+                        datas[clm].push(row[clm])
+                    })
                     var key2 = ''
-                    var num = 0;
+                    var num = 0
 
-                    key2 = keyTotal.PowerPV;
-                    num = row['pv_power'] * intervalPerHour;
+                    key2 = keyTotal.PowerPV
+                    num = row['pv_power'] * intervalPerHour
                     if (totals[key2].length > 0) {
-                        num += totals[key2][totals[key2].length - 1];
+                        num += totals[key2][totals[key2].length - 1]
                     }
-                    totals[key2].push(num);
+                    totals[key2].push(num)
 
-                    key2 = keyTotal.PowerInverter;
-                    num = row['inverter_power'] * intervalPerHour;
+                    key2 = keyTotal.PowerInverter
+                    num = row['inverter_power'] * intervalPerHour
                     if (totals[key2].length > 0) {
-                        num += totals[key2][totals[key2].length - 1];
+                        num += totals[key2][totals[key2].length - 1]
                     }
-                    totals[key2].push(num);
+                    totals[key2].push(num)
 
-                    key2 = keyTotal.PowerBatt;
-                    num = row['battery_charge_power'] * intervalPerHour / kw;
+                    key2 = keyTotal.PowerBatt
+                    num = row['battery_charge_power'] * intervalPerHour / kw
                     if (totals[key2].length > 0) {
-                        num += totals[key2][totals[key2].length - 1];
+                        num += totals[key2][totals[key2].length - 1]
                     }
-                    totals[key2].push(num);
+                    totals[key2].push(num)
 
-                    key2 = keyTotal.PowerGridCharge;
-                    num = row['grid_battery_charge_current'] * row['grid_voltage'] * intervalPerHour / kw;
+                    key2 = keyTotal.PowerGridCharge
+                    num = row['grid_battery_charge_current'] * row['grid_voltage'] * intervalPerHour / kw
                     if (totals[key2].length > 0) {
-                        num += totals[key2][totals[key2].length - 1];
+                        num += totals[key2][totals[key2].length - 1]
                     }
-                    totals[key2].push(num);
+                    totals[key2].push(num)
 
-                    key2 = keyTotal.PowerGridUseTotal;
-                    num = row['grid_input_current'] * row['grid_voltage'] / kw;
-                    totals[keyTotal.PowerGridUse].push(num);
-                    num *= intervalPerHour;
+                    key2 = keyTotal.PowerGridUseTotal
+                    num = row['grid_input_current'] * row['grid_voltage'] / kw
+                    totals[keyTotal.PowerGridUse].push(num)
+                    num *= intervalPerHour
                     if (totals[key2].length > 0) {
-                        num += totals[key2][totals[key2].length - 1];
+                        num += totals[key2][totals[key2].length - 1]
                     }
-                    totals[key2].push(num);
+                    totals[key2].push(num)
 
-                    key2 = keyTotal.PoolBatt;
-                    num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1 / kw;
-                    totals[key2].push(num);
+                    key2 = keyTotal.PoolBatt
+                    num = row['battery_current'] * row['battery_voltage'] * intervalPerHour * -1 / kw
+                    totals[key2].push(num)
 
                     //データが有るときだけプッシュ
                     if (row['battery_voltage'] > 0) {
-                        labelsExistsData.push(key);
+                        labelsExistsData.push(key)
                         Object.keys(row).forEach(function(key2) {
                             if (datasExistsData[key2] == undefined) {
-                                datasExistsData[key2] = [];
+                                datasExistsData[key2] = []
                             }
-                            datasExistsData[key2].push(row[key2]);
-                        });
+                            datasExistsData[key2].push(row[key2])
+                        })
                     }
 
-                    labels.push(key);
-                });
+                    labels.push(key)
+                })
 
 
                 // JSONデータ
@@ -850,7 +846,7 @@
                         },
                         jsonDataCommonBAT,
                     ]
-                };
+                }
 
                 var jsonDataB = {
                     "labels": labels,
@@ -884,7 +880,7 @@
                         },
                         jsonDataCommonBAT,
                     ]
-                };
+                }
 
                 var jsonDataC = {
                     "labels": labelsExistsData,
@@ -905,40 +901,40 @@
                             yAxisID: 'y2'
                         }
                     ]
-                };
+                }
 
-                //$(".chartGudance").slideUp();
+                //$(".chartGudance").slideUp()
 
                 //共通
-                const ICON_PV_CHARGE = '🌞';
-                const ICON_GRID_CHARGE = '🔌';
+                const ICON_PV_CHARGE = '🌞'
+                const ICON_GRID_CHARGE = '🔌'
                 const common_x = {
                     ticks: {
                         callback: function(value, index, values) {
-                            var label = jsonDataB.labels[index];
-                            var buf = dataOrgn.datas[label];
+                            var label = jsonDataB.labels[index]
+                            var buf = dataOrgn.datas[label]
                             try {
                                 if (buf['grid_battery_charge_current'] > 0) {
-                                    return ICON_GRID_CHARGE + label;
+                                    return ICON_GRID_CHARGE + label
                                 } else if (buf['pv_battery_charge_current'] > 0) {
-                                    return ICON_PV_CHARGE + label;
+                                    return ICON_PV_CHARGE + label
                                 }
-                                return label;
+                                return label
                             } catch (err) {
-                                console.log(err);
+                                console.log(err)
                             }
                         },
                         color: function(context) {
-                            var label = context.tick.label;
+                            var label = context.tick.label
                             try {
                                 if (label.indexOf(ICON_GRID_CHARGE) != -1) {
-                                    return 'rgba(128, 0, 0, 1)';
+                                    return 'rgba(128, 0, 0, 1)'
                                 } else if (label.indexOf(ICON_PV_CHARGE) != -1) {
-                                    return 'rgba(0, 168, 1)';
+                                    return 'rgba(0, 168, 1)'
                                 }
-                                return 'rgba(0, 0, 0, 1)';
+                                return 'rgba(0, 0, 0, 1)'
                             } catch (err) {
-                                console.log(err);
+                                console.log(err)
                             }
                         },
                     }
@@ -951,7 +947,7 @@
                     ticks: {
                         beginAtZero: true,
                         callback: function(value, index, values) {
-                            return value + ' v'; // Y軸のラベルに単位を追加
+                            return value + ' v' // Y軸のラベルに単位を追加
                         }
                     },
                     scaleLabel: {
@@ -965,7 +961,7 @@
 
                 //chartA
                 if (chartA != null) {
-                    chartA.destroy();
+                    chartA.destroy()
                 }
                 chartA = new Chart(ctxA, {
                     type: 'line',
@@ -981,7 +977,7 @@
                                 ticks: {
                                     beginAtZero: true,
                                     callback: function(value, index, values) {
-                                        return value + ' kW'; // Y軸のラベルに単位を追加
+                                        return value + ' kW' // Y軸のラベルに単位を追加
                                     }
                                 },
                                 scaleLabel: {
@@ -992,11 +988,11 @@
                             y2: common_y_battery_voltage,
                         }
                     }
-                });
+                })
 
                 //chartB
                 if (chartB != null) {
-                    chartB.destroy();
+                    chartB.destroy()
                 }
                 chartB = new Chart(ctxB, {
                     type: 'line',
@@ -1012,7 +1008,7 @@
                                 ticks: {
                                     beginAtZero: true,
                                     callback: function(value, index, values) {
-                                        return value + ' kWh'; // Y軸のラベルに単位を追加
+                                        return value + ' kWh' // Y軸のラベルに単位を追加
                                     }
                                 },
                                 scaleLabel: {
@@ -1023,11 +1019,11 @@
                             y2: common_y_battery_voltage,
                         }
                     },
-                });
+                })
 
                 //chartC
                 if (chartC != null) {
-                    chartC.destroy();
+                    chartC.destroy()
                 }
                 chartC = new Chart(ctxC, {
                     type: 'line',
@@ -1043,7 +1039,7 @@
                                 ticks: {
                                     beginAtZero: true,
                                     callback: function(value, index, values) {
-                                        return value + ' v'; // Y軸のラベルに単位を追加
+                                        return value + ' v' // Y軸のラベルに単位を追加
                                     }
                                 },
                                 scaleLabel: {
@@ -1059,7 +1055,7 @@
                                 ticks: {
                                     beginAtZero: true,
                                     callback: function(value, index, values) {
-                                        return value + ' %'; // Y軸のラベルに単位を追加
+                                        return value + ' %' // Y軸のラベルに単位を追加
                                     }
                                 },
                                 scaleLabel: {
@@ -1072,51 +1068,51 @@
                             },
                         }
                     },
-                });
+                })
             } catch (err) {
-                this.error = err;
-                console.log(err);
+                this.error = err
+                console.log(err)
             }
         })
         },
         getGridPriceData(areaId) {
-            this.gridPrices = [];
+            this.gridPrices = []
             axios
                 .get('/api/v1/regist/getGridPrice?token=' + this.token + '&date=' + $("#datepickerGridPrice").val() + '&area=' + $("#" + areaId).val(), {})
                 .then((response) => {
                     try {
                         if (response.data.code == 0) {
-                            this.gridPrices = [];
-                            let idx = 0;
-                            let startTime = new Date();
-                            startTime.setHours(0, 0, 0, 0);
+                            this.gridPrices = []
+                            let idx = 0
+                            let startTime = new Date()
+                            startTime.setHours(0, 0, 0, 0)
                             response.data.data.forEach(row => {
-                                let hFrom = String(startTime.getHours()).padStart(2, '0');
-                                let mFrom = String(startTime.getMinutes()).padStart(2, '0');
-                                startTime.setMinutes(startTime.getMinutes() + 30);
-                                let hTo = String(startTime.getHours()).padStart(2, '0');
-                                let mTo = String(startTime.getMinutes()).padStart(2, '0');
+                                let hFrom = String(startTime.getHours()).padStart(2, '0')
+                                let mFrom = String(startTime.getMinutes()).padStart(2, '0')
+                                startTime.setMinutes(startTime.getMinutes() + 30)
+                                let hTo = String(startTime.getHours()).padStart(2, '0')
+                                let mTo = String(startTime.getMinutes()).padStart(2, '0')
                                 this.gridPrices.push({
                                     idx: idx,
                                     label: `${hFrom}:${mFrom}～${hTo}:${mTo}`,
                                     price: row.price,
-                                });
-                                idx++;
-                            });
+                                })
+                                idx++
+                            })
 
                         } else {
-                            this.error = '特定できないエラー';
-                            console.log(response.data);
+                            this.error = '特定できないエラー'
+                            console.log(response.data)
                         }
                     } catch (err) {
-                        this.error = err;
-                        console.log(err);
+                        this.error = err
+                        console.log(err)
                     }
                 })
                 .catch((err) => {
-                    this.error = err;
-                    console.log(err);
-                });
+                    this.error = err
+                    console.log(err)
+                })
         },
         getRegistSetting() {
             axios
@@ -1129,29 +1125,29 @@
                     try {
                         if (response.data.code == 0) {
                             for (let idx = 0; idx < response.data.regists.length; idx++) {
-                                let item = response.data.regists[idx];
-                                let regist = JSON.parse(item.regist);
+                                let item = response.data.regists[idx]
+                                let regist = JSON.parse(item.regist)
                                 if (item.mode == 0) {
                                     if (item.result == '') {
-                                        this.dialog.setting.once.message = '設定予約済です。1分以内に切替設定処理をします。';
+                                        this.dialog.setting.once.message = '設定予約済です。1分以内に切替設定処理をします。'
                                     }
                                 } else if (item.mode == 1) {
-                                    this.dialog.setting.ever = regist;
-                                    this.dialog.setting.ever.message = '設定済です。変更する場合は改めて設定してください。';
+                                    this.dialog.setting.ever = regist
+                                    this.dialog.setting.ever.message = '設定済です。変更する場合は改めて設定してください。'
                                 }
                             }
                         } else {
-                            this.dialog.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error;
+                            this.dialog.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error
                         }
                     } catch (err) {
-                        this.error = err;
-                        console.log(err);
+                        this.error = err
+                        console.log(err)
                     }
                 })
                 .catch((err) => {
-                    this.error = err;
-                    console.log(err);
-                });
+                    this.error = err
+                    console.log(err)
+                })
         },
         openSetting() {
             this.drawer = false
@@ -1161,11 +1157,11 @@
             this.dialog.setting.show = true
         },
         generateValues(start, end, step) {
-            const values = [];
+            const values = []
             for (let i = start; i <= end; i = parseFloat((i + step).toFixed(2))) {
-                values.push(i);
+                values.push(i)
             }
-            return values;
+            return values
         },
         settingOnce(flgDel) {
             axios
@@ -1182,23 +1178,23 @@
                 .then((response) => {
                     try {
                         if (response.data.code == 0) {
-                            this.dialog.setting.once.message = response.data.message;
+                            this.dialog.setting.once.message = response.data.message
                         } else {
-                            this.dialog.setting.once.message = '⚠️error[' + response.data.code + ']:' + response.data.error;
-                            console.log(response.data);
+                            this.dialog.setting.once.message = '⚠️error[' + response.data.code + ']:' + response.data.error
+                            console.log(response.data)
                         }
                     } catch (err) {
-                        this.error = err;
-                        console.log(err);
+                        this.error = err
+                        console.log(err)
                     }
                 })
                 .catch((err) => {
-                    this.error = err;
-                    console.log(err);
-                });
+                    this.error = err
+                    console.log(err)
+                })
         },
         settingEver(flgDel) {
-            this.dialog.setting.ever.message = '';
+            this.dialog.setting.ever.message = ''
             axios
                 .post('api/v1/regist/recordSettingHybridInverter', {
                     token: this.token,
@@ -1210,20 +1206,20 @@
                 .then((response) => {
                     try {
                         if (response.data.code == 0) {
-                            this.dialog.setting.ever.message = response.data.message;
+                            this.dialog.setting.ever.message = response.data.message
                         } else {
-                            this.dialog.setting.ever.message = '⚠️error[' + response.data.code + ']:' + response.data.error;
-                            console.log(response.data);
+                            this.dialog.setting.ever.message = '⚠️error[' + response.data.code + ']:' + response.data.error
+                            console.log(response.data)
                         }
                     } catch (err) {
-                        this.error = err;
-                        console.log(err);
+                        this.error = err
+                        console.log(err)
                     }
                 })
                 .catch((err) => {
-                    this.error = err;
-                    console.log(err);
-                });
+                    this.error = err
+                    console.log(err)
+                })
         },
         moveDate(add){
             const date = new Date(this.dialog.datepicker.dateFormatted)
@@ -1236,18 +1232,27 @@
             this.getInverterData()
         },
         setDate(date) {
-            if (!date) return null;
-            const [year, month, day] = date.split("-");
-            this.text = `${year}${month}${day}`;
-            this.menu = false;
-            return;
+            if (!date) return null
+            const [year, month, day] = date.split("-")
+            this.text = `${year}${month}${day}`
+            this.menu = false
+            return
         },
         viewChart() {
-            const element = document.getElementById(`chart${this.chart.tabIndex}`);
+            const element = document.getElementById(`chart${this.chart.tabIndex}`)
             if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+                element.scrollIntoView({ behavior: 'smooth' })
             }
-        },        
+        },
+        getColorBattSoc(value) {
+            if (value < 30) {
+                return 'red'; // 30%未満の場合は赤
+            } else if (value < 60) {
+                return 'orange'; // 30%以上70%未満の場合は黄色
+            } else {
+                return 'green'; // 70%以上の場合は緑
+            }
+        },
       }
     }
 </script>

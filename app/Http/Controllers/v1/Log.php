@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -190,6 +191,7 @@ class Log extends BaseController
             $ret['code'] = 0;
             $ret['data']['interval'] = $interval;
             $ret['data']['datas'] = $datas;
+            //$ret['authorisation'] = ['token' => Auth::refresh(), 'type' => 'bearer'];
         } catch (\Exception $ex) {
             $ret['code'] = 99;
             $ret['errors'][] = $ex;
