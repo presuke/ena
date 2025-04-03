@@ -8,6 +8,8 @@ import './bootstrap';
 import { createApp } from 'vue';
 import vuetify from "./vuetify";
 import axios from 'axios';
+import "vuetify/dist/vuetify.min.css";
+import '@mdi/font/css/materialdesignicons.css';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin

@@ -36,17 +36,18 @@
         text-align:center;
     }
     #current{
-        width:100vw;
-        max-width:800px;
+        max-width:760px;
+        width:90vw;
         min-height:300px;
-        padding-left:5vw;
+        padding:10px;
         margin-bottom:8px;
     }
     #chart{
-        max-width:800px;
-        width:100vw;
+        max-width:760px;
+        width:90vw;
         min-height:500px;
         height:60vw;
+        margin:5px; 
         padding:10px;
     }
     .iconModule{

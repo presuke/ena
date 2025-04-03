@@ -6,13 +6,8 @@
       <!-- 上段バー -->
       <v-app-bar>
         <v-toolbar-title>Ena-Save</v-toolbar-title>
-
-        <v-app-bar-nav-icon @click="drawer = !drawer">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
-<path d="M 3 9 A 1.0001 1.0001 0 1 0 3 11 L 47 11 A 1.0001 1.0001 0 1 0 47 9 L 3 9 z M 3 24 A 1.0001 1.0001 0 1 0 3 26 L 47 26 A 1.0001 1.0001 0 1 0 47 24 L 3 24 z M 3 39 A 1.0001 1.0001 0 1 0 3 41 L 47 41 A 1.0001 1.0001 0 1 0 47 39 L 3 39 z"></path>
-</svg>
-        </v-app-bar-nav-icon>
-        <v-btn icon="mdi-magnify" color="primary"></v-btn>
+        <v-btn icon="mdi-menu" @click="drawer = !drawer">
+        </v-btn>
       </v-app-bar>
       <v-navigation-drawer
         v-model="drawer"
@@ -61,7 +56,7 @@
                 variant="outlined"
                 color="primary" 
                 block 
-                @click="logout()"
+                @click="dialog.logout.show = true"
                 >
                 ログアウト
                 </v-btn>
@@ -74,7 +69,9 @@
       <v-main> 
           <div  class="text-center">
             <div v-if="hybridInverters == -1" style="padding:10px; text-align:center;">
+                <!--
                 <v-progress-circular color="primary" indeterminate></v-progress-circular>loading...
+                -->
             </div>
             <div v-else-if="hybridInverters == 0">
                 <img src="image/img_hi.png" style="filter: grayscale(100%);" />
@@ -85,7 +82,12 @@
             elevation="16"
             id="contents"
             >
-                <v-card-title>{{selectedHybridInverter.no}}号機</v-card-title>
+                <v-card-title 
+                class="d-flex justify-space-between align-center">
+                    <div class="text-h5 text-medium-emphasis ps-2">
+                        {{selectedHybridInverter.no}}号機
+                    </div>
+                </v-card-title>
                 <v-card-item>
                     <!--current data-->
                     <div 
@@ -206,28 +208,30 @@
                     </div>
                     <!--chart data-->
                     <v-card 
+                    elevation="16"
                     id="chart"
                     variant="outlined"
                     >
                         <v-card-item>
                             <v-row align="center">
                                 <v-col cols="auto">
-                                    <v-btn icon @click="moveDate(-1)">
-                                    ＜
-                                    </v-btn>
+                                <v-btn icon @click="moveDate(-1)">
+                                    <v-icon>mdi-arrow-left</v-icon>
+                                </v-btn>
                                 </v-col>
                                 <v-col>
-                                    <v-text-field
+                                <v-text-field
                                     v-model="dialog.datepicker.dateFormatted"
                                     label="日付を選択"
                                     @click="dialog.datepicker.show = true"
                                     readonly
-                                    ></v-text-field>
+                                    style="height: 50px;"
+                                ></v-text-field>
                                 </v-col>
                                 <v-col cols="auto">
-                                    <v-btn icon @click="moveDate(1)">
-                                    ＞
-                                    </v-btn>
+                                <v-btn icon @click="moveDate(1)">
+                                    <v-icon>mdi-arrow-right</v-icon>
+                                </v-btn>
                                 </v-col>
                             </v-row>
                             <v-dialog v-model="dialog.datepicker.show">
@@ -269,19 +273,57 @@
             </v-card>
         </div>
         <!---Login-->
-        <v-dialog v-model="dialog.login.show" width="500">
-        <v-card>
-            <v-card-title>ログイン</v-card-title>
-            <v-card-text>
-                <v-text-field label="メールアドレス" v-model="dialog.login.email" type="email" required></v-text-field>
-                <v-text-field label="パスワード" v-model="dialog.login.password" type="password" required></v-text-field>
-                <v-card-text style="color:red;">{{this.dialog.login.message}}</v-card-text>
-            </v-card-text>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" @click="login">ログイン</v-btn>
-            </v-card-actions>
-        </v-card>
+        <v-dialog 
+        persistent
+        v-model="dialog.login.show" 
+        width="500">
+            <v-card>
+                <v-card-title>ログイン</v-card-title>
+                <v-card-text>
+                    <v-text-field label="メールアドレス" v-model="dialog.login.email" type="email" required></v-text-field>
+                    <v-text-field label="パスワード" v-model="dialog.login.password" type="password" required></v-text-field>
+                    <v-card-text style="color:red;">{{this.dialog.login.message}}</v-card-text>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" @click="login">ログイン</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!---LoginContinue-->
+        <v-dialog 
+        v-model="dialog.loginContinue.show"
+        width="500">
+            <v-card>
+                <v-card-text>
+                    <div>ログインの有効期限はあと{{ dialog.loginContinue.limit }}分です。</div>
+                    <div>ログインを継続しますか？</div>
+                    <v-card-text style="color:red;">{{this.dialog.loginContinue.message}}</v-card-text>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" @click="loginContinue()">はい</v-btn>
+                    <v-btn color="primary" @click="logout()">ログアウトする</v-btn>
+                    <v-btn color="primary" @click="dialog.loginContinue.show = false">閉じる</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!---Logout-->
+        <v-dialog 
+        persistent
+        v-model="dialog.logout.show"
+        width="300">
+            <v-card>
+                <v-card-title>ログアウト</v-card-title>
+                <v-card-text>
+                    ログアウトしますか？
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" @click="logout()">はい</v-btn>
+                    <v-btn color="primary" @click="dialog.logout.show = false">いいえ</v-btn>
+                </v-card-actions>
+            </v-card>
         </v-dialog>
         <!--Setting-->
         <v-dialog v-model="dialog.setting.show">
@@ -450,29 +492,34 @@
     var chartC = null
 
     $(function() {
-
     })
 
     export default {
       data() {
         return {
           drawer: null,
-          items: [
-            { title: 'Home', icon: 'mdi-view-dashboard' },
-            { title: 'About', icon: 'mdi-forum' },
-          ],
           dialog: {
             login : {
               show: false,
               email: '',
               password: '',
-              message:[],
+              message: '',
               accessToken:'',
               localStorageKey: 'accessToken',
               user: {
                 name: '',
                 email: '',
               },
+            },
+            loginContinue:{
+                show: false,
+                expiration : null,
+                limit: null,
+                limitMunits: 10,
+                message: '',
+            },
+            logout:{
+                show: false,
             },
             datepicker:{
               show: false,
@@ -600,7 +647,7 @@
               this.dialog.login.show = false
               this.getMyHybridInverters()
               setInterval(this.getMyHybridInverters, 60000)
-
+              setInterval(this.confirmLoginContinue, 60000)
             })
             .catch((error) => {
               this.dialog.login.message = ''
@@ -630,6 +677,36 @@
         setAccessToken(token){
             this.dialog.login.accessToken = token
             localStorage.setItem(this.dialog.login.localStorageKey, this.dialog.login.accessToken)
+            this.confirmLoginContinue()
+        },
+        confirmLoginContinue(){
+            const payload = JSON.parse(atob(this.dialog.login.accessToken.split('.')[1]));
+            this.dialog.loginContinue.expiration = new Date(payload.exp * 1000)
+            const limit = this.dialog.loginContinue.expiration - new Date()
+            this.dialog.loginContinue.limit = Math.ceil(limit / 60 / 1000 )
+            if(this.dialog.loginContinue.limit <= 0 ||
+               this.dialog.loginContinue.limit > this.dialog.loginContinue.limitMunits
+            ){
+                this.dialog.loginContinue.show = false
+            }else{
+                this.dialog.loginContinue.show = true
+            }
+        },
+        loginContinue(){
+            axios.request({
+              method: 'post',
+              maxBodyLength: Infinity,
+              url: '/api/refresh',
+              headers: { 
+                'Authorization': 'Bearer ' + this.dialog.login.accessToken
+              }
+            })
+            .then((response) => {
+                this.setAccessToken(response.data.authorisation.token)
+            })
+            .catch((error) => {
+            this.dialog.loginContinue.message = error.response.data.message
+          })
         },
         logout(){
             this.drawer = false
