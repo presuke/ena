@@ -1193,40 +1193,48 @@
         },
         getRegistSetting() {
             this.dialog.setting.once.message = 'loading..'
-            axios
-                .post('api/v1/regist/readRegistSetting', {
-                    token: this.token,
-                    no: this.selectedHybridInverter.no,
-                    report: 0,
-                })
-                .then((response) => {
-                    try {
-                        this.dialog.setting.once.message = ''
-                        if (response.data.code == 0) {
-                            for (let idx = 0; idx < response.data.regists.length; idx++) {
-                                let item = response.data.regists[idx]
-                                let regist = JSON.parse(item.regist)
-                                if (item.mode == 0) {
-                                    if (item.result == '') {
-                                        this.dialog.setting.once.message = '設定予約済です。1分以内に切替設定処理をします。'
-                                    }
-                                } else if (item.mode == 1) {
-                                    this.dialog.setting.ever = regist
-                                    this.dialog.setting.ever.message = '設定済です。変更する場合は改めて設定してください。'
+            this.dialog.setting.ever.message = 'loading..'
+            axios.request({
+              method: 'get',
+              maxBodyLength: Infinity,
+              params:{
+                no: this.selectedHybridInverter.no,
+                action: 'get',
+              },
+              url: '/api/v1/regist/readRegistSetting',
+              headers: { 
+                'Authorization': 'Bearer ' + this.dialog.login.accessToken
+              }
+            })
+            .then((response) => {
+                try {
+                    this.dialog.setting.once.message = ''
+                    this.dialog.setting.ever.message = ''
+                    if (response.data.code == 0) {
+                        for (let idx = 0; idx < response.data.regists.length; idx++) {
+                            let item = response.data.regists[idx]
+                            let regist = JSON.parse(item.regist)
+                            if (item.mode == 0) {
+                                if (item.result == '') {
+                                    this.dialog.setting.once.message = '設定予約済です。1分以内に切替設定処理をします。'
                                 }
+                            } else if (item.mode == 1) {
+                                this.dialog.setting.ever = regist
+                                this.dialog.setting.ever.message = '設定済です。変更する場合は改めて設定してください。'
                             }
-                        } else {
-                            this.dialog.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error
                         }
-                    } catch (err) {
-                        this.error = err
-                        console.log(err)
+                    } else {
+                        this.dialog.setting.ever.message = 'error[' + response.data.code + ']:' + response.data.error
                     }
-                })
-                .catch((err) => {
+                } catch (err) {
                     this.error = err
                     console.log(err)
-                })
+                }
+            })
+            .catch((err) => {
+                this.error = err
+                console.log(err)
+            })
         },
         openSetting() {
             this.drawer = false
@@ -1243,62 +1251,76 @@
             return values
         },
         settingOnce(flgDel) {
-            axios
-                .post('api/v1/regist/recordSettingHybridInverter', {
-                    token: this.token,
-                    no: this.selectedHybridInverter.no,
-                    mode: 0,
-                    flgDel: flgDel,
-                    regist: {
-                        inverter_output_priority_write: this.dialog.setting.once.outputPriority,
-                        inverter_charger_priority_write: this.dialog.setting.once.chargerPriority,
-                    },
-                })
-                .then((response) => {
-                    try {
-                        if (response.data.code == 0) {
-                            this.dialog.setting.once.message = response.data.message
-                        } else {
-                            this.dialog.setting.once.message = '⚠️error[' + response.data.code + ']:' + response.data.error
-                            console.log(response.data)
-                        }
-                    } catch (err) {
-                        this.error = err
-                        console.log(err)
+            axios.request({
+              method: 'post',
+              maxBodyLength: Infinity,
+              data:{
+                no: this.selectedHybridInverter.no,
+                action: 'set',
+                mode: 0,
+                flgDel: flgDel,
+                regist: {
+                    inverter_output_priority_write: this.dialog.setting.once.outputPriority,
+                    inverter_charger_priority_write: this.dialog.setting.once.chargerPriority,
+                },
+              },
+              url: '/api/v1/regist/recordSettingHybridInverter',
+              headers: { 
+                'Authorization': 'Bearer ' + this.dialog.login.accessToken
+              }
+            })
+            .then((response) => {
+                try {
+                    if (response.data.code == 0) {
+                        this.dialog.setting.once.message = response.data.message
+                    } else {
+                        this.dialog.setting.once.message = '⚠️error[' + response.data.code + ']:' + response.data.error
+                        console.log(response.data)
                     }
-                })
-                .catch((err) => {
+                } catch (err) {
                     this.error = err
                     console.log(err)
-                })
+                }
+            })
+            .catch((err) => {
+                this.error = err
+                console.log(err)
+            })
         },
         settingEver(flgDel) {
             this.dialog.setting.ever.message = ''
-            axios
-                .post('api/v1/regist/recordSettingHybridInverter', {
-                    token: this.token,
-                    no: this.selectedHybridInverter.no,
-                    mode: 1,
-                    flgDel: flgDel,
-                    regist: this.dialog.setting.ever,
-                })
-                .then((response) => {
-                    try {
-                        if (response.data.code == 0) {
-                            this.dialog.setting.ever.message = response.data.message
-                        } else {
-                            this.dialog.setting.ever.message = '⚠️error[' + response.data.code + ']:' + response.data.error
-                            console.log(response.data)
-                        }
-                    } catch (err) {
-                        this.error = err
-                        console.log(err)
+            axios.request({
+              method: 'post',
+              maxBodyLength: Infinity,
+              data:{
+                no: this.selectedHybridInverter.no,
+                action: 'set',
+                mode: 1,
+                flgDel: flgDel,
+                regist: this.dialog.setting.ever,
+              },
+              url: '/api/v1/regist/recordSettingHybridInverter',
+              headers: { 
+                'Authorization': 'Bearer ' + this.dialog.login.accessToken
+              }
+            })
+            .then((response) => {
+                try {
+                    if (response.data.code == 0) {
+                        this.dialog.setting.ever.message = response.data.message
+                    } else {
+                        this.dialog.setting.ever.message = '⚠️error[' + response.data.code + ']:' + response.data.error
+                        console.log(response.data)
                     }
-                })
-                .catch((err) => {
+                } catch (err) {
                     this.error = err
                     console.log(err)
-                })
+                }
+            })
+            .catch((err) => {
+                this.error = err
+                console.log(err)
+            })
         },
         moveDate(add){
             const date = new Date(this.dialog.datepicker.dateFormatted)

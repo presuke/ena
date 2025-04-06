@@ -21,21 +21,15 @@ class Regist extends BaseController
             $params = $request->all();
             try {
                 $user = auth()->user();
-                if (isset($params['token'])) {
-                    $no = $params['no'];
-                } else if (isset($params['user'])) {
-                    $user = $params['user']['id'];
-                    $no = $params['user']['no'];
-                }
-
                 $now = Carbon::now('Asia/Tokyo');
-                switch ($params['report']) {
+                switch ($params['action']) {
                         //設定の読み込み
-                    case '0': {
+                    case 'get': {
+                            $no = request('no');
                             $regists = DB::table('regist')->where(
                                 [
-                                    'user' => $user,
-                                    'no' => $no,
+                                    'user' => $user->email,
+                                    'no' => $params['no'],
                                 ]
                             )->orderBy('create_at', 'asc')->get();
                             $ret['code'] = 0;
@@ -44,15 +38,13 @@ class Regist extends BaseController
                             break;
                         }
                         //設定完了の報告
-                    case '1': {
-                            $ret['params'] = $params;
-                            $mode = $params['mode'];
+                    case 'set': {
                             $result = $params['result'];
                             $regist = DB::table('regist')->where(
                                 [
-                                    'user' => $user,
-                                    'no' => $no,
-                                    'mode' => $mode
+                                    'user' => $user->email,
+                                    'no' => $params['no'],
+                                    'mode' => $params['mode']
                                 ]
                             );
                             if ($regist->count() > 0) {

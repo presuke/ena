@@ -50,6 +50,7 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::prefix('/v1/regist')->group(function () {
+        Route::get('readRegistSetting', [RegistV1::class, 'readRegistSetting']);
         Route::post('recordSettingHybridInverter', [RegistV1::class, 'recordSettingHybridInverter']);
     });
 
