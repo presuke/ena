@@ -1192,6 +1192,7 @@
                 })
         },
         getRegistSetting() {
+            this.dialog.setting.once.message = 'loading..'
             axios
                 .post('api/v1/regist/readRegistSetting', {
                     token: this.token,
@@ -1200,6 +1201,7 @@
                 })
                 .then((response) => {
                     try {
+                        this.dialog.setting.once.message = ''
                         if (response.data.code == 0) {
                             for (let idx = 0; idx < response.data.regists.length; idx++) {
                                 let item = response.data.regists[idx]
@@ -1230,8 +1232,8 @@
             this.drawer = false
             this.dialog.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority
             this.dialog.setting.once.outputPriority = this.selectedHybridInverter.inverter_output_priority
-            this.dialog.setting.once.message = ''
             this.dialog.setting.show = true
+            this.getRegistSetting()
         },
         generateValues(start, end, step) {
             const values = []
