@@ -41,15 +41,16 @@ class Log extends BaseController
             $ret = [];
             $ret['code'] = 0;
             $params = $request->all();
-            $user = $params['user'];
+            $user = auth()->user();
+            $no = $params['no'];
             $datas = $params['datas'];
 
             $log = [];
             DB::beginTransaction();
             try {
                 foreach ($datas as $data) {
-                    $data['user'] = $user['id'];
-                    $data['no'] = $user['no'];
+                    $data['user'] = $user->email;
+                    $data['no'] = $no;
                     $data['create_at'] = date('Y-m-d H:i:s', $data['create_at']);
 
                     $where = [

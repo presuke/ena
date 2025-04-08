@@ -31,7 +31,6 @@ Route::controller(AuthController::class)->group(function () {
 // 認証不要なルーティング
 Route::prefix('/v1/log')->group(function () {
     Route::get('serverTime', [LogV1::class, 'getServerTime']);
-    Route::post('write', [LogV1::class, 'write']);
 });
 
 Route::prefix('/v1/regist')->group(function () {
@@ -47,6 +46,7 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('/v1/log')->group(function () {
         Route::get('getMyHybridInverters', [LogV1::class, 'getMyHybridInverters']);
         Route::get('getHybridInverterDatas', [LogV1::class, 'getHybridInverterDatas']);
+        Route::post('write', [LogV1::class, 'write']);
     });
 
     Route::prefix('/v1/regist')->group(function () {
