@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log as Logger;
 use Carbon\Carbon;
 
 class Log extends BaseController
@@ -73,12 +73,12 @@ class Log extends BaseController
                 DB::rollback();
                 $ret['code'] = 98;
                 $ret['errors'][] = $ex;
-                Log::error($ex);
+                Logger::error($ex);
             }
         } catch (\Exception $ex) {
             $ret['code'] = 99;
             $ret['errors'][] = $ex;
-            Log::error($ex);
+            Logger::error($ex);
         }
         return response()->json($ret);
     }
