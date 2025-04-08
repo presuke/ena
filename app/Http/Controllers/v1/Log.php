@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class Log extends BaseController
@@ -41,17 +42,12 @@ class Log extends BaseController
             $ret = [];
             $ret['code'] = 0;
             $params = $request->all();
-            $ret['step'] = 1;
             $user = auth()->user();
-            $ret['step'] = 2;
             $no = $params['no'];
-            $ret['step'] = 3;
             $datas = $params['datas'];
-            $ret['step'] = 4;
 
             $log = [];
             DB::beginTransaction();
-            $ret['step'] = 5;
             try {
                 foreach ($datas as $data) {
                     $data['user'] = $user->email;
@@ -77,10 +73,12 @@ class Log extends BaseController
                 DB::rollback();
                 $ret['code'] = 98;
                 $ret['errors'][] = $ex;
+                Log::error($ex);
             }
         } catch (\Exception $ex) {
             $ret['code'] = 99;
             $ret['errors'][] = $ex;
+            Log::error($ex);
         }
         return response()->json($ret);
     }
