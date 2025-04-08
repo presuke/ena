@@ -41,12 +41,17 @@ class Log extends BaseController
             $ret = [];
             $ret['code'] = 0;
             $params = $request->all();
+            $ret['step'] = 1;
             $user = auth()->user();
+            $ret['step'] = 2;
             $no = $params['no'];
+            $ret['step'] = 3;
             $datas = $params['datas'];
+            $ret['step'] = 4;
 
             $log = [];
             DB::beginTransaction();
+            $ret['step'] = 5;
             try {
                 foreach ($datas as $data) {
                     $data['user'] = $user->email;
