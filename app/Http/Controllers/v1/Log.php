@@ -49,22 +49,29 @@ class Log extends BaseController
             $log = [];
             DB::beginTransaction();
             try {
+                $ret['cnt']['datas'] = 0;
+                $ret['cnt']['errors'] = 0;
                 foreach ($datas as $data) {
-                    $data['user'] = $user->email;
-                    $data['no'] = $no;
-                    $data['create_at'] = date('Y-m-d H:i:s', $data['create_at']);
+                    try{
+                        $ret['cnt']['datas']++;
+                        $data['user'] = $user->email;
+                        $data['no'] = $no;
+                        $data['create_at'] = date('Y-m-d H:i:s', $data['create_at']);
 
-                    $where = [
-                        'user' => $data['user'],
-                        'no' => $data['no'],
-                        'create_at' => $data['create_at'],
-                    ];
-                    $record = DB::table('hidata')->where($where);
-                    if ($record->count() == 0) {
-                        DB::table('hidata')->insert($data);
-                        $log[] = $data;
-                    } else {
-                        $record->update($data);
+                        $where = [
+                            'user' => $data['user'],
+                            'no' => $data['no'],
+                            'create_at' => $data['create_at'],
+                        ];
+                        $record = DB::table('hidata')->where($where);
+                        if ($record->count() == 0) {
+                            DB::table('hidata')->insert($data);
+                            $log[] = $data;
+                        } else {
+                            $record->update($data);
+                        }
+                    } catch (\Exception $ex) {
+                        $ret['cnt']['errors']++;
                     }
                 }
                 DB::commit();
