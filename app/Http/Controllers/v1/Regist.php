@@ -159,7 +159,7 @@ class Regist extends BaseController
             $now = Carbon::now('Asia/Tokyo');
             try {
                 $rec = [];
-                $rec['user'] = $user->name;
+                $rec['user'] = $user->email;
                 $rec['no'] = $params['no'];
                 $rec['mode'] = $params['mode'];
                 $rec['regist'] = json_encode($params['regist']);
