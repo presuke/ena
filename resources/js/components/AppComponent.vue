@@ -192,18 +192,13 @@
                                     <img src="/image/icon_use.png" class="iconModule">
                                     <div class="fontMain">{{Math.floor(hybridInverter.inverter_power).toLocaleString(undefined, { maximumFractionDigits: 0 })}}w</div>
                                     <div style="height:min(3vw, 50px);"></div>
-                                    <div class="fontMain">{{(hybridInverter.inverter_voltage * hybridInverter.inverter_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
+                                    <div class="fontSub">{{(hybridInverter.inverter_voltage * hybridInverter.inverter_current).toLocaleString(undefined, { maximumFractionDigits: 0 })}}VA</div>
                                     <div class="fontSub">{{hybridInverter.inverter_voltage.toLocaleString()}}v</div>
                                     <div class="fontSub">{{hybridInverter.inverter_current.toLocaleString()}}A</div>
                                     <div class="fontSub">({{hybridInverter.inverter_frequency}}Hz)</div>
                                 </div>
                                 <div style="color:#666; position: absolute; right: 60; bottom: 0;">{{hybridInverter.create_at}}</div>
                             </v-card-item>
-                            <!--
-                            <textarea style="width:60vw; height:300px;">
-                                        {{hybridInverter}}
-                                        </textarea>
-                            -->
                         </v-card>
                     </div>
                     <!--chart data-->

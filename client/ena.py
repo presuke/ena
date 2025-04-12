@@ -9,17 +9,18 @@ import pygame
 import sqlite3
 import logging
 import subprocess
+import jwt
 from decimal import *
 from logging.handlers import TimedRotatingFileHandler
 
 pygame.mixer.init(frequency=44100)
-pygame.mixer.music.load('sheep02Passage.mp3')
+pygame.mixer.music.load('bgm.mp3')
 pygame.mixer.music.play(100)
 
 logger = logging.getLogger('hi')
 logger.setLevel(logging.DEBUG)
 
-handler = TimedRotatingFileHandler('log.log', when='midnight', interval=1, backupCount=7, atTime=datetime.time(0,0,0))
+handler = TimedRotatingFileHandler('ena.log', when='midnight', interval=1, backupCount=7, atTime=datetime.time(0,0,0))
 handler.setLevel(logging.DEBUG)
 handler_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 
@@ -202,7 +203,29 @@ def executeSql(sql):
         cur.close()
         con.close()
     return ret
+
+def refleshAccessToken(access_token, ut, host):
+    try:
+        # トークンをデコード（署名検証は行わない）
+        decoded_token = jwt.decode(access_token, options={"verify_signature": False})
+
+        # 有効期限（expクレーム）を取得
+        expiration_timestamp = decoded_token.get('exp')
         
+        if(ut + 600 > expiration_timestamp):
+            url = host + '/api/refresh'
+            post_data = {}
+            header_data = {'Authorization': f'Bearer {access_token}'}
+            res = requests.post(url, json = post_data, headers = header_data)
+            res_json = json.loads(res.text)
+            access_token = res_json['authorisation']['token']
+            
+    except Exception as e:
+        logger.exception(e)
+        print("error:", e)
+    return access_token
+    
+
 def saveValues(values):
     ret = {}
     try:
@@ -281,12 +304,24 @@ def main():
         setting_json = loadSetting()
         logger.info("get ComInstance st")
         instr = getComInstance(setting_json)
+        interval_access_com = setting_json['com']['interval']
         logger.info("create table st")
         createTable()
 
         servertime_gap = 0
         logger.info("get server time")
-        url = setting_json['api']['host'] + '/api/v1/log/serverTime'
+        host = setting_json['api']['host']
+        if setting_json['debug']:
+            host = setting_json['api']['host_debug']
+
+        #login
+        url = host + '/api/login'
+        res = requests.post(url, json = {'email':setting_json['user']['id'], 'password':setting_json['user']['pw']})
+        res_json = json.loads(res.text)
+        access_token = res_json['authorisation']['token']
+
+        #get server time
+        url = host + '/api/v1/log/serverTime'
         res = requests.get(url, json = {})
         res_json = json.loads(res.text)
         logger.info("server time:" + res.text)
@@ -331,21 +366,37 @@ def main():
                 values = {}
                 values['create_at'] = ut
                 #instr.read_register(register, decimals, functioncode, signed)
+                cntErr = 0
+                cntErrRetry = 10
                 for key in INVERTER_COMMANDS_READ.keys():
-                    val = instr.read_register(*INVERTER_COMMANDS_READ.get(key))
-                    values[key] = val
-                    time.sleep(0.1)
-
-                saveValues(values)
+                    if(cntErr < cntErrRetry):
+                        cntErr = 0
+                        while True:
+                            try:
+                                time.sleep(interval_access_com)
+                                val = instr.read_register(*INVERTER_COMMANDS_READ.get(key))
+                                values[key] = val
+                                break
+                            except Exception as e:
+                                print("error[" + key + "-" + str(cntErr) + "]:", e)
+                                cntErr = cntErr + 1
+                                if(cntErr >= cntErrRetry):
+                                    break
+                                
+                if(cntErr < cntErrRetry):
+                     saveValues(values)
 
                 #get servers regist
                 if(ut % PROCCESS_TIMING.get('server_regist') <= PROCCESS_TIMING.get('interval')):
                     try:
-                        url = setting_json['api']['host'] + '/api/v1/regist/readRegistSetting'
-                        post_data = {'report':0, 'user':setting_json['user']}
-                        res = requests.post(url, json = post_data)
+                        access_token = refleshAccessToken(access_token, ut, host)
+                        url = host + '/api/v1/regist/readRegistSetting'
+                        post_data = {'action':'get', 'no':setting_json['user']['no']}
+                        header_data = {'Authorization': f'Bearer {access_token}'}
+                        res = requests.post(url, json = post_data, headers = header_data)
                         res_json = json.loads(res.text)
                         logger.info(res.text)
+                        print(res_json)
                         if res_json['code'] == 0:
                             if res_json['regists'] != None:
                                 for item in res_json['regists']:
@@ -358,9 +409,9 @@ def main():
                                                 val = int(regist[key])
                                                 key2 = key.replace("_write","")
                                                 write_register(instr, val, *INVERTER_COMMANDS_WRITE.get(key2))
-                                                time.sleep(0.1)
+                                                time.sleep(interval_access_com)
                                                 result.append({key2 : instr.read_register(*INVERTER_COMMANDS_READ.get(key2))})
-                                                time.sleep(0.1)
+                                                time.sleep(interval_access_com)
                                     elif mode == 1:
                                         dt = datetime.datetime.fromisoformat(res_json['now'])
                                         h = dt.hour
@@ -370,9 +421,9 @@ def main():
                                         dVoltageEd = Decimal(regist['voltageGridingEd'])
                                         
                                         voltage = instr.read_register(*INVERTER_COMMANDS_READ.get('battery_voltage'))
-                                        time.sleep(0.1)
+                                        time.sleep(interval_access_com)
                                         output = instr.read_register(*INVERTER_COMMANDS_READ.get('inverter_output_priority'))
-                                        time.sleep(0.1)
+                                        time.sleep(interval_access_com)
                                         
                                         #power output source
                                         key = 'inverter_output_priority'
@@ -380,14 +431,14 @@ def main():
                                             if(output != 1 and (voltage < dVoltageSt or regist['forceSt'])):
                                                 logger.info('auto grid on:{voltage:' + str(voltage) + ',output:' + str(output) + '}')
                                                 write_register(instr, 1, *INVERTER_COMMANDS_WRITE.get(key))
-                                                time.sleep(0.1)
+                                                time.sleep(interval_access_com)
                                                 result.append({key : instr.read_register(*INVERTER_COMMANDS_READ.get(key))})
-                                                time.sleep(0.1)                                                
+                                                time.sleep(interval_access_com)                                                
                                             elif(output == 1 and voltage >= dVoltageEd):
                                                 write_register(instr, 2, *INVERTER_COMMANDS_WRITE.get(key))
-                                                time.sleep(0.1)
+                                                time.sleep(interval_access_com)
                                                 result.append({key : instr.read_register(*INVERTER_COMMANDS_READ.get(key))})
-                                                time.sleep(0.1)
+                                                time.sleep(interval_access_com)
                                                 logger.info('auto grid off(voltage):{voltage:' + str(voltage) + ',output:' + str(output) + '}')
                                                 
                                         elif(h == hEd and regist['forceEd'] and output == 1):
@@ -397,15 +448,16 @@ def main():
                                            dtH = dt.strftime('%Y/%m/%d %H')
                                            if(done != dtH):
                                                 write_register(instr, 2, *INVERTER_COMMANDS_WRITE.get(key))
-                                                time.sleep(0.1)
+                                                time.sleep(interval_access_com)
                                                 result.append({key : instr.read_register(*INVERTER_COMMANDS_READ.get(key))})
-                                                time.sleep(0.1)
+                                                time.sleep(interval_access_com)
                                                 logger.info('auto grid off(timelimit):{h:' + str(h) + ',hEd:' + str(hEd) + ',forceEd:' + str(regist['forceEd']) + ',output:' + str(output) + '}')
 
                                     if result != []:
-                                        post_data = {'report':1, 'user':setting_json['user'], 'mode':mode, 'result': json.dumps(result)}
                                         print('report regist')
-                                        res = requests.post(url, json = post_data)
+                                        post_data = {'action':'set', 'no':setting_json['user']['no'], 'mode':mode, 'result': json.dumps(result)}
+                                        header_data = {'Authorization': f'Bearer {access_token}'}
+                                        res = requests.post(url, json = post_data, headers = header_data)
                                         print(res.text)
                                         logger.info("Regist: req:" + json.dumps(res_json) + "/res:" + res.text)
                                         
@@ -416,9 +468,10 @@ def main():
                 #report_server inverter values
                 if(ut % PROCCESS_TIMING.get('report_server') <= PROCCESS_TIMING.get('interval')):
                     data = readValues(ut - 3600, ut)
-                    url = setting_json['api']['host'] + '/api/v1/log/write'
-                    post_data = {'user':setting_json['user'], 'datas': data}
-                    res = requests.post(url, json = post_data)
+                    url = host + '/api/v1/log/write'
+                    post_data = {'no':setting_json['user']['no'], 'datas': data}
+                    header_data = {'Authorization': f'Bearer {access_token}'}
+                    res = requests.post(url, json = post_data, headers = header_data)
                     res_json = json.loads(res.text)
                     if(res_json['code'] == 0):
                         print('request-success')
@@ -436,7 +489,7 @@ def main():
                     res = requests.get(url)
                     contents = res.content
                     json_contents = json.loads(contents)
-                    url = setting_json['api']['host'] + '/api/v1/regist/recordGridPrice'
+                    url = host + '/api/v1/regist/recordGridPrice'
 #                    url = setting_json['api']['host_debug'] + '/api/v1/regist/recordGridPrice'
                     post_data = {'contents':json_contents, 'time':ut, 'area':GRID_AREA[area]}
                     res = requests.post(url, json = post_data)
@@ -444,7 +497,7 @@ def main():
                     
                 time.sleep(PROCCESS_TIMING.get('interval'))
             else:
-                print(ut % 3600)
+                #print(ut % 3600)
                 time.sleep(1)
                 
         except Exception as e:
