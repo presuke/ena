@@ -7,8 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <link rel="icon" href="fvicon.png">
+        <link rel="manifest" href="/manifest.json">
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.bunny.net">
