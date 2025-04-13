@@ -42,4 +42,17 @@ app.component('app-component', AppComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+// Service Workerの登録コードを追加
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(error => {
+                console.log('ServiceWorker registration failed: ', error);
+            });
+    });
+}
+
 app.mount('#app');
