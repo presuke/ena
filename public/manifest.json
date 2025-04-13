@@ -1,0 +1,13 @@
+{
+    "short_name": "EnaSave",
+    "name": "EnaSave",
+    "display": "standalone",
+    "start_url": "https://enasave.presuke.com/",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
