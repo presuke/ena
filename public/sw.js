@@ -1,13 +1,11 @@
 const CACHE_NAME = 'enasave-cache-v1';
 const urlsToCache = [
   '/',
-  '/css/app.css',
-  '/js/app.js',
-  '/img/icons/64.png',
-  '/img/icons/128.png',
-  '/img/icons/192.png',
-  '/img/icons/256.png',
-  '/img/icons/512.png'
+  '/image/icons/64.png',
+  '/image/icons/128.png',
+  '/image/icons/192.png',
+  '/image/icons/256.png',
+  '/image/icons/512.png'
 ];
 
 self.addEventListener('install', event => {
