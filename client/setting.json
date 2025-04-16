@@ -1,6 +1,7 @@
 {
     "user":{
         "id":"reno.neve@gmail.com", 
+        "pw":"12345678",
         "no":1
     },
     "com":{
@@ -8,6 +9,7 @@
         "slaveaddress":1,
         "baudrate":9600,
         "timeout":1,
+        "interval":0.2,
         "debug":0
     },
     "db":{
@@ -17,5 +19,6 @@
         "host":"https://enasave.presuke.com",
         "host_debug":"http://192.168.10.200:8001"
     },
-    "reboot":"18:00:0"
+    "reboot":"18:00:0",
+    "debug":0
 }

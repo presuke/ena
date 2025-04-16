@@ -1,0 +1,8 @@
+cd /etc/systemd/system/
+cp /home/reno/Desktop/ena/hi.service hi.service
+sudo systemctl start hi.service
+sudo systemctl status hi.service
+#systemctl daemon-reload
+#sudo rm hi.service
+#sudo vi hi.service
+sudo systemctl enable hi.service

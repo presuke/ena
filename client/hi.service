@@ -1,0 +1,14 @@
+[Unit]
+Description=HybridInverter
+After=network.target
+
+[Service]
+User=reno
+WorkingDirectory=/home/reno/Desktop/ena/
+ExecStart=/usr/bin/python3 /home/reno/Desktop/ena/ena.py
+Restart=on-failure
+#StandardOutput=append:/home/reno/Desktop/ena/run.log
+StandardError=append:/home/reno/Desktop/ena/run_err.log
+
+[Install]
+WantedBy=multi-user.target

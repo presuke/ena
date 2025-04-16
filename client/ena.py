@@ -137,8 +137,8 @@ GRID_AREA = ['01','02','03','04','05','06','07','08','09','10']
 PROCCESS_TIMING = {
     'interval': 5,
     'get_hibridinverter_parameter': 30,
-    'server_regist': 60,
-    'report_server': 60,
+    'server_regist': 30,
+    'report_server': 30,
     'report_gridprice': 1800,
 }
 
