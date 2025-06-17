@@ -729,14 +729,8 @@
                     if (response.data.code == 0) {
                         this.hybridInverters = response.data.data
                         if (this.hybridInverters.length > 0){
-                            try{
-                                if(this.selectedHybridInverter == undefined){
-                                    this.selectInverter(this.hybridInverters[0])
-                                    if(this.selectedHybridInverter.no == undefined) {
-                                        this.selectInverter(this.hybridInverters[0])
-                                    }
-                                }
-                            } catch (err) {
+                            if(this.selectedHybridInverter != undefined){
+                                this.selectInverter(this.hybridInverters[0])
                             }
                         }
                     } else {
