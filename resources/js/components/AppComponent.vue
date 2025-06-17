@@ -728,9 +728,12 @@
                 try {
                     if (response.data.code == 0) {
                         this.hybridInverters = response.data.data
-                        if (this.hybridInverters.length > 0 &&
-                            this.selectedHybridInverter.no == undefined) {
-                            this.selectInverter(this.hybridInverters[0])
+                        if (this.hybridInverters.length > 0){
+                            let selectedInverterNo = 0
+                            if(this.selectedHybridInverter.no != undefined) {
+                                selectedInverterNo = this.selectedHybridInverter.no
+                            }
+                            this.selectInverter(this.hybridInverters[selectedInverterNo])
                         }
                     } else {
                         this.error = '特定できないエラー'
