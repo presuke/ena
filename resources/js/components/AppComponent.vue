@@ -730,7 +730,8 @@
                         this.hybridInverters = response.data.data
                         if (this.hybridInverters.length > 0){
                             let selectedInverterNo = 0
-                            if(this.selectedHybridInverter.no != undefined) {
+                            if(this.selectedHybridInverter == undefined){
+                            }else if(this.selectedHybridInverter.no != undefined) {
                                 selectedInverterNo = this.selectedHybridInverter.no
                             }
                             this.selectInverter(this.hybridInverters[selectedInverterNo])
