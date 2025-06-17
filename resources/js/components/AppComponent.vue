@@ -731,6 +731,7 @@
                         if (this.hybridInverters.length > 0){
                             let selectedInverterNo = 0
                             if(this.selectedHybridInverter == undefined){
+                                console.log("selectedInverter is nothing.")
                             }else if(this.selectedHybridInverter.no != undefined) {
                                 selectedInverterNo = this.selectedHybridInverter.no
                             }
