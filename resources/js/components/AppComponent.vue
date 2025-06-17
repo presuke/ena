@@ -1233,6 +1233,8 @@
         },
         openSetting() {
             this.drawer = false
+            console.log('this.selectedHybridInverter')
+            console.log(this.selectedHybridInverter)
             this.dialog.setting.once.chargerPriority = this.selectedHybridInverter.inverter_charger_priority
             this.dialog.setting.once.outputPriority = this.selectedHybridInverter.inverter_output_priority
             this.dialog.setting.show = true
