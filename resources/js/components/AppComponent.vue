@@ -730,10 +730,10 @@
                         this.hybridInverters = response.data.data
                         if (this.hybridInverters.length > 0){
                             let selectedInverterNo = 0
-                            if(this.selectedHybridInverter == undefined){
-                                console.log("selectedInverter is nothing.")
-                            }else if(this.selectedHybridInverter.no != undefined) {
-                                selectedInverterNo = this.selectedHybridInverter.no
+                            if(this.selectedHybridInverter != undefined){
+                                if(this.selectedHybridInverter.no != undefined) {
+                                    selectedInverterNo = this.selectedHybridInverter.no
+                                }
                             }
                             this.selectInverter(this.hybridInverters[selectedInverterNo])
                         }
